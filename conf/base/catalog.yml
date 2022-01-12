@@ -2,3 +2,17 @@
 #
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://kedro.readthedocs.io/en/stable/05_data/01_data_catalog.html
+
+raw_data:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/22773.csv
+  load_args:
+    index_col: 0
+
+ship_data:
+  type: yaml.YAMLDataSet
+  filepath: data/01_raw/ship_data.yml
+
+track_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/track_plot.png
