@@ -1,8 +1,6 @@
 from setuptools import find_packages, setup
 
-entry_point = (
-    "wPCC_pipeline = wPCC_pipeline.__main__:main"
-)
+entry_point = "wPCC_pipeline = wPCC_pipeline.__main__:main"
 
 
 # get the dependencies and installs

@@ -16,3 +16,21 @@ ship_data:
 track_plot:
   type: matplotlib.MatplotlibWriter
   filepath: data/08_reporting/track_plot.png
+
+data_lowpass:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/lowpass_22773.csv
+
+initial_parameters:
+  type: yaml.YAMLDataSet
+  filepath: data/02_intermediate/initial_parameters.yml
+
+#ek:
+#  type: pickle.PickleDataSet
+#  filepath: data/07_model_output/ek.pkl
+#  backend: pickle
+
+data_sim:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/resim_22773.csv
+

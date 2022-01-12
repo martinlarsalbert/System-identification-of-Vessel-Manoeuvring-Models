@@ -17,3 +17,7 @@ matplotlib
 scipy
 statsmodels
 sympy
+kedro-viz
+sklearn
+dill
+mlflow
