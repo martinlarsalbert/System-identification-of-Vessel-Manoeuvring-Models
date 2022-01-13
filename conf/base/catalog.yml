@@ -34,3 +34,28 @@ data_sim:
   type: pandas.CSVDataSet
   filepath: data/02_intermediate/resim_22773.csv
 
+data_ek_filter:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/ek_filter_22773.csv
+
+data_ek_smooth:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/ek_smooth_22773.csv
+
+added_masses:
+  type: yaml.YAMLDataSet
+  filepath: data/02_intermediate/added_masses.yml
+
+motion_regression_parameters:
+  type: pandas.CSVDataSet
+  filepath: data/06_models/motion_regression_parameters.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+motion_regression:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/motion_regression.pkl
+  backend: dill
+  

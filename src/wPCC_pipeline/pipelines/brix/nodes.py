@@ -60,6 +60,10 @@ def initial_parameters(ship_data: dict) -> dict:
     df_parameters.loc["Yuv", "prime"] = 0.0
     df_parameters.loc["Nvdeltadelta", "prime"] = 0.0
 
-    parameters = df_parameters["prime"].to_dict()
+    parameters = df_parameters["prime"].dropna().to_dict()
 
     return parameters
+
+
+def extract_added_masses(parameters: dict) -> dict:
+    return {key: value for key, value in parameters.items() if "dot" in key}
