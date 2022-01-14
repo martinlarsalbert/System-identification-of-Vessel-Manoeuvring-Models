@@ -4,7 +4,11 @@ generated using Kedro 0.17.6
 """
 
 from kedro.pipeline import Pipeline, node
-from .nodes import fit_motions
+from .nodes import (
+    fit_motions,
+    create_model_from_motion_regression,
+    motion_regression_summaries,
+)
 
 
 def create_pipeline(**kwargs):
@@ -15,6 +19,22 @@ def create_pipeline(**kwargs):
                 inputs=["data_ek_smooth", "added_masses", "ship_data"],
                 outputs=["motion_regression", "motion_regression_parameters"],
                 name="fit_motions_node",
+            ),
+            node(
+                func=motion_regression_summaries,
+                inputs=["motion_regression"],
+                outputs=[
+                    "motion_regression_summary_X",
+                    "motion_regression_summary_Y",
+                    "motion_regression_summary_N",
+                ],
+                name="motion_regression_summaries_node",
+            ),
+            node(
+                func=create_model_from_motion_regression,
+                inputs=["motion_regression"],
+                outputs="model_motion_regression",
+                name="create_model_from_motion_regression_node",
             ),
         ]
     )

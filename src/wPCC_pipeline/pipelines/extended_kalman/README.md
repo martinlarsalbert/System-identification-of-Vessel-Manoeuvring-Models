@@ -1,21 +1,15 @@
 # Pipeline ek
 
-> *Note:* This is a `README.md` boilerplate generated using `Kedro 0.17.6`.
-
 ## Overview
 
-<!---
-Please describe your modular pipeline here.
--->
+This pipeline runs the model test data through a Extended Kalman Filter (EKF) and after that passes the estimated states into a RTS smoother.
 
 ## Pipeline inputs
 
-<!---
-The list of pipeline inputs.
--->
+* Hydrodynamic parameters to the VMM (Vessel Manoeuvring Model) which acts as the predictor in the EKF.
+* Ship loading condition with mass properties
 
 ## Pipeline outputs
 
-<!---
-The list of pipeline outputs.
--->
+* Filtered and smoothened data
+* EKF filter and RTS smoother (in case you want to reuse the filter, for instance in the EM-algorithm.)

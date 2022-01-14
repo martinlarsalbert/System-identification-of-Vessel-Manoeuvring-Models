@@ -1,21 +1,19 @@
 # Pipeline motion_regression
 
-> *Note:* This is a `README.md` boilerplate generated using `Kedro 0.17.6`.
-
 ## Overview
 
-<!---
-Please describe your modular pipeline here.
--->
+Motion regression is performed with the *MotionRegression* class.
+
 
 ## Pipeline inputs
 
-<!---
-The list of pipeline inputs.
--->
+* Estimated model test states from the RTS smoother
+* Ship mass properties
+* Ship added masses (can be estimated in the [brix-pipeline](../brix/README.md)).
+
 
 ## Pipeline outputs
 
-<!---
-The list of pipeline outputs.
--->
+* motion regression
+* estimated hydrodynamic parameters
+* summaries of the regressions

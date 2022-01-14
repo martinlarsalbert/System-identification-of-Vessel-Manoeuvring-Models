@@ -59,3 +59,19 @@ motion_regression:
   filepath: data/06_models/motion_regression.pkl
   backend: dill
   
+motion_regression_summary_X:
+  type: text.TextDataSet
+  filepath: data/06_models/motion_regression_summary_X.txt
+
+motion_regression_summary_Y:
+  type: text.TextDataSet
+  filepath: data/06_models/motion_regression_summary_Y.txt
+
+motion_regression_summary_N:
+  type: text.TextDataSet
+  filepath: data/06_models/motion_regression_summary_N.txt
+
+model_motion_regression:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/model_motion_regression.pkl
+  backend: dill

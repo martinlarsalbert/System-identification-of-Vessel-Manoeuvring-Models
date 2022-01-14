@@ -1,21 +1,13 @@
 # Pipeline brix
 
-> *Note:* This is a `README.md` boilerplate generated using `Kedro 0.17.6`.
-
 ## Overview
 
-<!---
-Please describe your modular pipeline here.
--->
+This pipeline makes an initial guess of the (linear) hydrodynamic parameters using semi empirical equations.
 
 ## Pipeline inputs
 
-<!---
-The list of pipeline inputs.
--->
+* Ship main dimensions
 
 ## Pipeline outputs
 
-<!---
-The list of pipeline outputs.
--->
+Estimated initial parameters for a linear manoeuvring model.
