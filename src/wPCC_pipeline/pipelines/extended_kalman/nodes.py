@@ -68,6 +68,9 @@ def extended_kalman_filter(ek: ExtendedKalman, data: pd.DataFrame):
 
     Rd = np.diag([variance_pos, variance_pos, variance_psi])
 
+    # Initial state guess:
+    # x0 = np.concatenate((data.iloc[0][["x0", "y0", "psi"]].values, [0, 0, 0]))
+
     ek.filter(
         data=data,
         P_prd=P_prd,
@@ -76,6 +79,7 @@ def extended_kalman_filter(ek: ExtendedKalman, data: pd.DataFrame):
         E=E,
         Cd=Cd,
         input_columns=["delta", "thrust"],
+        # x0=x0,
     )
 
     return ek, ek.df_kalman

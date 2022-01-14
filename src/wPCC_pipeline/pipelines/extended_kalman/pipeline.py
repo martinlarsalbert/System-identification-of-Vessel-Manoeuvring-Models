@@ -23,13 +23,13 @@ def create_pipeline(**kwargs):
             ),
             node(
                 func=resimulate_extended_kalman,
-                inputs=["ek", "data_lowpass"],
-                outputs="data_sim",
+                inputs=["ek", "data"],
+                outputs="data_resimulate_extended_kalman",
                 name="resimulate_extended_kalman_node",
             ),
             node(
                 func=extended_kalman_filter,
-                inputs=["ek", "data_lowpass"],
+                inputs=["ek", "data"],
                 outputs=["ek_filtered", "data_ek_filter"],
                 name="extended_kalman_filter_node",
             ),

@@ -13,14 +13,17 @@ import numpy as np
 from src.data.lowpass_filter import lowpass_filter
 
 
-def load(df: pd.DataFrame) -> pd.DataFrame:
+def load(raw_data: pd.DataFrame):
 
-    df.index -= df.index[0]
-    df["x0"] -= df.iloc[0]["x0"]
-    df["y0"] -= df.iloc[0]["y0"]
-    df["psi"] -= df.iloc[0]["psi"]
+    data = raw_data.copy()
 
-    return df
+    ## Zeroing:
+    data.index -= data.index[0]
+    data["x0"] -= data.iloc[0]["x0"]
+    data["y0"] -= data.iloc[0]["y0"]
+    data["psi"] -= data.iloc[0]["psi"]
+
+    return data
 
 
 def add_thrust(df: pd.DataFrame, thrust_channels: list) -> pd.DataFrame:
@@ -91,3 +94,14 @@ def filter(df: pd.DataFrame, cutoff: float, order=1) -> pd.DataFrame:
         df_lowpass[key] = lowpass_filter(data=df_lowpass[key], fs=fs, cutoff=1, order=1)
 
     return df_lowpass
+
+
+def assemble_data(df_lowpass: pd.DataFrame, raw_data: pd.DataFrame) -> pd.DataFrame:
+
+    data = df_lowpass.copy()
+
+    # This is giving numpy.linalg.LinAlgError: SVD did not converge in the EK
+    # for key in ["x0", "y0", "psi"]:
+    #    data[key] = raw_data[key]  # Initial position measurements are preserved
+
+    return data

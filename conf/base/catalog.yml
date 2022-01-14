@@ -9,6 +9,14 @@ raw_data:
   load_args:
     index_col: 0
 
+data:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/22773.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
 ship_data:
   type: yaml.YAMLDataSet
   filepath: data/01_raw/ship_data.yml
@@ -20,6 +28,10 @@ track_plot:
 data_lowpass:
   type: pandas.CSVDataSet
   filepath: data/02_intermediate/lowpass_22773.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
 
 initial_parameters:
   type: yaml.YAMLDataSet
@@ -30,17 +42,29 @@ initial_parameters:
 #  filepath: data/07_model_output/ek.pkl
 #  backend: pickle
 
-data_sim:
+data_resimulate_extended_kalman:
   type: pandas.CSVDataSet
-  filepath: data/02_intermediate/resim_22773.csv
+  filepath: data/02_intermediate/data_resimulate_extended_kalman_22773.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
 
 data_ek_filter:
   type: pandas.CSVDataSet
   filepath: data/03_primary/ek_filter_22773.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
 
 data_ek_smooth:
   type: pandas.CSVDataSet
   filepath: data/03_primary/ek_smooth_22773.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
 
 added_masses:
   type: yaml.YAMLDataSet
@@ -75,3 +99,12 @@ model_motion_regression:
   type: pickle.PickleDataSet
   filepath: data/06_models/model_motion_regression.pkl
   backend: dill
+
+
+data_resimulate_model_motion:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/data_resimulate_model_motion_22773.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
