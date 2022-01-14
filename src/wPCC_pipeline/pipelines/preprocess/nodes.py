@@ -21,7 +21,7 @@ def load(raw_data: pd.DataFrame):
     data.index -= data.index[0]
     data["x0"] -= data.iloc[0]["x0"]
     data["y0"] -= data.iloc[0]["y0"]
-    data["psi"] -= data.iloc[0]["psi"]
+    # data["psi"] -= data.iloc[0]["psi"]
 
     return data
 
@@ -103,5 +103,8 @@ def assemble_data(df_lowpass: pd.DataFrame, raw_data: pd.DataFrame) -> pd.DataFr
     # This is giving numpy.linalg.LinAlgError: SVD did not converge in the EK
     # for key in ["x0", "y0", "psi"]:
     #    data[key] = raw_data[key]  # Initial position measurements are preserved
+
+    data = data.iloc[200:-100].copy()
+    data.index -= data.index[0]
 
     return data

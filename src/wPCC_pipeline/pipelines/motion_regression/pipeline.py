@@ -8,6 +8,7 @@ from .nodes import (
     fit_motions,
     create_model_from_motion_regression,
     motion_regression_summaries,
+    motion_regression_plots,
 )
 
 
@@ -29,6 +30,16 @@ def create_pipeline(**kwargs):
                     "motion_regression_summary_N",
                 ],
                 name="motion_regression_summaries_node",
+            ),
+            node(
+                func=motion_regression_plots,
+                inputs=["motion_regression"],
+                outputs=[
+                    "motion_regression_plot_X",
+                    "motion_regression_plot_Y",
+                    "motion_regression_plot_N",
+                ],
+                name="motion_regression_plots_node",
             ),
             node(
                 func=create_model_from_motion_regression,

@@ -95,6 +95,18 @@ motion_regression_summary_N:
   type: text.TextDataSet
   filepath: data/06_models/motion_regression_summary_N.txt
 
+motion_regression_plot_X:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/motion_regression_plot_X_22773.png
+
+motion_regression_plot_Y:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/motion_regression_plot_Y_22773.png
+
+motion_regression_plot_N:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/motion_regression_plot_N_22773.png
+
 model_motion_regression:
   type: pickle.PickleDataSet
   filepath: data/06_models/model_motion_regression.pkl
@@ -108,3 +120,12 @@ data_resimulate_model_motion:
     index_col: 0
   save_args:
     index: True
+
+track_plot_resimulate_model_motion:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/track_plot_resimulate_model_motion_22773.png
+
+
+plot_resimulate_model_motion:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/plot_resimulate_model_motion.png

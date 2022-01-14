@@ -40,6 +40,16 @@ def motion_regression_summaries(regression: MotionRegression) -> Union[str, str,
     )
 
 
+def motion_regression_plots(
+    regression: MotionRegression,
+) -> Union[plt.figure, plt.figure, plt.figure]:
+    return (
+        regression.plot_pred_X().get_figure(),
+        regression.plot_pred_Y().get_figure(),
+        regression.plot_pred_N().get_figure(),
+    )
+
+
 def create_model_from_motion_regression(regression: MotionRegression) -> ModelSimulator:
 
     model = regression.create_model(
