@@ -2,7 +2,7 @@
 
 ## Overview
 
-This pipeline runs the model test data through a Extended Kalman Filter (EKF) and after that passes the estimated states into a RTS smoother.
+Create an Extended Kalman Filter (EKF) with a prediction model with guessed parameters for one ship. This filter can then be reused for many model tests, as long as the ship model is the same (and the guessed model is accurate enought.).
 
 ## Pipeline inputs
 
@@ -11,5 +11,4 @@ This pipeline runs the model test data through a Extended Kalman Filter (EKF) an
 
 ## Pipeline outputs
 
-* Filtered and smoothened data
 * EKF filter and RTS smoother (in case you want to reuse the filter, for instance in the EM-algorithm.)

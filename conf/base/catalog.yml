@@ -3,37 +3,40 @@
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://kedro.readthedocs.io/en/stable/05_data/01_data_catalog.html
 
-raw_data:
-  type: pandas.CSVDataSet
-  filepath: data/01_raw/22773.csv
-  load_args:
-    index_col: 0
-
-data:
-  type: pandas.CSVDataSet
-  filepath: data/02_intermediate/22773.csv
-  load_args:
-    index_col: 0
-  save_args:
-    index: True
-
 ship_data:
   type: yaml.YAMLDataSet
   filepath: data/01_raw/ship_data.yml
 
-track_plot:
-  type: matplotlib.MatplotlibWriter
-  filepath: data/08_reporting/track_plot.png
-
-data_lowpass:
+## Jinja2
+{% for id in ['22773', '22774'] %}
+{{ id }}.raw_data:
   type: pandas.CSVDataSet
-  filepath: data/02_intermediate/lowpass_22773.csv
+  filepath: data/01_raw/{{ id }}.csv
+#  filepath: data/01_raw/22774.csv
+  load_args:
+    index_col: 0
+
+{{ id }}.data:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/{{ id }}.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-initial_parameters:
+{{ id }}.track_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/{{ id }}.track_plot.png
+
+{{ id }}.data_lowpass:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/{{ id }}.lowpass_22773.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+{{ id }}.initial_parameters:
   type: yaml.YAMLDataSet
   filepath: data/02_intermediate/initial_parameters.yml
 
@@ -42,90 +45,93 @@ initial_parameters:
 #  filepath: data/07_model_output/ek.pkl
 #  backend: pickle
 
-data_resimulate_extended_kalman:
+{{ id }}.data_resimulate_extended_kalman:
   type: pandas.CSVDataSet
-  filepath: data/02_intermediate/data_resimulate_extended_kalman_22773.csv
+  filepath: data/02_intermediate/{{ id }}.data_resimulate_extended_kalman.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-data_ek_filter:
+{{ id }}.data_ek_filter:
   type: pandas.CSVDataSet
-  filepath: data/03_primary/ek_filter_22773.csv
+  filepath: data/03_primary/{{ id }}.ek_filter.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-data_ek_smooth:
+{{ id }}.data_ek_smooth:
   type: pandas.CSVDataSet
-  filepath: data/03_primary/ek_smooth_22773.csv
+  filepath: data/03_primary/{{ id }}.ek_smooth.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-added_masses:
+{{ id }}.added_masses:
   type: yaml.YAMLDataSet
   filepath: data/02_intermediate/added_masses.yml
 
-motion_regression_parameters:
+{{ id }}.motion_regression_parameters:
   type: pandas.CSVDataSet
-  filepath: data/06_models/motion_regression_parameters.csv
+  filepath: data/06_models/{{ id }}.motion_regression_parameters.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-motion_regression:
+{{ id }}.motion_regression:
   type: pickle.PickleDataSet
-  filepath: data/06_models/motion_regression.pkl
+  filepath: data/06_models/{{ id }}.motion_regression.pkl
   backend: dill
   
-motion_regression_summary_X:
+{{ id }}.motion_regression_summary_X:
   type: text.TextDataSet
-  filepath: data/06_models/motion_regression_summary_X.txt
+  filepath: data/06_models/{{ id }}.motion_regression_summary_X.txt
 
-motion_regression_summary_Y:
+{{ id }}.motion_regression_summary_Y:
   type: text.TextDataSet
-  filepath: data/06_models/motion_regression_summary_Y.txt
+  filepath: data/06_models/{{ id }}.motion_regression_summary_Y.txt
 
-motion_regression_summary_N:
+{{ id }}.motion_regression_summary_N:
   type: text.TextDataSet
-  filepath: data/06_models/motion_regression_summary_N.txt
+  filepath: data/06_models/{{ id }}.motion_regression_summary_N.txt
 
-motion_regression_plot_X:
+{{ id }}.motion_regression_plot_X:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/motion_regression_plot_X_22773.png
+  filepath: data/06_models/{{ id }}.motion_regression_plot_X_22773.png
 
-motion_regression_plot_Y:
+{{ id }}.motion_regression_plot_Y:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/motion_regression_plot_Y_22773.png
+  filepath: data/06_models/{{ id }}.motion_regression_plot_Y_22773.png
 
-motion_regression_plot_N:
+{{ id }}.motion_regression_plot_N:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/motion_regression_plot_N_22773.png
+  filepath: data/06_models/{{ id }}.motion_regression_plot_N_22773.png
 
-model_motion_regression:
+{{ id }}.model_motion_regression:
   type: pickle.PickleDataSet
-  filepath: data/06_models/model_motion_regression.pkl
+  filepath: data/06_models/{{ id }}.model_motion_regression.pkl
   backend: dill
 
 
-data_resimulate_model_motion:
+{{ id }}.data_resimulate_model_motion:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/data_resimulate_model_motion_22773.csv
+  filepath: data/07_model_output/{{ id }}.data_resimulate_model_motion.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-track_plot_resimulate_model_motion:
+{{ id }}.track_plot_resimulate_model_motion:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/track_plot_resimulate_model_motion_22773.png
+  filepath: data/07_model_output/{{ id }}.track_plot_resimulate_model_motion.png
 
 
-plot_resimulate_model_motion:
+{{ id }}.plot_resimulate_model_motion:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/plot_resimulate_model_motion.png
+  filepath: data/07_model_output/{{ id }}.plot_resimulate_model_motion.png
+
+
+{% endfor %}
