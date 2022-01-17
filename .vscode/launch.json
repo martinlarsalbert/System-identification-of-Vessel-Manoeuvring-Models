@@ -12,6 +12,8 @@
             "module": "kedro",
             "args": [
                 "run",
+                "--pipeline",
+                "join_runs"
             ]
             // Any other arguments should be passed as a comma-seperated-list
             // e.g "args": ["run", "--pipeline", "pipeline_name"]
