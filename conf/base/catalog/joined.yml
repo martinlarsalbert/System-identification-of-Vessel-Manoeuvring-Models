@@ -1,0 +1,74 @@
+
+joined.data_ek_smooth:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/data_ek_smooth_joined.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+joined.motion_regression_parameters:
+  type: pandas.CSVDataSet
+  filepath: data/06_models/joined.motion_regression_parameters.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+joined.motion_regression:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/joined.motion_regression.pkl
+  backend: dill
+
+joined.motion_regression_summary_X:
+  type: text.TextDataSet
+  filepath: data/06_models/joined.motion_regression_summary_X.txt
+
+joined.motion_regression_summary_Y:
+  type: text.TextDataSet
+  filepath: data/06_models/joined.motion_regression_summary_Y.txt
+
+joined.motion_regression_summary_N:
+  type: text.TextDataSet
+  filepath: data/06_models/joined.motion_regression_summary_N.txt
+
+joined.motion_regression_plot_X:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/joined.motion_regression_plot_X.png
+
+joined.motion_regression_plot_Y:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/joined.motion_regression_plot_Y.png
+
+joined.motion_regression_plot_N:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/joined.motion_regression_plot_N.png
+
+joined.model_motion_regression:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/joined.model_motion_regression.pkl
+  backend: dill
+
+## Jinja2
+
+
+{% for id in ['22773', '22774'] %}  # (runs defined in /globals/runs.yml)
+joined.{{ id }}.data_resimulate_model_motion:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/joined.{{ id }}.data_resimulate_model_motion.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+joined.{{ id }}.track_plot_resimulate_model_motion:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/joined.{{ id }}.track_plot_resimulate_model_motion.png
+
+
+joined.{{ id }}.plot_resimulate_model_motion:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/joined.{{ id }}.plot_resimulate_model_motion.png
+
+
+{% endfor %}

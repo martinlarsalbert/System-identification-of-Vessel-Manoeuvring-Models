@@ -1,0 +1,127 @@
+## Jinja2
+
+
+{% for id in ['22773', '22774'] %}  # (runs defined in /globals/runs.yml)
+
+{{ id }}.raw_data:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/{{ id }}.csv
+#  filepath: data/01_raw/22774.csv
+  load_args:
+    index_col: 0
+
+{{ id }}.data:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/{{ id }}.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+{{ id }}.track_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/{{ id }}.track_plot.png
+
+{{ id }}.data_lowpass:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/{{ id }}.lowpass_22773.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+{{ id }}.initial_parameters:
+  type: yaml.YAMLDataSet
+  filepath: data/02_intermediate/initial_parameters.yml
+
+#ek:
+#  type: pickle.PickleDataSet
+#  filepath: data/07_model_output/ek.pkl
+#  backend: pickle
+
+{{ id }}.data_resimulate_extended_kalman:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/{{ id }}.data_resimulate_extended_kalman.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+{{ id }}.data_ek_filter:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/{{ id }}.ek_filter.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+{{ id }}.data_ek_smooth:
+  type: pandas.CSVDataSet
+  filepath: data/03_primary/{{ id }}.ek_smooth.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+{{ id }}.motion_regression_parameters:
+  type: pandas.CSVDataSet
+  filepath: data/06_models/{{ id }}.motion_regression_parameters.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+{{ id }}.motion_regression:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/{{ id }}.motion_regression.pkl
+  backend: dill
+  
+{{ id }}.motion_regression_summary_X:
+  type: text.TextDataSet
+  filepath: data/06_models/{{ id }}.motion_regression_summary_X.txt
+
+{{ id }}.motion_regression_summary_Y:
+  type: text.TextDataSet
+  filepath: data/06_models/{{ id }}.motion_regression_summary_Y.txt
+
+{{ id }}.motion_regression_summary_N:
+  type: text.TextDataSet
+  filepath: data/06_models/{{ id }}.motion_regression_summary_N.txt
+
+{{ id }}.motion_regression_plot_X:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/{{ id }}.motion_regression_plot_X.png
+
+{{ id }}.motion_regression_plot_Y:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/{{ id }}.motion_regression_plot_Y.png
+
+{{ id }}.motion_regression_plot_N:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/{{ id }}.motion_regression_plot_N.png
+
+{{ id }}.model_motion_regression:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/{{ id }}.model_motion_regression.pkl
+  backend: dill
+
+
+{{ id }}.data_resimulate_model_motion:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/{{ id }}.data_resimulate_model_motion.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+{{ id }}.track_plot_resimulate_model_motion:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/{{ id }}.track_plot_resimulate_model_motion.png
+
+
+{{ id }}.plot_resimulate_model_motion:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/{{ id }}.plot_resimulate_model_motion.png
+
+
+{% endfor %}

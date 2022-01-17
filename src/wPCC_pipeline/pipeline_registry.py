@@ -79,13 +79,40 @@ def register_pipelines() -> Dict[str, Pipeline]:
             },
         )
 
-    jr = join_runs.create_pipeline(model_test_ids=model_test_ids)
+    joined_pipeline = pipeline(join_runs.create_pipeline(model_test_ids=model_test_ids))
+
+    joined_regression_pipeline = pipeline(
+        motion_regression.create_pipeline(),
+        inputs={
+            f"ship_data": "ship_data",  # (Overriding the namespace)
+            f"added_masses": "added_masses",
+        },
+        namespace="joined",
+    )
+
+    joined_prediction_pipelines = {}
+    for model_test_id in model_test_ids:
+        joined_prediction_pipelines[model_test_id] = pipeline(
+            prediction.create_pipeline(),
+            inputs={
+                "model_motion_regression": "joined.model_motion_regression",
+                f"ship_data": "ship_data",  # (Overriding the namespace)
+                f"data_ek_smooth": f"{model_test_id}.data_ek_smooth",
+            },
+            namespace=f"joined.{model_test_id}",
+        )
 
     return_dict = {}
     return_dict["__default__"] = (
-        ship_pipeline + reduce(add, model_pipelines.values()) + jr
+        ship_pipeline
+        + reduce(add, model_pipelines.values())
+        + joined_pipeline
+        + joined_regression_pipeline
+        + reduce(add, joined_prediction_pipelines.values())
     )
     return_dict.update(model_pipelines)
-    return_dict["join_runs"] = jr
+    return_dict["join_runs"] = joined_pipeline
+    return_dict["joined_regression"] = joined_regression_pipeline
+    return_dict["joined_prediction"] = reduce(add, joined_prediction_pipelines.values())
 
     return return_dict
