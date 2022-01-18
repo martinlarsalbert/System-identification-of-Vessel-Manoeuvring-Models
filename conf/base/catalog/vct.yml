@@ -46,27 +46,24 @@ force_regression.model:
   filepath: data/06_models/force_regression.model.pkl
   backend: dill
 
-
-## Jinja2
-
-
-{% for id in ['22773', '22774'] %}  # (runs defined in /globals/runs.yml)
-{{ id }}.force_regression.data_resimulate:
+{% set model_test_ids = ['22773', '22774'] %}
+{% for id in model_test_ids %}  # (runs defined in /globals/runs.yml)
+force_regression.{{ id }}.data_resimulate:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/joined.{{ id }}.force_regression.data_resimulate.csv
+  filepath: data/07_model_output/force_regression.{{ id }}.data_resimulate.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ id }}.force_regression.track_plot_resimulate:
+force_regression.{{ id }}.track_plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/joined.{{ id }}.force_regression.track_plot_resimulate.png
+  filepath: data/07_model_output/force_regression.{{ id }}.track_plot_resimulate.png
 
 
-{{ id }}.force_regression.plot_resimulate:
+force_regression.{{ id }}.plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/joined.{{ id }}.force_regression.plot_resimulate.png
-
+  filepath: data/07_model_output/force_regression.{{ id }}.plot_resimulate.png
 
 {% endfor %}
+

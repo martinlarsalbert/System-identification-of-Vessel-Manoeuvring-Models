@@ -1,0 +1,87 @@
+{% set model_test_ids = ['22773', '22774'] %}
+{% set model_ids = model_test_ids + ['joined'] %}
+{% for id in model_ids %}  # (runs defined in /globals/runs.yml)
+
+motion_regression.{{ id }}.derivatives:
+  type: pandas.CSVDataSet
+  filepath: data/06_models/motion_regression.{{ id }}.derivatives.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+motion_regression.{{ id }}.regression:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/motion_regression.{{ id }}.regression.pkl
+  backend: dill
+  
+motion_regression.{{ id }}.summary_X:
+  type: text.TextDataSet
+  filepath: data/06_models/motion_regression.{{ id }}.summary_X.txt
+
+motion_regression.{{ id }}.summary_Y:
+  type: text.TextDataSet
+  filepath: data/06_models/motion_regression.{{ id }}.summary_Y.txt
+
+motion_regression.{{ id }}.summary_N:
+  type: text.TextDataSet
+  filepath: data/06_models/motion_regression.{{ id }}.summary_N.txt
+
+motion_regression.{{ id }}.plot_X:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/motion_regression.{{ id }}.plot_X.png
+
+motion_regression.{{ id }}.plot_Y:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/motion_regression.{{ id }}.plot_Y.png
+
+motion_regression.{{ id }}.plot_N:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/motion_regression.{{ id }}.plot_N.png
+
+motion_regression.{{ id }}.model:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/motion_regression.{{ id }}.model.pkl
+  backend: dill
+
+{% endfor %}
+
+{% for id in model_test_ids %}  # (runs defined in /globals/runs.yml)
+motion_regression.{{ id }}.data_resimulate:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/motion_regression.{{ id }}.data_resimulate.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+motion_regression.{{ id }}.track_plot_resimulate:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/motion_regression.{{ id }}.track_plot_resimulate.png
+
+
+motion_regression.{{ id }}.plot_resimulate:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/motion_regression.{{ id }}.plot_resimulate.png
+
+{% endfor %}
+
+{% for id in model_test_ids %}  # (runs defined in /globals/runs.yml)
+motion_regression.joined.{{ id }}.data_resimulate:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/motion_regression.joined.{{ id }}.data_resimulate.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+motion_regression.joined.{{ id }}.track_plot_resimulate:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/motion_regression.joined.{{ id }}.track_plot_resimulate.png
+
+
+motion_regression.joined.{{ id }}.plot_resimulate:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/motion_regression.joined.{{ id }}.plot_resimulate.png
+
+{% endfor %}
