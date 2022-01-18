@@ -16,6 +16,23 @@ import matplotlib.pyplot as plt
 def fit_motions(
     data: pd.DataFrame, added_masses: dict, ship_data: dict
 ) -> Union[MotionRegression, pd.DataFrame]:
+    """Fit damping force parameters in a dynamic model to ship MOTION measurements
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Measurements of motions : positions, velocities and accelerations
+    added_masses : dict
+        ship added masses in prime-system
+    ship_data : dict
+        Ship parameters in SI-units.
+
+    Returns
+    -------
+    Union[MotionRegression, pd.DataFrame]
+        MotionRegression object
+        Dataframe with regressed parameters and their confidence intervals etc.
+    """
 
     ps = prime_system.PrimeSystem(**ship_data)  # model
 

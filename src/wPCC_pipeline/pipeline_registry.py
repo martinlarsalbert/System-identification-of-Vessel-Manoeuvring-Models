@@ -13,6 +13,7 @@ from .pipelines import filter_data_extended_kalman as filter_data_extended_kalma
 from .pipelines import motion_regression as motion_regression
 from .pipelines import prediction as prediction
 from .pipelines import join_runs
+from .pipelines import force_regression
 
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -95,12 +96,23 @@ def register_pipelines() -> Dict[str, Pipeline]:
         joined_prediction_pipelines[model_test_id] = pipeline(
             prediction.create_pipeline(),
             inputs={
-                "model_motion_regression": "joined.model_motion_regression",
+                "motion_regression.model": "joined.motion_regression.model",
                 f"ship_data": "ship_data",  # (Overriding the namespace)
                 f"data_ek_smooth": f"{model_test_id}.data_ek_smooth",
             },
             namespace=f"joined.{model_test_id}",
         )
+
+    force_regression_pipeline = pipeline(force_regression.create_pipeline())
+
+    force_regression_prediction_pipeline = pipeline(
+        prediction.create_pipeline(),
+        inputs={
+            "motion_regression.model": "force_regression.model",
+            f"ship_data": "ship_data",  # (Overriding the namespace)
+        },
+        namespace=f"force_regression",
+    )
 
     return_dict = {}
     return_dict["__default__"] = (
@@ -109,10 +121,14 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + joined_pipeline
         + joined_regression_pipeline
         + reduce(add, joined_prediction_pipelines.values())
+        + force_regression_pipeline
+        # + force_regression_prediction_pipeline
     )
     return_dict.update(model_pipelines)
     return_dict["join_runs"] = joined_pipeline
     return_dict["joined_regression"] = joined_regression_pipeline
     return_dict["joined_prediction"] = reduce(add, joined_prediction_pipelines.values())
+    return_dict["force_regression"] = force_regression_pipeline
+    return_dict["force_regression_prediction"] = force_regression_prediction_pipeline
 
     return return_dict

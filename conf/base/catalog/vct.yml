@@ -1,0 +1,65 @@
+data_vct:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/vct.csv
+  load_args:
+    index_col: 0
+
+force_regression_parameters:
+  type: pandas.CSVDataSet
+  filepath: data/06_models/force_regression_parameters.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+force_regression:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/force_regression.pkl
+  backend: dill
+  
+force_regression.summary_X:
+  type: text.TextDataSet
+  filepath: data/06_models/force_regression.summary_X.txt
+
+force_regression.summary_Y:
+  type: text.TextDataSet
+  filepath: data/06_models/force_regression.summary_Y.txt
+
+force_regression.summary_N:
+  type: text.TextDataSet
+  filepath: data/06_models/force_regression.summary_N.txt
+
+force_regression.plot_X:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/force_regression.plot_X.png
+
+force_regression.plot_Y:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/force_regression.plot_Y.png
+
+force_regression.plot_N:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/06_models/force_regression.plot_N.png
+
+force_regression.model:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/force_regression.model.pkl
+  backend: dill
+
+
+force_regression.data_resimulate:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/force_regression.data_resimulate.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+force_regression.track_plot_resimulate:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/force_regression.track_plot_resimulate.png
+
+
+force_regression.plot_resimulate:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/force_regression.plot_resimulate.png

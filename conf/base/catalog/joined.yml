@@ -7,9 +7,9 @@ joined.data_ek_smooth:
   save_args:
     index: True
 
-joined.motion_regression_parameters:
+joined.motion_regression.parameters:
   type: pandas.CSVDataSet
-  filepath: data/06_models/joined.motion_regression_parameters.csv
+  filepath: data/06_models/joined.motion_regression.parameters.csv
   load_args:
     index_col: 0
   save_args:
@@ -20,55 +20,55 @@ joined.motion_regression:
   filepath: data/06_models/joined.motion_regression.pkl
   backend: dill
 
-joined.motion_regression_summary_X:
+joined.motion_regression.summary_X:
   type: text.TextDataSet
-  filepath: data/06_models/joined.motion_regression_summary_X.txt
+  filepath: data/06_models/joined.motion_regression.summary_X.txt
 
-joined.motion_regression_summary_Y:
+joined.motion_regression.summary_Y:
   type: text.TextDataSet
-  filepath: data/06_models/joined.motion_regression_summary_Y.txt
+  filepath: data/06_models/joined.motion_regression.summary_Y.txt
 
-joined.motion_regression_summary_N:
+joined.motion_regression.summary_N:
   type: text.TextDataSet
-  filepath: data/06_models/joined.motion_regression_summary_N.txt
+  filepath: data/06_models/joined.motion_regression.summary_N.txt
 
-joined.motion_regression_plot_X:
+joined.motion_regression.plot_X:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/joined.motion_regression_plot_X.png
+  filepath: data/06_models/joined.motion_regression.plot_X.png
 
-joined.motion_regression_plot_Y:
+joined.motion_regression.plot_Y:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/joined.motion_regression_plot_Y.png
+  filepath: data/06_models/joined.motion_regression.plot_Y.png
 
-joined.motion_regression_plot_N:
+joined.motion_regression.plot_N:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/joined.motion_regression_plot_N.png
+  filepath: data/06_models/joined.motion_regression.plot_N.png
 
-joined.model_motion_regression:
+joined.motion_regression.model:
   type: pickle.PickleDataSet
-  filepath: data/06_models/joined.model_motion_regression.pkl
+  filepath: data/06_models/joined.motion_regression.model.pkl
   backend: dill
 
 ## Jinja2
 
 
 {% for id in ['22773', '22774'] %}  # (runs defined in /globals/runs.yml)
-joined.{{ id }}.data_resimulate_model_motion:
+joined.{{ id }}.motion_regression.data_resimulate:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/joined.{{ id }}.data_resimulate_model_motion.csv
+  filepath: data/07_model_output/joined.{{ id }}.motion_regression.data_resimulate.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-joined.{{ id }}.track_plot_resimulate_model_motion:
+joined.{{ id }}.motion_regression.track_plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/joined.{{ id }}.track_plot_resimulate_model_motion.png
+  filepath: data/07_model_output/joined.{{ id }}.motion_regression.track_plot_resimulate.png
 
 
-joined.{{ id }}.plot_resimulate_model_motion:
+joined.{{ id }}.motion_regression.plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/joined.{{ id }}.plot_resimulate_model_motion.png
+  filepath: data/07_model_output/joined.{{ id }}.motion_regression.plot_resimulate.png
 
 
 {% endfor %}

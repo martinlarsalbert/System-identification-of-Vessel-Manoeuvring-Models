@@ -72,9 +72,9 @@
   save_args:
     index: True
 
-{{ id }}.motion_regression_parameters:
+{{ id }}.motion_regression.parameters:
   type: pandas.CSVDataSet
-  filepath: data/06_models/{{ id }}.motion_regression_parameters.csv
+  filepath: data/06_models/{{ id }}.motion_regression.parameters.csv
   load_args:
     index_col: 0
   save_args:
@@ -85,52 +85,52 @@
   filepath: data/06_models/{{ id }}.motion_regression.pkl
   backend: dill
   
-{{ id }}.motion_regression_summary_X:
+{{ id }}.motion_regression.summary_X:
   type: text.TextDataSet
-  filepath: data/06_models/{{ id }}.motion_regression_summary_X.txt
+  filepath: data/06_models/{{ id }}.motion_regression.summary_X.txt
 
-{{ id }}.motion_regression_summary_Y:
+{{ id }}.motion_regression.summary_Y:
   type: text.TextDataSet
-  filepath: data/06_models/{{ id }}.motion_regression_summary_Y.txt
+  filepath: data/06_models/{{ id }}.motion_regression.summary_Y.txt
 
-{{ id }}.motion_regression_summary_N:
+{{ id }}.motion_regression.summary_N:
   type: text.TextDataSet
-  filepath: data/06_models/{{ id }}.motion_regression_summary_N.txt
+  filepath: data/06_models/{{ id }}.motion_regression.summary_N.txt
 
-{{ id }}.motion_regression_plot_X:
+{{ id }}.motion_regression.plot_X:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/{{ id }}.motion_regression_plot_X.png
+  filepath: data/06_models/{{ id }}.motion_regression.plot_X.png
 
-{{ id }}.motion_regression_plot_Y:
+{{ id }}.motion_regression.plot_Y:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/{{ id }}.motion_regression_plot_Y.png
+  filepath: data/06_models/{{ id }}.motion_regression.plot_Y.png
 
-{{ id }}.motion_regression_plot_N:
+{{ id }}.motion_regression.plot_N:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/{{ id }}.motion_regression_plot_N.png
+  filepath: data/06_models/{{ id }}.motion_regression.plot_N.png
 
-{{ id }}.model_motion_regression:
+{{ id }}.motion_regression.model:
   type: pickle.PickleDataSet
-  filepath: data/06_models/{{ id }}.model_motion_regression.pkl
+  filepath: data/06_models/{{ id }}.motion_regression.model.pkl
   backend: dill
 
 
-{{ id }}.data_resimulate_model_motion:
+{{ id }}.motion_regression.data_resimulate:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ id }}.data_resimulate_model_motion.csv
+  filepath: data/07_model_output/{{ id }}.motion_regression.data_resimulate.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ id }}.track_plot_resimulate_model_motion:
+{{ id }}.motion_regression.track_plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ id }}.track_plot_resimulate_model_motion.png
+  filepath: data/07_model_output/{{ id }}.motion_regression.track_plot_resimulate.png
 
 
-{{ id }}.plot_resimulate_model_motion:
+{{ id }}.motion_regression.plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ id }}.plot_resimulate_model_motion.png
+  filepath: data/07_model_output/{{ id }}.motion_regression.plot_resimulate.png
 
 
 {% endfor %}

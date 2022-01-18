@@ -15,23 +15,23 @@ def create_pipeline(data_name: str = "data_ek_smooth", **kwargs):
                 # inputs=["data", "model_motion_regression"],
                 inputs=[
                     data_name,  # Which data to use here is not obvious...
-                    "model_motion_regression",
+                    "motion_regression.model",
                 ],
-                outputs="data_resimulate_model_motion",
+                outputs="motion_regression.data_resimulate",
                 name="simulate_node",
             ),
             node(
                 func=track_plot,
                 # inputs=["data", "data_resimulate_model_motion", "ship_data"],
-                inputs=[data_name, "data_resimulate_model_motion", "ship_data"],
-                outputs="track_plot_resimulate_model_motion",
+                inputs=[data_name, "motion_regression.data_resimulate", "ship_data"],
+                outputs="motion_regression.track_plot_resimulate",
                 name="resimulate_track_plot_node",
             ),
             node(
                 func=plot_timeseries,
                 # inputs=["data", "data_resimulate_model_motion"],
-                inputs=[data_name, "data_resimulate_model_motion"],
-                outputs="plot_resimulate_model_motion",
+                inputs=[data_name, "motion_regression.data_resimulate"],
+                outputs="motion_regression.plot_resimulate",
                 name="resimulate_plot_node",
             ),
         ]
