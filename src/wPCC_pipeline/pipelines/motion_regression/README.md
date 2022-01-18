@@ -3,7 +3,7 @@
 ## Overview
 
 Motion regression is performed with the *MotionRegression* class.
-
+This is a way to create a simulation model from motion measurements. This is an alternative to the: [force_regression-pipeline](../force_regression/README.md).
 
 ## Pipeline inputs
 
