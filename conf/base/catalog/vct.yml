@@ -1,20 +1,20 @@
-data_vct:
+force_regression.data:
   type: pandas.CSVDataSet
   filepath: data/01_raw/vct.csv
   load_args:
     index_col: 0
 
-force_regression_parameters:
+force_regression.derivatives:
   type: pandas.CSVDataSet
-  filepath: data/06_models/force_regression_parameters.csv
+  filepath: data/06_models/force_regression.derivatives.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-force_regression:
+force_regression.regression:
   type: pickle.PickleDataSet
-  filepath: data/06_models/force_regression.pkl
+  filepath: data/06_models/force_regression.regression.pkl
   backend: dill
   
 force_regression.summary_X:
@@ -47,19 +47,26 @@ force_regression.model:
   backend: dill
 
 
-force_regression.data_resimulate:
+## Jinja2
+
+
+{% for id in ['22773', '22774'] %}  # (runs defined in /globals/runs.yml)
+{{ id }}.force_regression.data_resimulate:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/force_regression.data_resimulate.csv
+  filepath: data/07_model_output/joined.{{ id }}.force_regression.data_resimulate.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-force_regression.track_plot_resimulate:
+{{ id }}.force_regression.track_plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/force_regression.track_plot_resimulate.png
+  filepath: data/07_model_output/joined.{{ id }}.force_regression.track_plot_resimulate.png
 
 
-force_regression.plot_resimulate:
+{{ id }}.force_regression.plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/force_regression.plot_resimulate.png
+  filepath: data/07_model_output/joined.{{ id }}.force_regression.plot_resimulate.png
+
+
+{% endfor %}

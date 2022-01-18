@@ -1,7 +1,7 @@
 
 joined.data_ek_smooth:
   type: pandas.CSVDataSet
-  filepath: data/03_primary/data_ek_smooth_joined.csv
+  filepath: data/03_primary/joined.data_ek_smooth.csv
   load_args:
     index_col: 0
   save_args:

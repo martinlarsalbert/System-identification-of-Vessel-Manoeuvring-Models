@@ -65,70 +65,115 @@ def register_pipelines() -> Dict[str, Pipeline]:
         "22774",
     ]
 
-    model_pipelines = {}
+    runs_pipelines = {}
     for model_test_id in model_test_ids:
-        model_pipelines[model_test_id] = pipeline(
+        runs_pipelines[model_test_id] = pipeline(
             preprocess.create_pipeline()
-            + filter_data_extended_kalman.create_pipeline()
-            + motion_regression.create_pipeline()
-            + prediction.create_pipeline(),
+            + filter_data_extended_kalman.create_pipeline(),
             namespace=f"{model_test_id}",
             inputs={
                 f"ek": "ek",  # (Overriding the namespace)
                 f"ship_data": "ship_data",
+                # f"added_masses": "added_masses",
+            },
+        )
+
+    motion_regression_pipelines = {}
+    for model_test_id in model_test_ids:
+        p = pipeline(
+            motion_regression.create_pipeline(),
+            namespace=f"{model_test_id}",
+            inputs={
+                # f"ek": "ek",  # (Overriding the namespace)
+                f"ship_data": "ship_data",
                 f"added_masses": "added_masses",
             },
         )
-
-    joined_pipeline = pipeline(join_runs.create_pipeline(model_test_ids=model_test_ids))
-
-    joined_regression_pipeline = pipeline(
-        motion_regression.create_pipeline(),
-        inputs={
-            f"ship_data": "ship_data",  # (Overriding the namespace)
-            f"added_masses": "added_masses",
-        },
-        namespace="joined",
-    )
-
-    joined_prediction_pipelines = {}
-    for model_test_id in model_test_ids:
-        joined_prediction_pipelines[model_test_id] = pipeline(
-            prediction.create_pipeline(),
+        motion_regression_pipelines[model_test_id] = pipeline(
+            p,
+            namespace=f"motion_regression",
             inputs={
-                "motion_regression.model": "joined.motion_regression.model",
-                f"ship_data": "ship_data",  # (Overriding the namespace)
-                f"data_ek_smooth": f"{model_test_id}.data_ek_smooth",
+                # f"ek": "ek",  # (Overriding the namespace)
+                f"ship_data": "ship_data",
+                f"added_masses": "added_masses",
+                f"{model_test_id}.data_ek_smooth": f"{model_test_id}.data_ek_smooth",
             },
-            namespace=f"joined.{model_test_id}",
         )
 
-    force_regression_pipeline = pipeline(force_regression.create_pipeline())
+    # motion_regression_prediction_pipelines = {}
+    # for model_test_id in model_test_ids:
+    #    motion_regression_prediction_pipelines[model_test_id] = pipeline(
+    #        prediction.create_pipeline(),
+    #        namespace=f"motion_regression.{model_test_id}",
+    #        inputs={
+    #            # f"ek": "ek",  # (Overriding the namespace)
+    #            f"ship_data": "ship_data",
+    #        },
+    #    )
 
-    force_regression_prediction_pipeline = pipeline(
-        prediction.create_pipeline(),
+    # joined_pipeline = pipeline(join_runs.create_pipeline(model_test_ids=model_test_ids))
+    # joined_regression_pipeline = pipeline(
+    #    motion_regression.create_pipeline(),
+    #    inputs={
+    #        f"ship_data": "ship_data",  # (Overriding the namespace)
+    #        f"added_masses": "added_masses",
+    #    },
+    #    namespace="joined",
+    # )
+    #
+    # joined_prediction_pipelines = {}
+    # for model_test_id in model_test_ids:
+    #    joined_prediction_pipelines[model_test_id] = pipeline(
+    #        prediction.create_pipeline(),
+    #        inputs={
+    #            "motion_regression.model": "joined.motion_regression.model",
+    #            f"ship_data": "ship_data",  # (Overriding the namespace)
+    #            f"data_ek_smooth": f"{model_test_id}.data_ek_smooth",
+    #        },
+    #        namespace=f"joined.{model_test_id}",
+    #    )
+    #
+    force_regression_pipeline = pipeline(
+        force_regression.create_pipeline(),
+        namespace="force_regression",
         inputs={
-            "motion_regression.model": "force_regression.model",
-            f"ship_data": "ship_data",  # (Overriding the namespace)
+            f"ship_data": "ship_data",
+            f"added_masses": "added_masses",
         },
-        namespace=f"force_regression",
     )
+    #
+    # force_regression_prediction_pipelines = {}
+    # for model_test_id in model_test_ids:
+    #    force_regression_prediction_pipelines[model_test_id] = pipeline(
+    #        prediction.create_pipeline(),
+    #        inputs={
+    #            "motion_regression.model": "force_regression.model",
+    #            f"ship_data": "ship_data",  # (Overriding the namespace)
+    #            f"data_ek_smooth": f"{model_test_id}.data_ek_smooth",
+    #        },
+    #        namespace=f"force_regression.{model_test_id}",
+    #    )
 
     return_dict = {}
     return_dict["__default__"] = (
         ship_pipeline
-        + reduce(add, model_pipelines.values())
-        + joined_pipeline
-        + joined_regression_pipeline
-        + reduce(add, joined_prediction_pipelines.values())
+        + reduce(add, runs_pipelines.values())
+        + reduce(add, motion_regression_pipelines.values())
+        # + reduce(add, motion_regression_prediction_pipelines.values())
+        # + joined_pipeline
+        # + joined_regression_pipeline
+        # + reduce(add, joined_prediction_pipelines.values())
         + force_regression_pipeline
-        # + force_regression_prediction_pipeline
+        ## + reduce(add, force_regression_prediction_pipelines.values())
     )
-    return_dict.update(model_pipelines)
-    return_dict["join_runs"] = joined_pipeline
-    return_dict["joined_regression"] = joined_regression_pipeline
-    return_dict["joined_prediction"] = reduce(add, joined_prediction_pipelines.values())
+    return_dict["motion_regression"] = reduce(add, motion_regression_pipelines.values())
     return_dict["force_regression"] = force_regression_pipeline
-    return_dict["force_regression_prediction"] = force_regression_prediction_pipeline
+    # return_dict.update(motion_regression_pipelines)
+    # return_dict["join_runs"] = joined_pipeline
+    # return_dict["joined_regression"] = joined_regression_pipeline
+    # return_dict["joined_prediction"] = reduce(add, joined_prediction_pipelines.values())
+    # return_dict["force_regression"] = force_regression_pipeline
+    # return_dict["force_regression_prediction"] = reduce(
+    #    add, force_regression_prediction_pipelines.values()
 
     return return_dict
