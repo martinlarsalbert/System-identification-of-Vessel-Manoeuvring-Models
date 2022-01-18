@@ -10,6 +10,15 @@
   load_args:
     index_col: 0
 
+{{ id }}.data_with_thrust:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/{{ id }}.data_with_thrust.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+
 {{ id }}.data:
   type: pandas.CSVDataSet
   filepath: data/02_intermediate/{{ id }}.csv
