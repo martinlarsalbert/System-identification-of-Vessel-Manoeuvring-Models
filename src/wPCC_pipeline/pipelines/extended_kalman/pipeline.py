@@ -14,7 +14,7 @@ def create_pipeline(**kwargs):
         [
             node(
                 func=create_extended_kalman,
-                inputs=["initial_parameters", "ship_data"],
+                inputs=["initial_parameters", "ship_data", "vmm"],
                 outputs="ek",
                 name="create_extended_kalman_node",
             ),

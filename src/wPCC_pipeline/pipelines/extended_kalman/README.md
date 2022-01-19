@@ -6,6 +6,7 @@ Create an Extended Kalman Filter (EKF) with a prediction model with guessed para
 
 ## Pipeline inputs
 
+* Vessel Manoeuvring Model (VMM) that are generated in: [vessel_manoeuvring_model-pipeline](../vessel_manoeuvring_model/README.md).
 * Hydrodynamic parameters to the VMM (Vessel Manoeuvring Model) which acts as the predictor in the EKF.
 * Ship loading condition with mass properties
 

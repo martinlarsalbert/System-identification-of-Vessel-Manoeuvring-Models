@@ -23,7 +23,12 @@ def register_pipelines() -> Dict[str, Pipeline]:
     Returns:
         A mapping from a pipeline name to a ``Pipeline`` object.
     """
-    ship_pipeline = pipeline(brix.create_pipeline() + extended_kalman.create_pipeline())
+    ship_pipeline = pipeline(
+        brix.create_pipeline() + extended_kalman.create_pipeline(),
+        inputs={
+            "vmm": "vmm_martin",
+        },
+    )
 
     # model_test_ids = [
     #    "22605",
@@ -76,7 +81,6 @@ def register_pipelines() -> Dict[str, Pipeline]:
             inputs={
                 f"ek": "ek",  # (Overriding the namespace)
                 f"ship_data": "ship_data",
-                # f"added_masses": "added_masses",
             },
         )
 
@@ -199,6 +203,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + force_regression_pipeline
         + reduce(add, prediction_pipelines.values())
     )
+    return_dict["ship"] = ship_pipeline
     return_dict["motion_regression"] = reduce(add, motion_regression_pipelines.values())
     return_dict["force_regression"] = force_regression_pipeline
     return_dict["join"] = joined_pipeline
