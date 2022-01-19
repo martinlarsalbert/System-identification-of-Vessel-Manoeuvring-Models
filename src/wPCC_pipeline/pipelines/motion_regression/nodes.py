@@ -6,7 +6,7 @@ generated using Kedro 0.17.6
 from src.models.regression import MotionRegression
 import pandas as pd
 import src.prime_system as prime_system
-import src.models.vmm_martin as vmm
+from src.models.vmm import VMM
 import src.symbols as s
 from typing import Union
 from src.models.vmm import ModelSimulator
@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 
 
 def fit_motions(
-    data: pd.DataFrame, added_masses: dict, ship_data: dict
+    data: pd.DataFrame, added_masses: dict, ship_data: dict, vmm: VMM
 ) -> Union[MotionRegression, pd.DataFrame]:
     """Fit damping force parameters in a dynamic model to ship MOTION measurements
 
@@ -26,6 +26,8 @@ def fit_motions(
         ship added masses in prime-system
     ship_data : dict
         Ship parameters in SI-units.
+    vmm : VMM object
+        Vessel Manoeuvring Model (defining the equation of motions and damping forces)
 
     Returns
     -------

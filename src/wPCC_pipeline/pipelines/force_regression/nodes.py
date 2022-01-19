@@ -8,12 +8,11 @@ from typing import Union
 from src.models.vmm import ModelSimulator
 from src.models.regression import ForceRegression
 import matplotlib.pyplot as plt
-
-import src.models.vmm_martin as vmm
+from src.models.vmm import VMM
 
 
 def fit_forces(
-    data: pd.DataFrame, added_masses: dict, ship_data: dict
+    data: pd.DataFrame, added_masses: dict, ship_data: dict, vmm: VMM
 ) -> Union[ForceRegression, pd.DataFrame]:
     """Fit damping force parameters in a dynamic model to ship FORCE measurements
 
@@ -25,6 +24,9 @@ def fit_forces(
         ship added masses in prime-system
     ship_data : dict
         Ship parameters in SI-units.
+    vmm : VMM object
+        Vessel Manoeuvring Model (defining the equation of motions and damping forces)
+
 
     Returns
     -------

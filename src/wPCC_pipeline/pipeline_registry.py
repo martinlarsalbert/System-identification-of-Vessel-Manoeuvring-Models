@@ -14,6 +14,7 @@ from .pipelines import motion_regression as motion_regression
 from .pipelines import prediction as prediction
 from .pipelines import join_runs
 from .pipelines import force_regression
+from .pipelines import vessel_manoeuvring_models
 
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -82,7 +83,11 @@ def register_pipelines() -> Dict[str, Pipeline]:
     ## Join the tests:
     joined_pipeline = pipeline(join_runs.create_pipeline(model_test_ids=model_test_ids))
 
+    ## Vessel Manoeuvring Models (VMMs)
+    vessel_manoeuvring_models_pipeline = vessel_manoeuvring_models.create_pipeline()
+
     ## Motion regression pipeline:
+    # "motion_regression"
     motion_regression_pipelines = {}
     motion_model_ids = model_test_ids + ["joined"]
     for id in motion_model_ids:
@@ -93,6 +98,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                 # f"ek": "ek",  # (Overriding the namespace)
                 f"ship_data": "ship_data",
                 f"added_masses": "added_masses",
+                f"vmm": "vmm_martin",
             },
         )
         motion_regression_pipelines[id] = pipeline(
@@ -103,16 +109,19 @@ def register_pipelines() -> Dict[str, Pipeline]:
                 f"ship_data": "ship_data",
                 f"added_masses": "added_masses",
                 f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                f"vmm_martin": "vmm_martin",
             },
         )
 
     ## Force regression:
+    # "force_regression"
     force_regression_pipeline = pipeline(
         force_regression.create_pipeline(),
         namespace="force_regression",
         inputs={
             f"ship_data": "ship_data",
             f"added_masses": "added_masses",
+            f"vmm": "vmm_martin",
         },
     )
 
@@ -185,25 +194,15 @@ def register_pipelines() -> Dict[str, Pipeline]:
         ship_pipeline
         + reduce(add, runs_pipelines.values())
         + joined_pipeline
+        + vessel_manoeuvring_models_pipeline
         + reduce(add, motion_regression_pipelines.values())
-        # + reduce(add, motion_regression_prediction_pipelines.values())
-        # + joined_pipeline
-        # + joined_regression_pipeline
-        # + reduce(add, joined_prediction_pipelines.values())
         + force_regression_pipeline
         + reduce(add, prediction_pipelines.values())
-        ## + reduce(add, force_regression_prediction_pipelines.values())
     )
     return_dict["motion_regression"] = reduce(add, motion_regression_pipelines.values())
     return_dict["force_regression"] = force_regression_pipeline
     return_dict["join"] = joined_pipeline
     return_dict["predict"] = reduce(add, prediction_pipelines.values())
-    # return_dict.update(motion_regression_pipelines)
-    # return_dict["join_runs"] = joined_pipeline
-    # return_dict["joined_regression"] = joined_regression_pipeline
-    # return_dict["joined_prediction"] = reduce(add, joined_prediction_pipelines.values())
-    # return_dict["force_regression"] = force_regression_pipeline
-    # return_dict["force_regression_prediction"] = reduce(
-    #    add, force_regression_prediction_pipelines.values()
+    return_dict["vmm"] = vessel_manoeuvring_models_pipeline
 
     return return_dict
