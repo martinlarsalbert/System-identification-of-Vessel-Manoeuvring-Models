@@ -1,21 +1,11 @@
 # Pipeline vessel_manoeuvring_models
 
-> *Note:* This is a `README.md` boilerplate generated using `Kedro 0.17.6`.
-
 ## Overview
 
-<!---
-Please describe your modular pipeline here.
--->
+The Parameter Identification Techique (PIT) can be run on various Vessel Manoeuvring Models (VMMs). This pipeline creates VMMs to be fed to the PIT pipelines. 
 
 ## Pipeline inputs
-
-<!---
-The list of pipeline inputs.
--->
+No input, the equations in the VMMs are imported.
 
 ## Pipeline outputs
-
-<!---
-The list of pipeline outputs.
--->
+* VMMs as VMM objects (including Equation Of Motion (EOM) and damping force ppolynomials)
