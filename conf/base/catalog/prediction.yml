@@ -1,0 +1,51 @@
+
+{% set vmms = ['vmm_martin'] %}
+{% set model_test_ids = ['22773', '22774'] %}
+{% set regressions = ['force_regression', 'motion_regression'] %}
+
+
+{% for vmm in vmms %}
+  {% for id in model_test_ids %}  # (runs defined in /globals/runs.yml)
+    {% for regression in regressions %}  # (runs defined in /globals/runs.yml)
+
+{{ vmm }}.{{ regression }}.{{ id }}.data_resimulate:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/{{ vmm }}.{{ regression }}.{{ id }}.data_resimulate.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+{{ vmm }}.{{ regression }}.{{ id }}.track_plot_resimulate:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/{{ vmm }}.{{ regression }}.{{ id }}.track_plot_resimulate.png
+
+
+{{ vmm }}.{{ regression }}.{{ id }}.plot_resimulate:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/{{ vmm }}.{{ regression }}.{{ id }}.plot_resimulate.png
+
+
+
+## Joined
+{{ vmm }}.{{ regression }}.joined.{{ id }}.data_resimulate:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/{{ vmm }}.{{ regression }}.joined.{{ id }}.data_resimulate.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+{{ vmm }}.{{ regression }}.joined.{{ id }}.track_plot_resimulate:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/{{ vmm }}.{{ regression }}.joined.{{ id }}.track_plot_resimulate.png
+
+
+{{ vmm }}.{{ regression }}.joined.{{ id }}.plot_resimulate:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/07_model_output/{{ vmm }}.{{ regression }}.joined.{{ id }}.plot_resimulate.png
+
+
+    {% endfor %}
+  {% endfor %}
+{% endfor %}

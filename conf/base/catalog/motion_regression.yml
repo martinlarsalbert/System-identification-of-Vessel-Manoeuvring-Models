@@ -50,44 +50,4 @@
   backend: dill
 
   {% endfor %}
-
-  {% for id in model_test_ids %}  # (runs defined in /globals/runs.yml)
-{{ vmm }}.motion_regression.{{ id }}.data_resimulate:
-  type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}.motion_regression.{{ id }}.data_resimulate.csv
-  load_args:
-    index_col: 0
-  save_args:
-    index: True
-
-{{ vmm }}.motion_regression.{{ id }}.track_plot_resimulate:
-  type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}.motion_regression.{{ id }}.track_plot_resimulate.png
-
-
-{{ vmm }}.motion_regression.{{ id }}.plot_resimulate:
-  type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}.motion_regression.{{ id }}.plot_resimulate.png
-
-  {% endfor %}
-
-  {% for id in model_test_ids %}  # (runs defined in /globals/runs.yml)
-{{ vmm }}.motion_regression.joined.{{ id }}.data_resimulate:
-  type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}.motion_regression.joined.{{ id }}.data_resimulate.csv
-  load_args:
-    index_col: 0
-  save_args:
-    index: True
-
-{{ vmm }}.motion_regression.joined.{{ id }}.track_plot_resimulate:
-  type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}.motion_regression.joined.{{ id }}.track_plot_resimulate.png
-
-
-{{ vmm }}.motion_regression.joined.{{ id }}.plot_resimulate:
-  type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}.motion_regression.joined.{{ id }}.plot_resimulate.png
-
-  {% endfor %}
 {% endfor %}
