@@ -16,6 +16,14 @@ force_regression.data_selected:
   save_args:
     index: True
 
+force_regression.data_scaled:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/force_regression.data_scaled.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
 {% for vmm in vmms %}
 
 {{ vmm }}.force_regression.derivatives:

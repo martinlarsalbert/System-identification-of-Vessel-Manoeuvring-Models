@@ -18,7 +18,7 @@ def create_pipeline(**kwargs):
         [
             node(
                 func=fit_forces,
-                inputs=["data_selected", "added_masses", "ship_data", "vmm"],
+                inputs=["data_scaled", "added_masses", "ship_data", "vmm"],
                 outputs=["regression", "derivatives"],
                 name="fit_forces_node",
                 tags=["force_regression"],

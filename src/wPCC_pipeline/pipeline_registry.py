@@ -33,7 +33,9 @@ def register_pipelines() -> Dict[str, Pipeline]:
     )
 
     vct_data_pipeline = pipeline(
-        vct_data.create_pipeline(), namespace="force_regression"
+        vct_data.create_pipeline(),
+        namespace="force_regression",
+        inputs={"ship_data": "ship_data"},
     )
 
     # model_test_ids = [
@@ -146,7 +148,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                 f"ship_data": "ship_data",
                 f"added_masses": "added_masses",
                 "vmm": vmm,
-                "data_selected": "force_regression.data_selected",
+                "data_scaled": "force_regression.data_scaled",
             },
         )
 
