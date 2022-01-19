@@ -15,6 +15,8 @@ from .pipelines import prediction as prediction
 from .pipelines import join_runs
 from .pipelines import force_regression
 from .pipelines import vessel_manoeuvring_models
+from .pipelines import vct_data
+from wPCC_pipeline import pipelines
 
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -28,6 +30,10 @@ def register_pipelines() -> Dict[str, Pipeline]:
         inputs={
             "vmm": "vmm_martin",
         },
+    )
+
+    vct_data_pipeline = pipeline(
+        vct_data.create_pipeline(), namespace="force_regression"
     )
 
     # model_test_ids = [
@@ -140,7 +146,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                 f"ship_data": "ship_data",
                 f"added_masses": "added_masses",
                 "vmm": vmm,
-                "data": "force_regression.data",
+                "data_selected": "force_regression.data_selected",
             },
         )
 
@@ -239,6 +245,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + joined_pipeline
         + vessel_manoeuvring_models_pipeline
         + reduce(add, motion_regression_pipelines.values())
+        + vct_data_pipeline
         + force_regression_pipeline
         + reduce(add, prediction_pipelines.values())
     )

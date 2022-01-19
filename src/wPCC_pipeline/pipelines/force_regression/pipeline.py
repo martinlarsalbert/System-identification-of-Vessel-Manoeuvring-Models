@@ -17,13 +17,6 @@ def create_pipeline(**kwargs):
     return Pipeline(
         [
             node(
-                func=select_vct_data,
-                inputs=["data"],
-                outputs="data_selected",
-                name="select_vct_data_node",
-                tags=["force_regression"],
-            ),
-            node(
                 func=fit_forces,
                 inputs=["data_selected", "added_masses", "ship_data", "vmm"],
                 outputs=["regression", "derivatives"],
