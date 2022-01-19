@@ -1,69 +1,77 @@
+{% set vmms = ['vmm_martin'] %}
+{% set model_test_ids = ['22773', '22774'] %}
+
+
 force_regression.data:
   type: pandas.CSVDataSet
   filepath: data/01_raw/vct.csv
   load_args:
     index_col: 0
 
-force_regression.derivatives:
+
+{% for vmm in vmms %}
+
+{{ vmm }}.force_regression.derivatives:
   type: pandas.CSVDataSet
-  filepath: data/06_models/force_regression.derivatives.csv
+  filepath: data/06_models/{{ vmm }}.force_regression.derivatives.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-force_regression.regression:
+{{ vmm }}.force_regression.regression:
   type: pickle.PickleDataSet
-  filepath: data/06_models/force_regression.regression.pkl
+  filepath: data/06_models/{{ vmm }}.force_regression.regression.pkl
   backend: dill
   
-force_regression.summary_X:
+{{ vmm }}.force_regression.summary_X:
   type: text.TextDataSet
-  filepath: data/06_models/force_regression.summary_X.txt
+  filepath: data/06_models/{{ vmm }}.force_regression.summary_X.txt
 
-force_regression.summary_Y:
+{{ vmm }}.force_regression.summary_Y:
   type: text.TextDataSet
-  filepath: data/06_models/force_regression.summary_Y.txt
+  filepath: data/06_models/{{ vmm }}.force_regression.summary_Y.txt
 
-force_regression.summary_N:
+{{ vmm }}.force_regression.summary_N:
   type: text.TextDataSet
-  filepath: data/06_models/force_regression.summary_N.txt
+  filepath: data/06_models/{{ vmm }}.force_regression.summary_N.txt
 
-force_regression.plot_X:
+{{ vmm }}.force_regression.plot_X:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/force_regression.plot_X.png
+  filepath: data/06_models/{{ vmm }}.force_regression.plot_X.png
 
-force_regression.plot_Y:
+{{ vmm }}.force_regression.plot_Y:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/force_regression.plot_Y.png
+  filepath: data/06_models/{{ vmm }}.force_regression.plot_Y.png
 
-force_regression.plot_N:
+{{ vmm }}.force_regression.plot_N:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/force_regression.plot_N.png
+  filepath: data/06_models/{{ vmm }}.force_regression.plot_N.png
 
-force_regression.model:
+{{ vmm }}.force_regression.model:
   type: pickle.PickleDataSet
-  filepath: data/06_models/force_regression.model.pkl
+  filepath: data/06_models/{{ vmm }}.force_regression.model.pkl
   backend: dill
 
-{% set model_test_ids = ['22773', '22774'] %}
-{% for id in model_test_ids %}  # (runs defined in /globals/runs.yml)
-force_regression.{{ id }}.data_resimulate:
+
+  {% for id in model_test_ids %}  # (runs defined in /globals/runs.yml)
+{{ vmm }}.force_regression.{{ id }}.data_resimulate:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/force_regression.{{ id }}.data_resimulate.csv
+  filepath: data/07_model_output/{{ vmm }}.force_regression.{{ id }}.data_resimulate.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-force_regression.{{ id }}.track_plot_resimulate:
+{{ vmm }}.force_regression.{{ id }}.track_plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/force_regression.{{ id }}.track_plot_resimulate.png
+  filepath: data/07_model_output/{{ vmm }}.force_regression.{{ id }}.track_plot_resimulate.png
 
 
-force_regression.{{ id }}.plot_resimulate:
+{{ vmm }}.force_regression.{{ id }}.plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/force_regression.{{ id }}.plot_resimulate.png
+  filepath: data/07_model_output/{{ vmm }}.force_regression.{{ id }}.plot_resimulate.png
 
+  {% endfor %}
 {% endfor %}
 

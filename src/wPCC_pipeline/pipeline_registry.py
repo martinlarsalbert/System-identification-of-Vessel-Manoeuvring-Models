@@ -94,104 +94,143 @@ def register_pipelines() -> Dict[str, Pipeline]:
     # "motion_regression"
     motion_regression_pipelines = {}
     motion_model_ids = model_test_ids + ["joined"]
-    for id in motion_model_ids:
-        p = pipeline(
-            motion_regression.create_pipeline(),
-            namespace=f"{id}",
-            inputs={
-                # f"ek": "ek",  # (Overriding the namespace)
-                f"ship_data": "ship_data",
-                f"added_masses": "added_masses",
-                f"vmm": "vmm_martin",
-            },
-        )
-        motion_regression_pipelines[id] = pipeline(
-            p,
-            namespace=f"motion_regression",
-            inputs={
-                # f"ek": "ek",  # (Overriding the namespace)
-                f"ship_data": "ship_data",
-                f"added_masses": "added_masses",
-                f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-                f"vmm_martin": "vmm_martin",
-            },
-        )
+    vmms = ["vmm_martin"]
+    for vmm in vmms:
+        for id in motion_model_ids:
+            p = pipeline(
+                motion_regression.create_pipeline(),
+                namespace=f"{id}",
+                inputs={
+                    # f"ek": "ek",  # (Overriding the namespace)
+                    f"ship_data": "ship_data",
+                    f"added_masses": "added_masses",
+                    f"vmm": vmm,
+                },
+            )
+            p2 = pipeline(
+                p,
+                namespace=f"motion_regression",
+                inputs={
+                    # f"ek": "ek",  # (Overriding the namespace)
+                    f"ship_data": "ship_data",
+                    f"added_masses": "added_masses",
+                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                    vmm: vmm,
+                },
+            )
+            motion_regression_pipelines[id] = pipeline(
+                p2,
+                namespace=vmm,
+                inputs={
+                    # f"ek": "ek",  # (Overriding the namespace)
+                    f"ship_data": "ship_data",
+                    f"added_masses": "added_masses",
+                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                    vmm: vmm,
+                },
+            )
 
     ## Force regression:
     # "force_regression"
-    force_regression_pipeline = pipeline(
-        force_regression.create_pipeline(),
-        namespace="force_regression",
-        inputs={
-            f"ship_data": "ship_data",
-            f"added_masses": "added_masses",
-            f"vmm": "vmm_martin",
-        },
-    )
+    for vmm in vmms:
+        force_regression_pipeline = pipeline(
+            force_regression.create_pipeline(),
+            namespace=f"{vmm}.force_regression",
+            inputs={
+                f"ship_data": "ship_data",
+                f"added_masses": "added_masses",
+                "vmm": vmm,
+                "data": "force_regression.data",
+            },
+        )
 
     ## Predictions:
     # motion models:
     # model tests:
     prediction_pipelines = {}
-    for id in model_test_ids:
-        p = pipeline(
-            prediction.create_pipeline(),
-            namespace=f"{id}",
-            inputs={
-                f"ship_data": "ship_data",
-            },
-        )
+    for vmm in vmms:
+        for id in model_test_ids:
+            p = pipeline(
+                prediction.create_pipeline(),
+                namespace=f"{id}",
+                inputs={
+                    f"ship_data": "ship_data",
+                },
+            )
+            p2 = pipeline(
+                p,
+                namespace="motion_regression",
+                inputs={
+                    f"ship_data": "ship_data",
+                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                },
+            )
+            prediction_id = f"motion_regression.{id}"
+            prediction_pipelines[prediction_id] = pipeline(
+                p2,
+                namespace=vmm,
+                inputs={
+                    f"ship_data": "ship_data",
+                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                },
+            )
+        # joined:
+        for id in model_test_ids:
+            p = pipeline(
+                prediction.create_pipeline(),
+                namespace=f"{id}",
+                inputs={
+                    f"ship_data": "ship_data",
+                },
+            )
+            p2 = pipeline(
+                p,
+                namespace="motion_regression.joined",
+                inputs={
+                    f"ship_data": "ship_data",
+                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                    f"{id}.model": f"{vmm}.motion_regression.joined.model",
+                },
+            )
+            prediction_id = f"motion_regression.joined.{id}"
+            prediction_pipelines[prediction_id] = pipeline(
+                p2,
+                namespace=vmm,
+                inputs={
+                    f"ship_data": "ship_data",
+                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                    f"{vmm}.motion_regression.joined.model": f"{vmm}.motion_regression.joined.model",
+                },
+            )
 
-        prediction_id = f"motion_regression.{id}"
-        prediction_pipelines[prediction_id] = pipeline(
-            p,
-            namespace="motion_regression",
-            inputs={
-                f"ship_data": "ship_data",
-                f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-            },
-        )
-    # joined:
-    for id in model_test_ids:
-        p = pipeline(
-            prediction.create_pipeline(),
-            namespace=f"{id}",
-            inputs={
-                f"ship_data": "ship_data",
-            },
-        )
-
-        prediction_id = f"motion_regression.joined.{id}"
-        prediction_pipelines[prediction_id] = pipeline(
-            p,
-            namespace="motion_regression.joined",
-            inputs={
-                f"ship_data": "ship_data",
-                f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-                f"{id}.model": "motion_regression.joined.model",
-            },
-        )
-
-    # force models:
-    for id in model_test_ids:
-        p = pipeline(
-            prediction.create_pipeline(),
-            namespace=f"{id}",
-            inputs={
-                f"ship_data": "ship_data",
-            },
-        )
-
-        prediction_id = f"force_regression.{id}"
-        prediction_pipelines[prediction_id] = pipeline(
-            p,
-            namespace="force_regression",
-            inputs={
-                f"ship_data": "ship_data",
-                f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-                f"{id}.model": "force_regression.model",
-            },
-        )
+        # force models:
+        for id in model_test_ids:
+            p = pipeline(
+                prediction.create_pipeline(),
+                namespace=f"{id}",
+                inputs={
+                    f"ship_data": "ship_data",
+                },
+            )
+            p2 = pipeline(
+                p,
+                namespace="force_regression",
+                inputs={
+                    f"ship_data": "ship_data",
+                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                    f"{id}.model": f"{vmm}.force_regression.model",
+                },
+            )
+            prediction_id = f"force_regression.{id}"
+            prediction_pipelines[prediction_id] = pipeline(
+                p2,
+                namespace=vmm,
+                inputs={
+                    f"ship_data": "ship_data",
+                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                    f"{vmm}.force_regression.model": f"{vmm}.force_regression.model",
+                },
+            )
 
     return_dict = {}
     return_dict["__default__"] = (
