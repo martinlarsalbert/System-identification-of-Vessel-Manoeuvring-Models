@@ -8,6 +8,13 @@ force_regression.data:
   load_args:
     index_col: 0
 
+force_regression.data_selected:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/force_regression.data_selected.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
 
 {% for vmm in vmms %}
 

@@ -11,6 +11,10 @@ import matplotlib.pyplot as plt
 from src.models.vmm import VMM
 
 
+def select_vct_data(data: pd.DataFrame) -> pd.DataFrame:
+    return data.groupby("model_name").get_group("V2_5_MDL_modelScale")
+
+
 def fit_forces(
     data: pd.DataFrame, added_masses: dict, ship_data: dict, vmm: VMM
 ) -> Union[ForceRegression, pd.DataFrame]:
