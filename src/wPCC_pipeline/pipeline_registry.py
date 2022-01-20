@@ -5,6 +5,8 @@ from operator import add
 
 from kedro.pipeline import Pipeline
 from kedro.pipeline.modular_pipeline import pipeline
+import anyconfig
+import os.path
 
 from .pipelines import preprocess as preprocess
 from .pipelines import brix as brix
@@ -25,6 +27,25 @@ def register_pipelines() -> Dict[str, Pipeline]:
     Returns:
         A mapping from a pipeline name to a ``Pipeline`` object.
     """
+    # Read configs:
+    conf_path = os.path.join(
+        os.path.split(os.path.split(os.path.dirname(__file__))[0])[0],
+        "conf",
+        "base",
+    )
+    runs_globals_path = os.path.join(
+        conf_path,
+        "runs_globals.yml",
+    )
+    model_test_ids = anyconfig.load(runs_globals_path)["model_test_ids"]
+    globals_path = os.path.join(
+        conf_path,
+        "globals.yml",
+    )
+    vmms = anyconfig.load(globals_path)["vmms"]
+
+    ########## Pipelines:
+
     ship_pipeline = pipeline(
         brix.create_pipeline() + extended_kalman.create_pipeline(),
         inputs={
@@ -37,47 +58,6 @@ def register_pipelines() -> Dict[str, Pipeline]:
         namespace="force_regression",
         inputs={"ship_data": "ship_data"},
     )
-
-    # model_test_ids = [
-    #    "22605",
-    #    "22606",
-    #    "22607",
-    #    "22608",
-    #    "22609",
-    #    "22610",
-    #    "22611",
-    #    "22612",
-    #    "22613",
-    #    "22614",
-    #    "22615",
-    #    "22616",
-    #    "22631",
-    #    "22632",
-    #    "22633",
-    #    "22634",
-    #    "22635",
-    #    "22636",
-    #    "22637",
-    #    "22638",
-    #    "22639",
-    #    "22762",
-    #    "22763",
-    #    "22764",
-    #    "22765",
-    #    "22768",
-    #    "22769",
-    #    "22770",
-    #    "22771",
-    #    "22772",
-    #    "22773",
-    #    "22774",
-    #    "22775",
-    #    "22776",
-    # ]
-    model_test_ids = [
-        "22773",
-        "22774",
-    ]
 
     ## Preprocess model tests:
     runs_pipelines = {}
@@ -102,7 +82,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     # "motion_regression"
     motion_regression_pipelines = {}
     motion_model_ids = model_test_ids + ["joined"]
-    vmms = ["vmm_martin"]
+
     for vmm in vmms:
         for id in motion_model_ids:
             p = pipeline(

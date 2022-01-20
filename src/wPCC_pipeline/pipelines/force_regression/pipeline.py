@@ -5,7 +5,6 @@ generated using Kedro 0.17.6
 
 from kedro.pipeline import Pipeline, node
 from .nodes import (
-    select_vct_data,
     fit_forces,
     create_model_from_force_regression,
     force_regression_summaries,

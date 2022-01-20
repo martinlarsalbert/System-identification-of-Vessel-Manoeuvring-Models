@@ -10,3 +10,9 @@ def martins_model() -> VMM:
     from src.models.vmm_martin import martins_model
 
     return martins_model
+
+
+def vmm_linear() -> VMM:
+    from src.models.vmm_linear import vmm_linear
+
+    return vmm_linear

@@ -1,7 +1,6 @@
 ## Jinja2
 
-{% set model_test_ids = ['22773', '22774'] %}
-{% for id in model_test_ids %}  # (runs defined in /globals/runs.yml)
+{% for id in model_test_ids %}  # (runs defined in runs_globals.yml)
 
 {{ id }}.raw_data:
   type: pandas.CSVDataSet

@@ -1,11 +1,10 @@
-{% set model_test_ids = ['22773', '22774'] %}
 {% set model_ids = model_test_ids + ['joined'] %}
-{% set vmms = ['vmm_martin'] %}
 
-{% for vmm in vmms %}
+{% for vmm in vmms %} # (vmm defined in globals.yml)
 
 
-  {% for id in model_ids %}  # (runs defined in /globals/runs.yml)
+  {% for id in model_ids %}  # (runs defined in runs_globals.yml)
+
 
 {{ vmm }}.motion_regression.{{ id }}.derivatives:
   type: pandas.CSVDataSet

@@ -2,3 +2,8 @@ vmm_martin:
   type: pickle.PickleDataSet
   filepath: data/05_model_input/vmm_martin.pkl
   backend: dill
+
+vmm_linear:
+  type: pickle.PickleDataSet
+  filepath: data/05_model_input/vmm_linear.pkl
+  backend: dill

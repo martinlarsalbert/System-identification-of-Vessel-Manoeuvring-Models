@@ -1,11 +1,6 @@
 
-{% set vmms = ['vmm_martin'] %}
-{% set model_test_ids = ['22773', '22774'] %}
-{% set regressions = ['force_regression', 'motion_regression'] %}
-
-
-{% for vmm in vmms %}
-  {% for id in model_test_ids %}  # (runs defined in /globals/runs.yml)
+{% for vmm in vmms %} # (vmm defined in globals.yml)
+  {% for id in model_test_ids %}  # (id defined in runs_globals.yml)
     {% for regression in regressions %}  # (runs defined in /globals/runs.yml)
 
 {{ vmm }}.{{ regression }}.{{ id }}.data_resimulate:

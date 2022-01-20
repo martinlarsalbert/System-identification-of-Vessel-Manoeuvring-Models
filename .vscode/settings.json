@@ -1,5 +1,8 @@
 {
     "python.testing.pytestArgs": [
         "--no-cov"
-    ]
+    ],
+    "files.exclude": {
+        "venv": true
+    }
 }

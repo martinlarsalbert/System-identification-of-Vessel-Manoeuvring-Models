@@ -39,7 +39,7 @@ from kedro.config import TemplatedConfigLoader
 class ProjectHooks:
     @hook_impl
     def register_config_loader(self, conf_paths: Iterable[str]) -> ConfigLoader:
-        return TemplatedConfigLoader(
+        return TemplatedConfigLoaderGlobals(
             conf_paths,
             globals_pattern="*globals.yml",  # read the globals dictionary from project config
             globals_dict={  # extra keys to add to the globals dictionary, take precedence over globals_pattern
@@ -60,3 +60,35 @@ class ProjectHooks:
         return DataCatalog.from_config(
             catalog, credentials, load_versions, save_version, journal
         )
+
+
+from pathlib import Path
+from kedro.config.config import ConfigLoader
+
+
+class TemplatedConfigLoaderGlobals(TemplatedConfigLoader):
+    def _load_config_file(self, config_file: Path) -> Dict[str, Any]:
+        """Load an individual config file using `anyconfig` as a backend.
+
+        Args:
+            config_file: Path to a config file to process.
+
+        Returns:
+            Parsed configuration.
+        """
+        # for performance reasons
+        import anyconfig  # pylint: disable=import-outside-toplevel
+
+        if "globals" in str(config_file):
+            globals = {}
+        else:
+            globals_pattern = "*globals.yml"
+            globals = self.get(globals_pattern) if globals_pattern else {}
+
+        return {
+            k: v
+            for k, v in anyconfig.load(
+                config_file, ac_template=True, ac_context=globals
+            ).items()
+            if not k.startswith("_")
+        }
