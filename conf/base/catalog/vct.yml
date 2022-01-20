@@ -25,7 +25,7 @@ force_regression.data_scaled:
 
 {{ vmm }}.force_regression.derivatives:
   type: pandas.CSVDataSet
-  filepath: data/06_models/{{ vmm }}.force_regression.derivatives.csv
+  filepath: data/06_models/{{ vmm }}/force_regression/{{ vmm }}.force_regression.derivatives.csv
   load_args:
     index_col: 0
   save_args:
@@ -33,36 +33,36 @@ force_regression.data_scaled:
 
 {{ vmm }}.force_regression.regression:
   type: pickle.PickleDataSet
-  filepath: data/06_models/{{ vmm }}.force_regression.regression.pkl
+  filepath: data/06_models/{{ vmm }}/force_regression/{{ vmm }}.force_regression.regression.pkl
   backend: dill
   
 {{ vmm }}.force_regression.summary_X:
   type: text.TextDataSet
-  filepath: data/06_models/{{ vmm }}.force_regression.summary_X.txt
+  filepath: data/06_models/{{ vmm }}/force_regression/{{ vmm }}.force_regression.summary_X.txt
 
 {{ vmm }}.force_regression.summary_Y:
   type: text.TextDataSet
-  filepath: data/06_models/{{ vmm }}.force_regression.summary_Y.txt
+  filepath: data/06_models/{{ vmm }}/force_regression/{{ vmm }}.force_regression.summary_Y.txt
 
 {{ vmm }}.force_regression.summary_N:
   type: text.TextDataSet
-  filepath: data/06_models/{{ vmm }}.force_regression.summary_N.txt
+  filepath: data/06_models/{{ vmm }}/force_regression/{{ vmm }}.force_regression.summary_N.txt
 
 {{ vmm }}.force_regression.plot_X:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/{{ vmm }}.force_regression.plot_X.png
+  filepath: data/06_models/{{ vmm }}/force_regression/{{ vmm }}.force_regression.plot_X.png
 
 {{ vmm }}.force_regression.plot_Y:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/{{ vmm }}.force_regression.plot_Y.png
+  filepath: data/06_models/{{ vmm }}/force_regression/{{ vmm }}.force_regression.plot_Y.png
 
 {{ vmm }}.force_regression.plot_N:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/{{ vmm }}.force_regression.plot_N.png
+  filepath: data/06_models/{{ vmm }}/force_regression/{{ vmm }}.force_regression.plot_N.png
 
 {{ vmm }}.force_regression.model:
   type: pickle.PickleDataSet
-  filepath: data/06_models/{{ vmm }}.force_regression.model.pkl
+  filepath: data/06_models/{{ vmm }}/force_regression/{{ vmm }}.force_regression.model.pkl
   backend: dill
 
 {% endfor %}

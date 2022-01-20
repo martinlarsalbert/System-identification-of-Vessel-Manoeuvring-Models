@@ -121,8 +121,10 @@ def register_pipelines() -> Dict[str, Pipeline]:
 
     ## Force regression:
     # "force_regression"
+    force_regression_pipelines = {}
     for vmm in vmms:
-        force_regression_pipeline = pipeline(
+        key = f"{vmm}.force_regression"
+        force_regression_pipelines[key] = pipeline(
             force_regression.create_pipeline(),
             namespace=f"{vmm}.force_regression",
             inputs={
@@ -181,7 +183,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                     f"{id}.model": f"{vmm}.motion_regression.joined.model",
                 },
             )
-            prediction_id = f"motion_regression.joined.{id}"
+            prediction_id = f"predict.{vmm}.motion_regression.joined.{id}"
             prediction_pipelines[prediction_id] = pipeline(
                 p2,
                 namespace=vmm,
@@ -210,7 +212,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                     f"{id}.model": f"{vmm}.force_regression.model",
                 },
             )
-            prediction_id = f"force_regression.{id}"
+            prediction_id = f"predict.{vmm}.force_regression.{id}"
             prediction_pipelines[prediction_id] = pipeline(
                 p2,
                 namespace=vmm,
@@ -229,12 +231,15 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + vessel_manoeuvring_models_pipeline
         + reduce(add, motion_regression_pipelines.values())
         + vct_data_pipeline
-        + force_regression_pipeline
+        + reduce(add, force_regression_pipelines.values())
         + reduce(add, prediction_pipelines.values())
     )
     return_dict["ship"] = ship_pipeline
     return_dict["motion_regression"] = reduce(add, motion_regression_pipelines.values())
-    return_dict["force_regression"] = force_regression_pipeline
+    return_dict["force_regression"] = reduce(add, force_regression_pipelines.values())
+    return_dict["regression"] = (
+        return_dict["motion_regression"] + return_dict["force_regression"]
+    )
     return_dict["join"] = joined_pipeline
     return_dict["predict"] = reduce(add, prediction_pipelines.values())
     return_dict["vmm"] = vessel_manoeuvring_models_pipeline
