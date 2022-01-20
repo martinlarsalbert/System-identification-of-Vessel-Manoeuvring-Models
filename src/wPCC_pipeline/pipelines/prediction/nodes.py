@@ -14,6 +14,20 @@ log = logging.getLogger("kedro.pipeline")
 
 
 def simulate(data: pd.DataFrame, model: ModelSimulator) -> pd.DataFrame:
+    """Resimulate model test data with a model
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Model test time series
+    model : ModelSimulator
+        simulation model
+
+    Returns
+    -------
+    pd.DataFrame
+        resimulated data
+    """
 
     try:
         results = model.simulate(df_=data)
@@ -26,6 +40,33 @@ def simulate(data: pd.DataFrame, model: ModelSimulator) -> pd.DataFrame:
         df = results.result
 
     return df
+
+
+def damping_forces(data: pd.DataFrame, model: ModelSimulator):
+    """Recalculate damping forces from VCT, or model test with captive or free model
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        * VCT data
+        * captive model test data
+        * model test time series
+    model : ModelSimulator
+        simulation model
+
+    Returns
+    -------
+    pd.DataFrame
+        recalculated damping forces
+    """
+
+    data = data[
+        ["fx", "fy", "mz", "u", "v", "V", "r", "beta", "delta", "thrust", "test type"]
+    ].copy()
+
+    df_model = data.copy()
+    df_model[["fx", "fy", "mz"]] = model.forces(inputs=df_model)
+    return df_model
 
 
 def track_plot(

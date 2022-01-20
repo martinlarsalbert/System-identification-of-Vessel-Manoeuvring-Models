@@ -20,7 +20,13 @@
   type: matplotlib.MatplotlibWriter
   filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ id }}.plot_resimulate.png
 
-
+{{ vmm }}.{{ regression }}.{{ id }}.data_damping_forces:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ id }}.data_damping_forces.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
 
 ## Joined
 {{ vmm }}.{{ regression }}.joined.{{ id }}.data_resimulate:
@@ -40,6 +46,13 @@
   type: matplotlib.MatplotlibWriter
   filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.joined.{{ id }}.plot_resimulate.png
 
+{{ vmm }}.{{ regression }}.joined.{{ id }}.data_damping_forces:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.joined.{{ id }}.data_damping_forces.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
 
     {% endfor %}
   {% endfor %}

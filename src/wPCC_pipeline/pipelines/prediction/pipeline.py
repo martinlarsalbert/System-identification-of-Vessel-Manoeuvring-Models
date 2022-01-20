@@ -4,7 +4,7 @@ generated using Kedro 0.17.6
 """
 
 from kedro.pipeline import Pipeline, node
-from .nodes import simulate, track_plot, plot_timeseries
+from .nodes import simulate, track_plot, plot_timeseries, damping_forces
 
 
 def create_pipeline(data_name: str = "data_ek_smooth", **kwargs):
@@ -19,6 +19,15 @@ def create_pipeline(data_name: str = "data_ek_smooth", **kwargs):
                 ],
                 outputs="data_resimulate",
                 name="simulate_node",
+            ),
+            node(
+                func=damping_forces,
+                inputs=[
+                    "force_regression.data_scaled",
+                    "model",
+                ],
+                outputs="data_damping_forces",
+                name="damping_forces_node",
             ),
             node(
                 func=track_plot,

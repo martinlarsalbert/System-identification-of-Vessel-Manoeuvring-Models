@@ -163,6 +163,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                 inputs={
                     f"ship_data": "ship_data",
                     f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                    f"motion_regression.{id}.force_regression.data_scaled": "force_regression.data_scaled",
                 },
             )
         # joined:
@@ -191,6 +192,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                     f"ship_data": "ship_data",
                     f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
                     f"{vmm}.motion_regression.joined.model": f"{vmm}.motion_regression.joined.model",
+                    f"motion_regression.joined.{id}.force_regression.data_scaled": "force_regression.data_scaled",
                 },
             )
 
@@ -220,6 +222,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                     f"ship_data": "ship_data",
                     f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
                     f"{vmm}.force_regression.model": f"{vmm}.force_regression.model",
+                    f"force_regression.{id}.force_regression.data_scaled": "force_regression.data_scaled",
                 },
             )
 
