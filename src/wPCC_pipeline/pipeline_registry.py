@@ -106,7 +106,8 @@ def register_pipelines() -> Dict[str, Pipeline]:
                     vmm: vmm,
                 },
             )
-            motion_regression_pipelines[id] = pipeline(
+            key = f"regress.{vmm}.motion_regression.{id}"
+            motion_regression_pipelines[key] = pipeline(
                 p2,
                 namespace=vmm,
                 inputs={
@@ -153,7 +154,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                     f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
                 },
             )
-            prediction_id = f"motion_regression.{id}"
+            prediction_id = f"predict.{vmm}.motion_regression.{id}"
             prediction_pipelines[prediction_id] = pipeline(
                 p2,
                 namespace=vmm,
