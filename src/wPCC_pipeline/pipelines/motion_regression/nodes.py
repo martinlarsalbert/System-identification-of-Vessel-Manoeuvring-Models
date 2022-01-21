@@ -14,7 +14,11 @@ import matplotlib.pyplot as plt
 
 
 def fit_motions(
-    data: pd.DataFrame, added_masses: dict, ship_data: dict, vmm: VMM
+    data: pd.DataFrame,
+    added_masses: dict,
+    ship_data: dict,
+    vmm: VMM,
+    exclude_parameters: dict = {},
 ) -> Union[MotionRegression, pd.DataFrame]:
     """Fit damping force parameters in a dynamic model to ship MOTION measurements
 
@@ -28,6 +32,11 @@ def fit_motions(
         Ship parameters in SI-units.
     vmm : VMM object
         Vessel Manoeuvring Model (defining the equation of motions and damping forces)
+    exclude_parameters : dict, optional
+            Exclude some parameters from the regression by instead providing their value.
+            Ex:
+            exclude_parameters = {'Xthrust':0.95}
+            means that Xthrust parameter will not be regressed, instead a value of 0.95 will be used.
 
     Returns
     -------
@@ -45,6 +54,7 @@ def fit_motions(
         ship_parameters=ship_data,
         prime_system=ps,
         base_features=[s.u, s.v, s.r, s.delta, s.thrust],
+        exclude_parameters=exclude_parameters,
     )
 
     parameters = pd.DataFrame(regression.parameters)

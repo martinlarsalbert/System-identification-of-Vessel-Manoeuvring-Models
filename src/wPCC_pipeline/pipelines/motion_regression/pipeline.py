@@ -17,7 +17,13 @@ def create_pipeline(**kwargs):
         [
             node(
                 func=fit_motions,
-                inputs=["data_ek_smooth", "added_masses", "ship_data", "vmm"],
+                inputs=[
+                    "data_ek_smooth",
+                    "added_masses",
+                    "ship_data",
+                    "vmm",
+                    "params:motion_regression.exclude_parameters",
+                ],
                 outputs=["regression", "derivatives"],
                 name="fit_motions_node",
                 tags=["motion_regression"],

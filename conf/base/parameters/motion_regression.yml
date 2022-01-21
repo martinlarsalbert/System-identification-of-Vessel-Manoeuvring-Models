@@ -3,3 +3,7 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://kedro.readthedocs.io/en/0.17.6/04_kedro_project_setup/02_configuration.html#parameters
+
+# Parameters that should not be included in the regression and are instead taking the defined values
+motion_regression.exclude_parameters:
+  Xthrust : 1.0

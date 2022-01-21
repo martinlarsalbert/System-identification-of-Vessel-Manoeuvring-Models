@@ -12,7 +12,11 @@ from src.models.vmm import VMM
 
 
 def fit_forces(
-    data: pd.DataFrame, added_masses: dict, ship_data: dict, vmm: VMM
+    data: pd.DataFrame,
+    added_masses: dict,
+    ship_data: dict,
+    vmm: VMM,
+    exclude_parameters: dict = {},
 ) -> Union[ForceRegression, pd.DataFrame]:
     """Fit damping force parameters in a dynamic model to ship FORCE measurements
 
@@ -26,7 +30,11 @@ def fit_forces(
         Ship parameters in SI-units.
     vmm : VMM object
         Vessel Manoeuvring Model (defining the equation of motions and damping forces)
-
+    exclude_parameters : dict, optional
+            Exclude some parameters from the regression by instead providing their value.
+            Ex:
+            exclude_parameters = {'Xthrust':0.95}
+            means that Xthrust parameter will not be regressed, instead a value of 0.95 will be used.
 
     Returns
     -------
@@ -43,6 +51,7 @@ def fit_forces(
         data=data,
         added_masses=added_masses,
         ship_parameters=ship_data,
+        exclude_parameters=exclude_parameters,
     )
 
     parameters = pd.DataFrame(regression.parameters)
