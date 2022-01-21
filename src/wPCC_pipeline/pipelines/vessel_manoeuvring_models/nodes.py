@@ -16,3 +16,9 @@ def vmm_linear() -> VMM:
     from src.models.vmm_linear import vmm_linear
 
     return vmm_linear
+
+
+def vmm_martins_simple_model() -> VMM:
+    from src.models.vmm_martin_simple import martins_simple_model
+
+    return martins_simple_model

@@ -1,6 +1,7 @@
 vmms:  # (What Vessel Manoeuvring Models to include)
 - vmm_martin
 - vmm_linear
+- vmm_martins_simple
 
 regressions:  # (What kind of regression to perform)
 - force_regression

@@ -1,9 +1,8 @@
-vmm_martin:
+{% for vmm in vmms %} # (vmm defined in globals.yml)
+
+{{ vmm }}:
   type: pickle.PickleDataSet
-  filepath: data/05_model_input/vmm_martin.pkl
+  filepath: data/05_model_input/{{ vmm }}.pkl
   backend: dill
 
-vmm_linear:
-  type: pickle.PickleDataSet
-  filepath: data/05_model_input/vmm_linear.pkl
-  backend: dill
+{% endfor %}

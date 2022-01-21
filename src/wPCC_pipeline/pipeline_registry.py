@@ -247,4 +247,29 @@ def register_pipelines() -> Dict[str, Pipeline]:
     return_dict["predict"] = reduce(add, prediction_pipelines.values())
     return_dict["vmm"] = vessel_manoeuvring_models_pipeline
 
+    return_dict.update(runs_pipelines)
+    return_dict.update(motion_regression_pipelines)
+    return_dict.update(force_regression_pipelines)
+    return_dict.update(prediction_pipelines)
+
+    """
+    kedro run --pipeline ship
+    kedro run --pipeline motion_regression
+    kedro run --pipeline force_regression
+    kedro run --pipeline regression
+    kedro run --pipeline predict
+    
+    It is also possible to be even more specific:
+    
+    # Specific regression:
+    kedro run --pipeline regress.vmm_martins_simple.motion_regression.22774
+    kedro run --pipeline regress.vmm_martins_simple.motion_regression.joined
+
+    # Specific precition:
+    kedro run --pipeline predict.vmm_martins_simple.motion_regression.22774
+    kedro run --pipeline predict.vmm_martins_simple.motion_regression.joined.22774
+    (The last one is predicting test 22774 with a model regressed on joined model tests)
+
+    """
+
     return return_dict
