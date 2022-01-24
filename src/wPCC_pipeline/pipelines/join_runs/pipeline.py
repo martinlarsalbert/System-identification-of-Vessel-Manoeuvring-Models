@@ -13,7 +13,7 @@ def create_pipeline(model_test_ids: list, **kwargs):
             node(
                 func=join,
                 inputs=[f"{run}.data_ek_smooth" for run in model_test_ids],
-                outputs="joined.data_ek_smooth",
+                outputs="data_ek_smooth",
                 name="join_node",
             ),
         ]

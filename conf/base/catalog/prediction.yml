@@ -33,36 +33,39 @@
   filepath: data/09_tracking/{{ vmm }}.{{ regression }}.{{ id }}.simulation_accuracy.json
 
 
-## Joined
-{{ vmm }}.{{ regression }}.joined.{{ id }}.data_resimulate:
+## Joins:
+      {% for join in joins %}  # (runs defined in join_globals.yml)
+
+{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_resimulate:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.joined.{{ id }}.data_resimulate.csv
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_resimulate.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ vmm }}.{{ regression }}.joined.{{ id }}.track_plot_resimulate:
+{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.track_plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.joined.{{ id }}.track_plot_resimulate.png
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.track_plot_resimulate.png
 
 
-{{ vmm }}.{{ regression }}.joined.{{ id }}.plot_resimulate:
+{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.joined.{{ id }}.plot_resimulate.png
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.plot_resimulate.png
 
-{{ vmm }}.{{ regression }}.joined.{{ id }}.data_damping_forces:
+{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_damping_forces:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.joined.{{ id }}.data_damping_forces.csv
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_damping_forces.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ vmm }}.{{ regression }}.joined.{{ id }}.simulation_accuracy:
+{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.simulation_accuracy:
   type: tracking.MetricsDataSet
-  filepath: data/09_tracking/{{ vmm }}.{{ regression }}.joined.{{ id }}.simulation_accuracy.json
+  filepath: data/09_tracking/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.simulation_accuracy.json
 
+      {% endfor %}
     {% endfor %}
   {% endfor %}
 {% endfor %}

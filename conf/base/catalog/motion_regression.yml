@@ -1,4 +1,4 @@
-{% set model_ids = model_test_ids + ['joined'] %}
+{% set model_ids = model_test_ids + joins %}
 
 {% for vmm in vmms %} # (vmm defined in globals.yml)
 

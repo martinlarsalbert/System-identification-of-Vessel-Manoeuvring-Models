@@ -105,9 +105,7 @@ def simulation_accuracy(
     accuracies = {
         key: r2_score(y_true=data[key], y_pred=results[key])
         for key in keys
-        if results[key].notnull().all()
+        if results[key].notnull().all() and len(data[key]) == len(results[key])
     }
-
-    accuracies["accuracy"] = 1
 
     return accuracies

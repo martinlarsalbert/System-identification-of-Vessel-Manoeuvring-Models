@@ -1,8 +1,11 @@
 
-joined.data_ek_smooth:
+
+{% for join in joins %}  # (runs defined in join_globals.yml)
+{{ join }}.data_ek_smooth:
   type: pandas.CSVDataSet
-  filepath: data/03_primary/joined.data_ek_smooth.csv
+  filepath: data/03_primary/{{ join }}.data_ek_smooth.csv
   load_args:
     index_col: 0
   save_args:
     index: True
+{% endfor %}

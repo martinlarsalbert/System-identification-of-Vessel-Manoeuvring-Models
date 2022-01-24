@@ -1,0 +1,13 @@
+# Subsets of all model tests (defined in runs_globals.yml) can be defined here.
+
+
+reference_speed:
+#- "22631"
+#- "22632"
+#- "22633"
+#- "22634"
+- "22635"
+#- "22636"
+- "22637"
+#- "22638"
+#- "22639"

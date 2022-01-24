@@ -37,7 +37,16 @@ def register_pipelines() -> Dict[str, Pipeline]:
         conf_path,
         "runs_globals.yml",
     )
-    model_test_ids = anyconfig.load(runs_globals_path)["model_test_ids"]
+
+    runs_globals = anyconfig.load(runs_globals_path)
+    model_test_ids = runs_globals["model_test_ids"]
+
+    join_globals_path = os.path.join(
+        conf_path,
+        "join_globals.yml",
+    )
+    join_runs_dict = anyconfig.load(join_globals_path)
+
     globals_path = os.path.join(
         conf_path,
         "globals.yml",
@@ -73,7 +82,23 @@ def register_pipelines() -> Dict[str, Pipeline]:
         )
 
     ## Join the tests:
-    joined_pipeline = pipeline(join_runs.create_pipeline(model_test_ids=model_test_ids))
+    joined_pipelines = {}
+    # All runs:
+    # joined_pipelines["joined"] = pipeline(
+    #    join_runs.create_pipeline(model_test_ids=model_test_ids, namespace="joined", )
+    # )
+
+    join_runs_dict["joined"] = model_test_ids
+    # other selections:
+    for join_name, runs_selection in join_runs_dict.items():
+        joined_pipelines[join_name] = pipeline(
+            join_runs.create_pipeline(model_test_ids=runs_selection),
+            namespace=join_name,
+            inputs={
+                f"{run}.data_ek_smooth": f"{run}.data_ek_smooth"
+                for run in runs_selection
+            },
+        )
 
     ## Vessel Manoeuvring Models (VMMs)
     vessel_manoeuvring_models_pipeline = vessel_manoeuvring_models.create_pipeline()
@@ -81,7 +106,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     ## Motion regression pipeline:
     # "motion_regression"
     motion_regression_pipelines = {}
-    motion_model_ids = model_test_ids + ["joined"]
+    motion_model_ids = model_test_ids + list(joined_pipelines.keys())
 
     for vmm in vmms:
         for id in motion_model_ids:
@@ -167,34 +192,35 @@ def register_pipelines() -> Dict[str, Pipeline]:
                 },
             )
         # joined:
-        for id in model_test_ids:
-            p = pipeline(
-                prediction.create_pipeline(),
-                namespace=f"{id}",
-                inputs={
-                    f"ship_data": "ship_data",
-                },
-            )
-            p2 = pipeline(
-                p,
-                namespace="motion_regression.joined",
-                inputs={
-                    f"ship_data": "ship_data",
-                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-                    f"{id}.model": f"{vmm}.motion_regression.joined.model",
-                },
-            )
-            prediction_id = f"predict.{vmm}.motion_regression.joined.{id}"
-            prediction_pipelines[prediction_id] = pipeline(
-                p2,
-                namespace=vmm,
-                inputs={
-                    f"ship_data": "ship_data",
-                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-                    f"{vmm}.motion_regression.joined.model": f"{vmm}.motion_regression.joined.model",
-                    f"motion_regression.joined.{id}.force_regression.data_scaled": "force_regression.data_scaled",
-                },
-            )
+        for join_name in joined_pipelines.keys():
+            for id in model_test_ids:
+                p = pipeline(
+                    prediction.create_pipeline(),
+                    namespace=f"{id}",
+                    inputs={
+                        f"ship_data": "ship_data",
+                    },
+                )
+                p2 = pipeline(
+                    p,
+                    namespace=f"motion_regression.{join_name}",
+                    inputs={
+                        f"ship_data": "ship_data",
+                        f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                        f"{id}.model": f"{vmm}.motion_regression.{join_name}.model",
+                    },
+                )
+                prediction_id = f"predict.{vmm}.motion_regression.{join_name}.{id}"
+                prediction_pipelines[prediction_id] = pipeline(
+                    p2,
+                    namespace=vmm,
+                    inputs={
+                        f"ship_data": "ship_data",
+                        f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                        f"{vmm}.motion_regression.{join_name}.model": f"{vmm}.motion_regression.{join_name}.model",
+                        f"motion_regression.{join_name}.{id}.force_regression.data_scaled": "force_regression.data_scaled",
+                    },
+                )
 
         # force models:
         for id in model_test_ids:
@@ -230,7 +256,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     return_dict["__default__"] = (
         ship_pipeline
         + reduce(add, runs_pipelines.values())
-        + joined_pipeline
+        + reduce(add, joined_pipelines.values())
         + vessel_manoeuvring_models_pipeline
         + reduce(add, motion_regression_pipelines.values())
         + vct_data_pipeline
@@ -243,14 +269,17 @@ def register_pipelines() -> Dict[str, Pipeline]:
     return_dict["regression"] = (
         return_dict["motion_regression"] + return_dict["force_regression"]
     )
-    return_dict["join"] = joined_pipeline
+
     return_dict["predict"] = reduce(add, prediction_pipelines.values())
     return_dict["vmm"] = vessel_manoeuvring_models_pipeline
+    return_dict["join"] = reduce(add, joined_pipelines.values())
+    # return_dict["runs"] = reduce(add, runs_pipelines.values())
 
     return_dict.update(runs_pipelines)
     return_dict.update(motion_regression_pipelines)
     return_dict.update(force_regression_pipelines)
     return_dict.update(prediction_pipelines)
+    return_dict.update(joined_pipelines)
 
     """
     kedro run --pipeline ship

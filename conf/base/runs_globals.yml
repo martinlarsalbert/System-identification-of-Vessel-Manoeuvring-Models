@@ -1,3 +1,4 @@
+# All model tests used are defined here:
 model_test_ids:
 #- "22605"
 #- "22606"
@@ -15,9 +16,9 @@ model_test_ids:
 #- "22632"
 #- "22633"
 #- "22634"
-#- "22635"
+- "22635"
 #- "22636"
-#- "22637"
+- "22637"
 #- "22638"
 #- "22639"
 #- "22762"
@@ -33,3 +34,7 @@ model_test_ids:
 - "22774"
 #- "22775"
 #- "22776"
+
+joins:
+- joined  ## Mandatory
+- reference_speed
