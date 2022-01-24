@@ -3,6 +3,7 @@ This is a boilerplate pipeline 'vct_data'
 generated using Kedro 0.17.6
 """
 import pandas as pd
+import numpy as np
 
 from src.vct_scaling import scale_force_to_model_scale, scale_moment_to_model_scale
 
@@ -22,8 +23,12 @@ def vct_scaling(data: pd.DataFrame, ship_data: dict) -> pd.DataFrame:
         forces=forces, scale_factor=scale_factor, **data_scaled
     )
     keys_moments = ["mx", "my", "mz"]
-    data_scaled[keys_moments] = scale_force_to_model_scale(
+    data_scaled[keys_moments] = scale_moment_to_model_scale(
         data_scaled[keys_moments], scale_factor=scale_factor, **data_scaled
     )
+
+    data_scaled[["u", "v", "V"]] /= np.sqrt(scale_factor)
+    data_scaled[["r"]] *= np.sqrt(scale_factor)
+    data_scaled[["thrust"]] /= scale_factor ** 3
 
     return data_scaled
