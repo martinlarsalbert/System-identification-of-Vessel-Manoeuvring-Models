@@ -28,6 +28,11 @@
   save_args:
     index: True
 
+{{ vmm }}.{{ regression }}.{{ id }}.simulation_accuracy:
+  type: tracking.MetricsDataSet
+  filepath: data/09_tracking/{{ vmm }}.{{ regression }}.{{ id }}.simulation_accuracy.json
+
+
 ## Joined
 {{ vmm }}.{{ regression }}.joined.{{ id }}.data_resimulate:
   type: pandas.CSVDataSet
@@ -53,6 +58,10 @@
     index_col: 0
   save_args:
     index: True
+
+{{ vmm }}.{{ regression }}.joined.{{ id }}.simulation_accuracy:
+  type: tracking.MetricsDataSet
+  filepath: data/09_tracking/{{ vmm }}.{{ regression }}.joined.{{ id }}.simulation_accuracy.json
 
     {% endfor %}
   {% endfor %}

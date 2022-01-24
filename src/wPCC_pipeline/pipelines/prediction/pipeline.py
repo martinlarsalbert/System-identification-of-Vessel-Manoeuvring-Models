@@ -4,7 +4,13 @@ generated using Kedro 0.17.6
 """
 
 from kedro.pipeline import Pipeline, node
-from .nodes import simulate, track_plot, plot_timeseries, damping_forces
+from .nodes import (
+    simulate,
+    track_plot,
+    plot_timeseries,
+    damping_forces,
+    simulation_accuracy,
+)
 
 
 def create_pipeline(data_name: str = "data_ek_smooth", **kwargs):
@@ -42,6 +48,13 @@ def create_pipeline(data_name: str = "data_ek_smooth", **kwargs):
                 inputs=[data_name, "data_resimulate"],
                 outputs="plot_resimulate",
                 name="resimulate_plot_node",
+            ),
+            node(
+                func=simulation_accuracy,
+                # inputs=["data", "data_resimulate_model_motion"],
+                inputs=[data_name, "data_resimulate"],
+                outputs="simulation_accuracy",
+                name="simulation_accuracy_node",
             ),
         ]
     )

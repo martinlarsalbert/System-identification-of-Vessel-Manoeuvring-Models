@@ -7,6 +7,7 @@ import pandas as pd
 from src.models.vmm import ModelSimulator
 import matplotlib.pyplot as plt
 import src.visualization.plot as plot
+from sklearn.metrics import r2_score
 
 import logging
 
@@ -95,3 +96,18 @@ def plot_timeseries(data: pd.DataFrame, results: pd.DataFrame) -> plt.figure:
     ax = plot.plot(dataframes=dataframes, keys=["y0", "psi", "u", "v", "r", "delta"])
 
     return ax.get_figure()
+
+
+def simulation_accuracy(
+    data: pd.DataFrame, results: pd.DataFrame, keys=["x0", "y0", "psi"]
+) -> dict:
+
+    accuracies = {
+        key: r2_score(y_true=data[key], y_pred=results[key])
+        for key in keys
+        if results[key].notnull().all()
+    }
+
+    accuracies["accuracy"] = 1
+
+    return accuracies
