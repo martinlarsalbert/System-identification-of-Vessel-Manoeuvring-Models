@@ -20,6 +20,20 @@ force_regression.data_scaled:
   save_args:
     index: True
 
+force_regression.data_TT_MDL:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/data_TT_MDL.csv
+  load_args:
+    index_col: 0
+
+force_regression.data_scaled_resistance_corrected:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/force_regression.data_scaled_resistance_corrected.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
 {% for vmm in vmms %} # (vmm defined in globals.yml)
 
 

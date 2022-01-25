@@ -5,7 +5,7 @@
 
 {{ vmm }}.{{ regression }}.{{ id }}.data_resimulate:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ id }}.data_resimulate.csv
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ id }}/{{ vmm }}.{{ regression }}.{{ id }}.data_resimulate.csv
   load_args:
     index_col: 0
   save_args:
@@ -13,16 +13,16 @@
 
 {{ vmm }}.{{ regression }}.{{ id }}.track_plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ id }}.track_plot_resimulate.png
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ id }}/{{ vmm }}.{{ regression }}.{{ id }}.track_plot_resimulate.png
 
 
 {{ vmm }}.{{ regression }}.{{ id }}.plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ id }}.plot_resimulate.png
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ id }}/{{ vmm }}.{{ regression }}.{{ id }}.plot_resimulate.png
 
 {{ vmm }}.{{ regression }}.{{ id }}.data_damping_forces:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ id }}.data_damping_forces.csv
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ id }}/{{ vmm }}.{{ regression }}.{{ id }}.data_damping_forces.csv
   load_args:
     index_col: 0
   save_args:
@@ -38,7 +38,7 @@
 
 {{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_resimulate:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_resimulate.csv
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_resimulate.csv
   load_args:
     index_col: 0
   save_args:
@@ -46,16 +46,18 @@
 
 {{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.track_plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.track_plot_resimulate.png
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.track_plot_resimulate.png
+  save_args:
+    bbox_inches: (10,10)
 
 
 {{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.plot_resimulate:
   type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.plot_resimulate.png
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.plot_resimulate.png
 
 {{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_damping_forces:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_damping_forces.csv
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_damping_forces.csv
   load_args:
     index_col: 0
   save_args:

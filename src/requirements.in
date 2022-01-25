@@ -20,4 +20,4 @@ sympy
 kedro-viz
 sklearn
 dill
-mlflow
+jupyterlab-mathjax3

@@ -6,4 +6,4 @@
 
 # Parameters that should not be included in the regression and are instead taking the defined values
 motion_regression.exclude_parameters:
-  Xthrust : 1.0
+  Xthrust : 0.883  # (1-tdf)

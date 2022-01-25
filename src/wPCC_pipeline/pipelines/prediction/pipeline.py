@@ -29,7 +29,7 @@ def create_pipeline(data_name: str = "data_ek_smooth", **kwargs):
             node(
                 func=damping_forces,
                 inputs=[
-                    "force_regression.data_scaled",
+                    "force_regression.data_scaled_resistance_corrected",
                     "model",
                 ],
                 outputs="data_damping_forces",
