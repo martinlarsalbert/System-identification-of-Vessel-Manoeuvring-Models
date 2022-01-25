@@ -21,3 +21,4 @@ kedro-viz
 sklearn
 dill
 jupyterlab-mathjax3
+jupyter-book

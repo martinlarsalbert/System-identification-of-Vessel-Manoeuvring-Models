@@ -47,9 +47,6 @@
 {{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.track_plot_resimulate:
   type: matplotlib.MatplotlibWriter
   filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.track_plot_resimulate.png
-  save_args:
-    bbox_inches: (10,10)
-
 
 {{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.plot_resimulate:
   type: matplotlib.MatplotlibWriter
