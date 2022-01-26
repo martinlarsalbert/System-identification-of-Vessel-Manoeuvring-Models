@@ -17,3 +17,13 @@ runs_meta_data:
   load_args:
     index_col: 0
 
+covariance_matrixes:
+  type: json.JSONDataSet
+  filepath: data/03_primary/covariance_matrixes.json
+
+#ek:
+#  type: pickle.PickleDataSet
+#  filepath: data/03_primary/ek.pkl
+#  backend: dill
+#  save_args:
+#    byref: True

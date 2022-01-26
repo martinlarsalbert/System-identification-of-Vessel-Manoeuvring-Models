@@ -1,8 +1,5 @@
 (yowt)=
-# You Only Write Thrice #
-<h1>Creating Documents, Computational Notebooks
-    and Presentations From a Single Source
-</h1>
+# Parameter identification of Vessel Manoeuvring Models
 
 ```{admonition} TL;DR
 :class: warning

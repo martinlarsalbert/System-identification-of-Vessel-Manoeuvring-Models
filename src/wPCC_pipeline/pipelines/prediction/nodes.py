@@ -93,7 +93,9 @@ def plot_timeseries(data: pd.DataFrame, results: pd.DataFrame) -> plt.figure:
         return fig
 
     dataframes = {"model test": data, "simulation": results}
-    ax = plot.plot(dataframes=dataframes, keys=["y0", "psi", "u", "v", "r", "delta"])
+    ax = plot.plot(
+        dataframes=dataframes, keys=["thrust", "psi", "u", "v", "r", "delta"]
+    )
 
     return ax.get_figure()
 

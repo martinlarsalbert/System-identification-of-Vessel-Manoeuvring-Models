@@ -25,6 +25,7 @@ def create_pipeline(data_name: str = "data_ek_smooth", **kwargs):
                 ],
                 outputs="data_resimulate",
                 name="simulate_node",
+                tags=["predict"],
             ),
             node(
                 func=damping_forces,
@@ -34,6 +35,7 @@ def create_pipeline(data_name: str = "data_ek_smooth", **kwargs):
                 ],
                 outputs="data_damping_forces",
                 name="damping_forces_node",
+                tags=["predict"],
             ),
             node(
                 func=track_plot,
@@ -41,6 +43,7 @@ def create_pipeline(data_name: str = "data_ek_smooth", **kwargs):
                 inputs=[data_name, "data_resimulate", "ship_data"],
                 outputs="track_plot_resimulate",
                 name="resimulate_track_plot_node",
+                tags=["plot", "track_plot"],
             ),
             node(
                 func=plot_timeseries,
@@ -48,6 +51,7 @@ def create_pipeline(data_name: str = "data_ek_smooth", **kwargs):
                 inputs=[data_name, "data_resimulate"],
                 outputs="plot_resimulate",
                 name="resimulate_plot_node",
+                tags=["plot"],
             ),
             node(
                 func=simulation_accuracy,

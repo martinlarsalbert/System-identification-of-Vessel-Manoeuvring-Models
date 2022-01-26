@@ -9,5 +9,5 @@ thrust_channels:
   - Prop/SB/Thrust
 
 lowpass:
-  cutoff: 1.0
+  cutoff: 10.0
   order: 1

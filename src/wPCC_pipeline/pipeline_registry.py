@@ -80,6 +80,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
             inputs={
                 f"ek": "ek",  # (Overriding the namespace)
                 f"ship_data": "ship_data",
+                "covariance_matrixes": "covariance_matrixes",
             },
         )
 

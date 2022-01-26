@@ -30,7 +30,11 @@ def create_pipeline(**kwargs):
             ),
             node(
                 func=filter,
-                inputs=["data_with_thrust", "params:lowpass"],
+                inputs=[
+                    "data_with_thrust",
+                    "params:lowpass.cutoff",
+                    "params:lowpass.order",
+                ],
                 outputs="data_lowpass",
                 name="lowpass_filter_node",
             ),

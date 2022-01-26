@@ -22,7 +22,7 @@ def create_pipeline(**kwargs):
             ),
             node(
                 func=extended_kalman_filter,
-                inputs=["ek", "data"],
+                inputs=["ek", "data", "covariance_matrixes"],
                 outputs=["ek_filtered", "data_ek_filter"],
                 name="extended_kalman_filter_node",
             ),

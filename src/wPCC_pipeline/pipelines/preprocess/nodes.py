@@ -53,7 +53,7 @@ def track_plot(df: pd.DataFrame, ship_data: dict):
     return fig
 
 
-def filter(df: pd.DataFrame, cutoff: float, order=1) -> pd.DataFrame:
+def filter(df: pd.DataFrame, cutoff: float = 1.0, order=1) -> pd.DataFrame:
     """Lowpass filter and calculate velocities and accelerations with numeric differentiation
 
     Parameters
@@ -78,7 +78,9 @@ def filter(df: pd.DataFrame, cutoff: float, order=1) -> pd.DataFrame:
 
     position_keys = ["x0", "y0", "psi"]
     for key in position_keys:
-        df_lowpass[key] = lowpass_filter(data=df_lowpass[key], fs=fs, cutoff=1, order=1)
+        df_lowpass[key] = lowpass_filter(
+            data=df_lowpass[key], fs=fs, cutoff=cutoff, order=order
+        )
 
     df_lowpass["x01d_gradient"] = x1d_ = np.gradient(df_lowpass["x0"], t)
     df_lowpass["y01d_gradient"] = y1d_ = np.gradient(df_lowpass["y0"], t)
@@ -91,7 +93,9 @@ def filter(df: pd.DataFrame, cutoff: float, order=1) -> pd.DataFrame:
 
     velocity_keys = ["u", "v", "r"]
     for key in velocity_keys:
-        df_lowpass[key] = lowpass_filter(data=df_lowpass[key], fs=fs, cutoff=1, order=1)
+        df_lowpass[key] = lowpass_filter(
+            data=df_lowpass[key], fs=fs, cutoff=cutoff, order=order
+        )
 
     return df_lowpass
 
@@ -101,10 +105,12 @@ def assemble_data(df_lowpass: pd.DataFrame, raw_data: pd.DataFrame) -> pd.DataFr
     data = df_lowpass.copy()
 
     # This is giving numpy.linalg.LinAlgError: SVD did not converge in the EK
-    # for key in ["x0", "y0", "psi"]:
-    #    data[key] = raw_data[key]  # Initial position measurements are preserved
+    for key in ["x0", "y0", "psi"]:
+        data[key] = raw_data[key].values  # Initial position measurements are preserved
 
-    data = data.iloc[200:-100].copy()
-    data.index -= data.index[0]
+    # data = data.iloc[200:-100].copy()
+    # data.index -= data.index[0]
+
+    # data.dropna(subset=["x0", "y0", "psi", "u", "v", "r"], inplace=True)
 
     return data
