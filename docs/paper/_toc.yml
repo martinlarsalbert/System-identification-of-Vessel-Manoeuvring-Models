@@ -8,5 +8,6 @@ defaults:
   
 root: index
 sections:
-- file: markdown
-- file: notebooks
+- file: 02.01_VMMs
+- file: 03.01_inverse_dynamics
+- file: bibligraphy

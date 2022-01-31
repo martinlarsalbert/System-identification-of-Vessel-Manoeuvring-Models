@@ -6,6 +6,7 @@
 {{ vmm }}.{{ regression }}.{{ id }}.data_resimulate:
   type: pandas.CSVDataSet
   filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ id }}/{{ vmm }}.{{ regression }}.{{ id }}.data_resimulate.csv
+  versioned: true
   load_args:
     index_col: 0
   save_args:
@@ -29,9 +30,10 @@
     index: True
 
 {{ vmm }}.{{ regression }}.{{ id }}.simulation_accuracy:
-  type: tracking.MetricsDataSet
+  #type: tracking.MetricsDataSet
+  type: json.JSONDataSet
   filepath: data/09_tracking/{{ vmm }}.{{ regression }}.{{ id }}.simulation_accuracy.json
-
+  versioned: True
 
 ## Joins:
       {% for join in joins %}  # (runs defined in join_globals.yml)
@@ -61,8 +63,10 @@
     index: True
 
 {{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.simulation_accuracy:
-  type: tracking.MetricsDataSet
+  #type: tracking.MetricsDataSet
+  type: json.JSONDataSet
   filepath: data/09_tracking/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.simulation_accuracy.json
+  versioned: True
 
       {% endfor %}
     {% endfor %}

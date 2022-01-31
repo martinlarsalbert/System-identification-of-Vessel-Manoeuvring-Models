@@ -22,3 +22,9 @@ def vmm_martins_simple_model() -> VMM:
     from src.models.vmm_martin_simple import martins_simple_model
 
     return martins_simple_model
+
+
+def vmm_abkowitz_model() -> VMM:
+    from src.models.vmm_abkowitz import abkowitz_model
+
+    return abkowitz_model

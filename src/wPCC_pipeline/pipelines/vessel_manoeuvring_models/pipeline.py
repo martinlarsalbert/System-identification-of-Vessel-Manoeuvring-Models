@@ -5,7 +5,12 @@ generated using Kedro 0.17.6
 
 from kedro.pipeline import Pipeline, node
 
-from .nodes import martins_model, vmm_linear, vmm_martins_simple_model
+from .nodes import (
+    martins_model,
+    vmm_linear,
+    vmm_martins_simple_model,
+    vmm_abkowitz_model,
+)
 
 
 def create_pipeline(**kwargs):
@@ -30,6 +35,13 @@ def create_pipeline(**kwargs):
                 inputs=[],
                 outputs="vmm_martins_simple",
                 name="vmm_martins_simple_model_node",
+                tags=["vessel_manoeuvring_models"],
+            ),
+            node(
+                func=vmm_abkowitz_model,
+                inputs=[],
+                outputs="vmm_abkowitz",
+                name="vmm_abkowitz_model_node",
                 tags=["vessel_manoeuvring_models"],
             ),
         ]

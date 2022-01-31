@@ -7,9 +7,10 @@ import pandas as pd
 from src.models.vmm import ModelSimulator
 import matplotlib.pyplot as plt
 import src.visualization.plot as plot
-from sklearn.metrics import r2_score
+from sklearn.metrics import r2_score, mean_squared_error
 
 import logging
+import numpy as np
 
 log = logging.getLogger("kedro.pipeline")
 
@@ -105,7 +106,7 @@ def simulation_accuracy(
 ) -> dict:
 
     accuracies = {
-        key: r2_score(y_true=data[key], y_pred=results[key])
+        key: np.sqrt(mean_squared_error(y_true=data[key], y_pred=results[key]))
         for key in keys
         if results[key].notnull().all() and len(data[key]) == len(results[key])
     }

@@ -1,8 +1,11 @@
 vmms:  # (What Vessel Manoeuvring Models to include)
+#- vmm_abkowitz (Not working with motion regression...)
 - vmm_martin
-#- vmm_linear
-#- vmm_martins_simple
+- vmm_linear
+- vmm_martins_simple
 
 regressions:  # (What kind of regression to perform)
 - force_regression
 - motion_regression
+
+only_joined: False  # (regress/predict with only models from joined runs)

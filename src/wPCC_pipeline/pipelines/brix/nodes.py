@@ -60,6 +60,9 @@ def initial_parameters(ship_data: dict) -> dict:
     df_parameters.loc["Yuv", "prime"] = 0.0
     df_parameters.loc["Nvdeltadelta", "prime"] = 0.0
 
+    df_parameters.loc["Ythrustdelta", "prime"] = 0.0
+    df_parameters.loc["Nthrustdelta", "prime"] = 0.0
+
     parameters = df_parameters["prime"].dropna().to_dict()
 
     return parameters

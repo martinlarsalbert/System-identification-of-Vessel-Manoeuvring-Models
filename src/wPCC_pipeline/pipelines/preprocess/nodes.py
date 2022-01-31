@@ -108,8 +108,8 @@ def assemble_data(df_lowpass: pd.DataFrame, raw_data: pd.DataFrame) -> pd.DataFr
     for key in ["x0", "y0", "psi"]:
         data[key] = raw_data[key].values  # Initial position measurements are preserved
 
-    # data = data.iloc[200:-100].copy()
-    # data.index -= data.index[0]
+    data = data.iloc[200:-100].copy()
+    data.index -= data.index[0]
 
     # data.dropna(subset=["x0", "y0", "psi", "u", "v", "r"], inplace=True)
 
