@@ -23,19 +23,19 @@ model_test_ids:
 - "22639" # ref speed 8
 #- "22762"
 #- "22763"
-#- "22764"
+- "22764"  # ZZ10 SB (Report)
 #- "22765"
 #- "22768"
-#- "22769"
-- "22770"
-- "22771"
-- "22772"
-- "22773"
-- "22774"
-- "22775"
+- "22769"   # ZZ10 PS (Report)
+- "22770"   # ZZ10 PS 
+- "22771"   # ZZ20 SB
+- "22772"   # ZZ20 SB (Report)
+- "22773"   # ZZ20 PS (Report)
+- "22774"   # circle (Report)
+#- "22775"  # (Sailing test) 
 #- "22776"
 
 joins:
 - joined  ## Mandatory
 #- reference_speed
-- spirals
+#- spirals

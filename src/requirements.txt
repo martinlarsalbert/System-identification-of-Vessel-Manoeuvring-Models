@@ -108,6 +108,7 @@ docutils==0.16
     #   sphinx
     #   sphinx-book-theme
     #   sphinx-panels
+    #   sphinx-proof
     #   sphinx-togglebutton
     #   sphinxcontrib-bibtex
 dynaconf==3.1.7
@@ -555,11 +556,14 @@ sphinx==4.4.0
     #   sphinx-jupyterbook-latex
     #   sphinx-multitoc-numbering
     #   sphinx-panels
+    #   sphinx-proof
     #   sphinx-thebe
     #   sphinx-togglebutton
     #   sphinxcontrib-bibtex
 sphinx-book-theme==0.1.10
-    # via jupyter-book
+    # via
+    #   jupyter-book
+    #   sphinx-proof
 sphinx-comments==0.0.3
     # via jupyter-book
 sphinx-copybutton==0.4.0
@@ -572,6 +576,8 @@ sphinx-multitoc-numbering==0.1.3
     # via jupyter-book
 sphinx-panels==0.6.0
     # via jupyter-book
+sphinx-proof==0.1.3
+    # via -r E:\dev\wPCC_pipeline\src\requirements.in
 sphinx-thebe==0.0.10
     # via jupyter-book
 sphinx-togglebutton==0.2.3

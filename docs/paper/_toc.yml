@@ -9,5 +9,7 @@ defaults:
 root: index
 sections:
 - file: 02.01_VMMs
+- file: 05.01_model_tests
 - file: 03.01_inverse_dynamics
+- file: 04.01_EK
 - file: bibligraphy
