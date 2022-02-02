@@ -56,6 +56,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     )
     global_variables = anyconfig.load(globals_path)
     vmms = global_variables["vmms"]
+    regressions = global_variables["regressions"]
     only_joined = global_variables[
         "only_joined"
     ]  # (regress/predict with only models from joined runs)
@@ -274,6 +275,26 @@ def register_pipelines() -> Dict[str, Pipeline]:
                 },
             )
 
+    ## accuracy:
+    accuracy_pipelines = {}
+
+    for vmm in vmms:
+
+        for join_name in join_runs_dict.keys():
+
+            for id in model_test_ids:
+
+                key = f"accuracy.{vmm}.motion_regression.{join_name}.{id}"
+                accuracy_pipelines[key] = pipeline(
+                    accuracy.create_pipeline(),
+                    namespace=f"{vmm}.motion_regression.{join_name}.{id}",
+                    inputs={
+                        "data_ek_smooth": f"{id}.data_ek_smooth",
+                        "ek": f"{vmm}.ek",
+                        "model": f"{ vmm }.motion_regression.{ join_name }.model",
+                    },
+                )
+
     return_dict = {}
     return_dict["__default__"] = (
         ship_pipeline
@@ -285,6 +306,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + vct_data_pipeline
         + reduce(add, force_regression_pipelines.values())
         + reduce(add, prediction_pipelines.values())
+        + reduce(add, accuracy_pipelines.values())
     )
     return_dict["ship"] = ship_pipeline
     return_dict["motion_regression"] = reduce(add, motion_regression_pipelines.values())
@@ -314,6 +336,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     return_dict["vct_data_pipeline"] = vct_data_pipeline
     return_dict["vmm"] = vessel_manoeuvring_models_pipeline
     return_dict["ek"] = reduce(add, ek_pipelines.values())
+    return_dict["accuracy"] = reduce(add, accuracy_pipelines.values())
     """
     kedro run --pipeline ship
     kedro run --pipeline motion_regression

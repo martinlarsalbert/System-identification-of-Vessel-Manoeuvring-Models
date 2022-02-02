@@ -68,6 +68,21 @@
   filepath: data/09_tracking/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.simulation_accuracy.json
   versioned: True
 
+## Accuracy:
+{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_online_predict:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_online_predict.csv
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+
+{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.online_prediction_rmse:
+  type: json.JSONDataSet
+  filepath: data/09_tracking/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_online_predict_rmse.csv
+  versioned: True
+
+
       {% endfor %}
     {% endfor %}
   {% endfor %}
