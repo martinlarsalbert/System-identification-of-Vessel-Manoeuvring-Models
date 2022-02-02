@@ -18,6 +18,7 @@ from .pipelines import join_runs
 from .pipelines import force_regression
 from .pipelines import vessel_manoeuvring_models
 from .pipelines import vct_data
+from .pipelines import accuracy
 from wPCC_pipeline import pipelines
 
 
@@ -61,12 +62,20 @@ def register_pipelines() -> Dict[str, Pipeline]:
 
     ########## Pipelines:
 
-    ship_pipeline = pipeline(
-        brix.create_pipeline() + extended_kalman.create_pipeline(),
-        inputs={
-            "vmm": "vmm_martin",
-        },
-    )
+    ship_pipeline = brix.create_pipeline()
+
+    ek_pipelines = {}
+    for vmm in vmms:
+        key = f"ek.{vmm}"
+        ek_pipelines[key] = pipeline(
+            extended_kalman.create_pipeline(),
+            namespace=f"{vmm}",
+            inputs={
+                "vmm": vmm,
+                "initial_parameters": "initial_parameters",
+                "ship_data": "ship_data",
+            },
+        )
 
     vct_data_pipeline = pipeline(
         vct_data.create_pipeline(),
@@ -82,7 +91,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
             + filter_data_extended_kalman.create_pipeline(),
             namespace=f"{id}",
             inputs={
-                f"ek": "ek",  # (Overriding the namespace)
+                f"ek": "vmm_martin.ek",  # (Overriding the namespace)
                 f"ship_data": "ship_data",
                 "covariance_matrixes": "covariance_matrixes",
             },
@@ -271,6 +280,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + reduce(add, runs_pipelines.values())
         + reduce(add, joined_pipelines.values())
         + vessel_manoeuvring_models_pipeline
+        + reduce(add, ek_pipelines.values())
         + reduce(add, motion_regression_pipelines.values())
         + vct_data_pipeline
         + reduce(add, force_regression_pipelines.values())
@@ -295,6 +305,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + reduce(add, prediction_pipelines.values())
     )
 
+    return_dict.update(ek_pipelines)
     return_dict.update(runs_pipelines)
     return_dict.update(motion_regression_pipelines)
     return_dict.update(force_regression_pipelines)
@@ -302,7 +313,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     return_dict.update(joined_pipelines)
     return_dict["vct_data_pipeline"] = vct_data_pipeline
     return_dict["vmm"] = vessel_manoeuvring_models_pipeline
-
+    return_dict["ek"] = reduce(add, ek_pipelines.values())
     """
     kedro run --pipeline ship
     kedro run --pipeline motion_regression

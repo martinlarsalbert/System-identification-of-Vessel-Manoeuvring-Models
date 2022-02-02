@@ -7,6 +7,10 @@ ship_data:
   type: yaml.YAMLDataSet
   filepath: data/01_raw/ship_data.yml
 
+initial_parameters:
+  type: yaml.YAMLDataSet
+  filepath: data/02_intermediate/initial_parameters.yml
+
 added_masses:
   type: yaml.YAMLDataSet
   filepath: data/02_intermediate/added_masses.yml

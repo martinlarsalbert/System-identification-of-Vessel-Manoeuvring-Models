@@ -5,4 +5,8 @@
   filepath: data/05_model_input/{{ vmm }}.pkl
   backend: dill
 
+{{ vmm }}.ek:
+  type: ek_dataset.ExtendedKalmanDataSet
+  filepath: data/03_primary/{{ vmm }}.ek.pkl
+
 {% endfor %}
