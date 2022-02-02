@@ -29,6 +29,7 @@ def extended_kalman_filter(
     ek: ExtendedKalman,
     data: pd.DataFrame,
     covariance_matrixes: dict,
+    input_columns=["delta", "thrust"],
 ):
     """Filter with existing Extended Kalman filter
 
@@ -86,7 +87,7 @@ def extended_kalman_filter(
         Rd=Rd,
         E=E,
         Cd=Cd,
-        input_columns=["delta", "thrust"],
+        input_columns=input_columns,
         # x0=x0,
     )
 

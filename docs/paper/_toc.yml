@@ -12,4 +12,5 @@ sections:
 - file: 05.01_model_tests
 - file: 03.01_inverse_dynamics
 - file: 04.01_EK
+- file: 06.01_results
 - file: bibligraphy

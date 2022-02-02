@@ -157,3 +157,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+docs/paper/_build/
