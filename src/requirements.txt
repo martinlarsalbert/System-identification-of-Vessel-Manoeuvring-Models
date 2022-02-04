@@ -125,6 +125,8 @@ fonttools==4.28.5
     # via matplotlib
 fsspec==2021.11.1
     # via kedro
+ghp-import==2.0.2
+    # via -r E:\dev\wPCC_pipeline\src\requirements.in
 gitdb==4.0.9
     # via gitpython
 gitpython==3.1.26
@@ -457,6 +459,7 @@ pytest-mock==1.13.0
 python-dateutil==2.8.2
     # via
     #   arrow
+    #   ghp-import
     #   jupyter-client
     #   matplotlib
     #   pandas

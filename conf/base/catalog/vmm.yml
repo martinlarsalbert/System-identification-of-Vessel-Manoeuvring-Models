@@ -9,4 +9,8 @@
   type: ek_dataset.ExtendedKalmanDataSet
   filepath: data/03_primary/{{ vmm }}.ek.pkl
 
+{{ vmm }}.covariance_matrixes:
+  type: json.JSONDataSet
+  filepath: data/03_primary/{{ vmm }}.covariance_matrixes.json
+
 {% endfor %}

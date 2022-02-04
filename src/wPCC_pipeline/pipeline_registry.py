@@ -94,7 +94,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
             inputs={
                 f"ek": "vmm_martin.ek",  # (Overriding the namespace)
                 f"ship_data": "ship_data",
-                "covariance_matrixes": "covariance_matrixes",
+                "covariance_matrixes": "vmm_martin.covariance_matrixes",
             },
         )
 
@@ -211,6 +211,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                         f"ship_data": "ship_data",
                         f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
                         f"motion_regression.{id}.force_regression.data_scaled_resistance_corrected": "force_regression.data_scaled_resistance_corrected",
+                        f"{vmm}.motion_regression.{id}.ek": f"{vmm}.ek",
                     },
                 )
 
@@ -242,6 +243,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                         f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
                         f"{vmm}.motion_regression.{join_name}.model": f"{vmm}.motion_regression.{join_name}.model",
                         f"motion_regression.{join_name}.{id}.force_regression.data_scaled_resistance_corrected": "force_regression.data_scaled_resistance_corrected",
+                        f"motion_regression.{join_name}.{id}.ek": f"{vmm}.ek",
                     },
                 )
 
@@ -272,6 +274,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                     f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
                     f"{vmm}.force_regression.model": f"{vmm}.force_regression.model",
                     f"force_regression.{id}.force_regression.data_scaled_resistance_corrected": "force_regression.data_scaled_resistance_corrected",
+                    f"force_regression.{id}.ek": f"{vmm}.ek",
                 },
             )
 
@@ -292,6 +295,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                         "data_ek_smooth": f"{id}.data_ek_smooth",
                         "ek": f"{vmm}.ek",
                         "model": f"{ vmm }.motion_regression.{ join_name }.model",
+                        "ship_data": "ship_data",
                     },
                 )
 
@@ -332,7 +336,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     return_dict.update(motion_regression_pipelines)
     return_dict.update(force_regression_pipelines)
     return_dict.update(prediction_pipelines)
-    return_dict.update(joined_pipelines)
+    # return_dict.update(joined_pipelines)
     return_dict["vct_data_pipeline"] = vct_data_pipeline
     return_dict["vmm"] = vessel_manoeuvring_models_pipeline
     return_dict["ek"] = reduce(add, ek_pipelines.values())

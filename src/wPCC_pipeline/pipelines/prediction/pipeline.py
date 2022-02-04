@@ -6,6 +6,8 @@ generated using Kedro 0.17.6
 from kedro.pipeline import Pipeline, node
 from .nodes import (
     simulate,
+    simulate_with_time_out,
+    simulate_euler,
     track_plot,
     plot_timeseries,
     damping_forces,
@@ -16,12 +18,23 @@ from .nodes import (
 def create_pipeline(data_name: str = "data_ek_smooth", **kwargs):
     return Pipeline(
         [
+            # node(
+            #    func=simulate,
+            #    # inputs=["data", "model_motion_regression"],
+            #    inputs=[
+            #        data_name,  # Which data to use here is not obvious...
+            #        "model",
+            #    ],
+            #    outputs="data_resimulate",
+            #    name="simulate_node",
+            #    tags=["predict"],
+            # ),
             node(
-                func=simulate,
-                # inputs=["data", "model_motion_regression"],
+                func=simulate_euler,
                 inputs=[
                     data_name,  # Which data to use here is not obvious...
                     "model",
+                    "ek",
                 ],
                 outputs="data_resimulate",
                 name="simulate_node",

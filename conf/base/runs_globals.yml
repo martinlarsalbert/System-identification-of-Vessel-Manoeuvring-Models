@@ -38,5 +38,10 @@ model_test_ids:
 joins:
 - joined  ## Mandatory
 #- reference_speed
-- spirals
-- report
+#- spirals
+#- report
+- no_circle
+- no_ZZ10
+- no_ZZ20
+
+

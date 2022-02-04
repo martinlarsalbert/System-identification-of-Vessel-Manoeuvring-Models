@@ -5,9 +5,11 @@ generated using Kedro 0.17.6
 
 import pandas as pd
 from src.models.vmm import ModelSimulator
+from src.extended_kalman_vmm import ExtendedKalman
 import matplotlib.pyplot as plt
 import src.visualization.plot as plot
 from sklearn.metrics import r2_score, mean_squared_error
+from inspect import signature
 
 import logging
 import numpy as np
@@ -42,6 +44,70 @@ def simulate(data: pd.DataFrame, model: ModelSimulator) -> pd.DataFrame:
         df = results.result
 
     return df
+
+
+def simulate_euler(
+    data: pd.DataFrame,
+    model: ModelSimulator,
+    ek: ExtendedKalman,
+) -> pd.DataFrame:
+    """Resimulate model test data with a model
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Model test time series
+    model : ModelSimulator
+        simulation model
+
+    Returns
+    -------
+    pd.DataFrame
+        resimulated data
+    """
+
+    ek = ek.copy()
+    ek.parameters = model.parameters  # Update the parameters!!!
+
+    data = data.copy()
+    data["U"] = np.sqrt(data["u"] ** 2 + data["v"] ** 2)
+
+    input_columns = model.control_keys + ["U"]
+    s = signature(ek._lambda_f)
+    input_columns = list(set(input_columns) & set(s.parameters.keys()))
+
+    df = ek.simulate(data=data, input_columns=input_columns)
+
+    return df
+
+
+import multiprocessing as mp
+import multiprocessing.queues as mpq
+
+
+def sim_worker(q, data, model):
+    df = simulate(data=data, model=model)
+    q.put(df)
+
+
+def simulate_with_time_out(
+    data: pd.DataFrame, model: ModelSimulator, timeout=1000
+) -> pd.DataFrame:
+
+    # mp.set_start_method("spawn")
+    q = mp.Queue()
+    p = mp.Process(target=sim_worker, args=(q, data, model))
+    p.start()
+
+    try:
+        res = q.get(timeout=timeout)
+        print(res)
+        p.join()
+
+    except mpq.Empty as e:
+        p.terminate()
+        log.error("Timeout!")
+        raise e
 
 
 def damping_forces(data: pd.DataFrame, model: ModelSimulator):

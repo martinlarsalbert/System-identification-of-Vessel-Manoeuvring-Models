@@ -80,7 +80,7 @@ def extended_kalman_filter(
         ],
     )
 
-    ek.filter(
+    time_steps = ek.filter(
         data=data,
         P_prd=P_prd,
         Qd=Qd,
@@ -91,12 +91,28 @@ def extended_kalman_filter(
         # x0=x0,
     )
 
-    return ek, ek.df_kalman
+    return ek, ek.df_kalman, time_steps
 
 
 def extended_kalman_smoother(
-    ek: ExtendedKalman,
+    ek: ExtendedKalman, data: pd.DataFrame, time_steps, covariance_matrixes: dict
 ):
-    ek.smoother()
+
+    E = np.array(
+        [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0],
+            [1, 0, 0],
+            [0, 1, 0],
+            [0, 0, 1],
+        ],
+    )
+
+    ek.Qd = covariance_matrixes["Qd"]
+    ek.E = E
+
+    ek.smoother(time_steps=time_steps)
+    ek.data = data
 
     return ek, ek.df_smooth
