@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2. Model tests &#8212; Parameter identification of Vessel Manoeuvring Models</title>
+    <title>4. Hold-out &#8212; Parameter identification of Vessel Manoeuvring Models</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,8 +53,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="3. Inverse dynamics" href="03.01_inverse_dynamics.html" />
-    <link rel="prev" title="1. Vessel Manoeuvring Models" href="02.01_VMMs.html" />
+    <link rel="next" title="6. Results" href="06.01_results.html" />
+    <link rel="prev" title="3. Robustness" href="07.10_robustness.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -104,8 +104,8 @@
    1. Vessel Manoeuvring Models
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.01_model_tests.html">
    2. Model tests
   </a>
  </li>
@@ -119,16 +119,16 @@
    4. Discrete-time Extended Kalman
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="07.01_accuracy_and_robustness.html">
    5. Accuracy and robustness
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="07.02_key_characteristics_accuracy.html">
      1. Key characteristics accuracy
@@ -144,8 +144,8 @@
      3. Robustness
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.11_hold_out.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      4. Hold-out
     </a>
    </li>
@@ -202,7 +202,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/05.01_model_tests.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/07.11_hold_out.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -222,7 +222,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/martinlarsalbert/wPCC_pipeline/issues/new?title=Issue%20on%20page%20%2F05.01_model_tests.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/martinlarsalbert/wPCC_pipeline/issues/new?title=Issue%20on%20page%20%2F07.11_hold_out.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -243,7 +243,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/martinlarsalbert/wPCC_pipeline/master?urlpath=tree/docs/paper/05.01_model_tests.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/martinlarsalbert/wPCC_pipeline/master?urlpath=tree/docs/paper/07.11_hold_out.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -267,7 +267,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Model tests</h1>
+                <h1>Hold-out</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -278,154 +278,38 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="model-tests">
-<h1><span class="section-number">2. </span>Model tests<a class="headerlink" href="#model-tests" title="Permalink to this headline">¶</a></h1>
-<p>VMM:s will be developed for the reference ship using motion regression based on a series of model tests with a model that is free in six degrees of freedome. A summary of the available model tests is shown in <a class="reference internal" href="#tab-df-runs-table"><span class="std std-ref">Model tests</span></a>.</p>
-<div class="figure align-default" id="tab-df-runs-table">
+  <div class="section" id="hold-out">
+<h1><span class="section-number">4. </span>Hold-out<a class="headerlink" href="#hold-out" title="Permalink to this headline">¶</a></h1>
+<p>One way to consider the robustness of the VMM:s is to hold-out one of the test types from the training data and then make a prediction on this test type.</p>
+<p>Fig.<a class="reference internal" href="#fig-joined"><span class="std std-ref">Predictions of turning circle with VMM:s trained on all model tests.</span></a> shows the track plots from the turning circle model test and simulations with the VMM:s. The VMM:s have been trained on all the model tests and it can be seen that all of the VMM:s, except the linear model, is in good agreement with the model test.</p>
+<p>Corresponding simulations have also been conducted with VMM:s where the turning circle test has been exluded from the training set (hold-out). Result from these simulations can be seen in Fig.<a class="reference internal" href="#fig-no-circle"><span class="std std-ref">Predictions of turning circle with VMM:s trained on turning circle as hold out.</span></a>. Only two of the simpler models were able to complete the simulations for this case. Simulations with these models also have less agreement with the model tests then before.</p>
+<div class="figure align-default" id="fig-joined" style="width: 600px">
 <div class="cell_output docutils container">
-<div class="output text_html"><style type="text/css">
-</style>
-<table id="T_497d1_">
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th class="col_heading level0 col0" >Initial speed [m/s]</th>
-      <th class="col_heading level0 col1" >type</th>
-      <th class="col_heading level0 col2" >angle</th>
-      <th class="col_heading level0 col3" >direction</th>
-    </tr>
-    <tr>
-      <th class="index_name level0" >id</th>
-      <th class="blank col0" >&nbsp;</th>
-      <th class="blank col1" >&nbsp;</th>
-      <th class="blank col2" >&nbsp;</th>
-      <th class="blank col3" >&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_497d1_level0_row0" class="row_heading level0 row0" >22639</th>
-      <td id="T_497d1_row0_col0" class="data row0 col0" >0.64</td>
-      <td id="T_497d1_row0_col1" class="data row0 col1" >reference speed</td>
-      <td id="T_497d1_row0_col2" class="data row0 col2" ></td>
-      <td id="T_497d1_row0_col3" class="data row0 col3" ></td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row1" class="row_heading level0 row1" >22635</th>
-      <td id="T_497d1_row1_col0" class="data row1 col0" >0.80</td>
-      <td id="T_497d1_row1_col1" class="data row1 col1" >reference speed</td>
-      <td id="T_497d1_row1_col2" class="data row1 col2" ></td>
-      <td id="T_497d1_row1_col3" class="data row1 col3" ></td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row2" class="row_heading level0 row2" >22611</th>
-      <td id="T_497d1_row2_col0" class="data row2 col0" >0.96</td>
-      <td id="T_497d1_row2_col1" class="data row2 col1" >reference speed</td>
-      <td id="T_497d1_row2_col2" class="data row2 col2" ></td>
-      <td id="T_497d1_row2_col3" class="data row2 col3" ></td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row3" class="row_heading level0 row3" >22774</th>
-      <td id="T_497d1_row3_col0" class="data row3 col0" >0.96</td>
-      <td id="T_497d1_row3_col1" class="data row3 col1" >turning circle</td>
-      <td id="T_497d1_row3_col2" class="data row3 col2" ></td>
-      <td id="T_497d1_row3_col3" class="data row3 col3" ></td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row4" class="row_heading level0 row4" >22612</th>
-      <td id="T_497d1_row4_col0" class="data row4 col0" >0.96</td>
-      <td id="T_497d1_row4_col1" class="data row4 col1" >yaw rate</td>
-      <td id="T_497d1_row4_col2" class="data row4 col2" ></td>
-      <td id="T_497d1_row4_col3" class="data row4 col3" ></td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row5" class="row_heading level0 row5" >22613</th>
-      <td id="T_497d1_row5_col0" class="data row5 col0" >0.96</td>
-      <td id="T_497d1_row5_col1" class="data row5 col1" >yaw rate</td>
-      <td id="T_497d1_row5_col2" class="data row5 col2" ></td>
-      <td id="T_497d1_row5_col3" class="data row5 col3" ></td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row6" class="row_heading level0 row6" >22614</th>
-      <td id="T_497d1_row6_col0" class="data row6 col0" >0.96</td>
-      <td id="T_497d1_row6_col1" class="data row6 col1" >yaw rate</td>
-      <td id="T_497d1_row6_col2" class="data row6 col2" ></td>
-      <td id="T_497d1_row6_col3" class="data row6 col3" ></td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row7" class="row_heading level0 row7" >22615</th>
-      <td id="T_497d1_row7_col0" class="data row7 col0" >0.96</td>
-      <td id="T_497d1_row7_col1" class="data row7 col1" >yaw rate</td>
-      <td id="T_497d1_row7_col2" class="data row7 col2" ></td>
-      <td id="T_497d1_row7_col3" class="data row7 col3" ></td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row8" class="row_heading level0 row8" >22616</th>
-      <td id="T_497d1_row8_col0" class="data row8 col0" >0.96</td>
-      <td id="T_497d1_row8_col1" class="data row8 col1" >yaw rate</td>
-      <td id="T_497d1_row8_col2" class="data row8 col2" ></td>
-      <td id="T_497d1_row8_col3" class="data row8 col3" ></td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row9" class="row_heading level0 row9" >22764</th>
-      <td id="T_497d1_row9_col0" class="data row9 col0" >0.96</td>
-      <td id="T_497d1_row9_col1" class="data row9 col1" >zigzag</td>
-      <td id="T_497d1_row9_col2" class="data row9 col2" >10</td>
-      <td id="T_497d1_row9_col3" class="data row9 col3" >SB</td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row10" class="row_heading level0 row10" >22769</th>
-      <td id="T_497d1_row10_col0" class="data row10 col0" >0.96</td>
-      <td id="T_497d1_row10_col1" class="data row10 col1" >zigzag</td>
-      <td id="T_497d1_row10_col2" class="data row10 col2" >10</td>
-      <td id="T_497d1_row10_col3" class="data row10 col3" >PS</td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row11" class="row_heading level0 row11" >22770</th>
-      <td id="T_497d1_row11_col0" class="data row11 col0" >0.96</td>
-      <td id="T_497d1_row11_col1" class="data row11 col1" >zigzag</td>
-      <td id="T_497d1_row11_col2" class="data row11 col2" >10</td>
-      <td id="T_497d1_row11_col3" class="data row11 col3" >PS</td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row12" class="row_heading level0 row12" >22771</th>
-      <td id="T_497d1_row12_col0" class="data row12 col0" >0.96</td>
-      <td id="T_497d1_row12_col1" class="data row12 col1" >zigzag</td>
-      <td id="T_497d1_row12_col2" class="data row12 col2" >20</td>
-      <td id="T_497d1_row12_col3" class="data row12 col3" >SB</td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row13" class="row_heading level0 row13" >22772</th>
-      <td id="T_497d1_row13_col0" class="data row13 col0" >0.96</td>
-      <td id="T_497d1_row13_col1" class="data row13 col1" >zigzag</td>
-      <td id="T_497d1_row13_col2" class="data row13 col2" >20</td>
-      <td id="T_497d1_row13_col3" class="data row13 col3" >SB</td>
-    </tr>
-    <tr>
-      <th id="T_497d1_level0_row14" class="row_heading level0 row14" >22773</th>
-      <td id="T_497d1_row14_col0" class="data row14 col0" >0.96</td>
-      <td id="T_497d1_row14_col1" class="data row14 col1" >zigzag</td>
-      <td id="T_497d1_row14_col2" class="data row14 col2" >20</td>
-      <td id="T_497d1_row14_col3" class="data row14 col3" >PS</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-<p class="caption"><span class="caption-number">Fig. 2.1 </span><span class="caption-text">Model tests</span><a class="headerlink" href="#tab-df-runs-table" title="Permalink to this image">¶</a></p>
+<img alt="_images/07.11_hold_out_3_1.png" src="_images/07.11_hold_out_3_1.png" />
 </div>
-<div class="cell tag_remove-input docutils container">
+<p class="caption"><span class="caption-number">Fig. 4.1 </span><span class="caption-text">Predictions of turning circle with VMM:s trained on all model tests.</span><a class="headerlink" href="#fig-joined" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="fig-no-circle" style="width: 600px">
 <div class="cell_output docutils container">
-<img alt="_images/05.01_model_tests_6_0.png" src="_images/05.01_model_tests_6_0.png" />
-<img alt="_images/05.01_model_tests_6_1.png" src="_images/05.01_model_tests_6_1.png" />
-<img alt="_images/05.01_model_tests_6_2.png" src="_images/05.01_model_tests_6_2.png" />
+<img alt="_images/07.11_hold_out_3_3.png" src="_images/07.11_hold_out_3_3.png" />
 </div>
+<p class="caption"><span class="caption-number">Fig. 4.2 </span><span class="caption-text">Predictions of turning circle with VMM:s trained on turning circle as hold out.</span><a class="headerlink" href="#fig-no-circle" title="Permalink to this image">¶</a></p>
 </div>
-<div class="cell tag_remove-input docutils container">
+<p>The same procedure can also be applied with ZigZag10/10 as hold-out and ZigZag20/20 as hold-out. As a reference, the accuracy for ZigZag10/10, ZigZag20/20 and turning circle from all VMM:s trained on all data is showed in Fig.<a class="reference internal" href="#fig-ref"><span class="std std-ref">RMSE for ZigZag10/10, ZigZag20/20 and turning circle, for all the VMM:s trained on all model tests.</span></a>. How the accuracy of these test types change with hold-out-tests is shown in Fig. <a class="reference internal" href="#fig-hold-outs"><span class="std std-ref">RMSE of the total acceleration errors for all the VMM:s trained with ZigZag10/10, ZigZag20/20 and turning circle as hold out tests type.</span></a>.</p>
+<div class="figure align-default" id="fig-ref" style="width: 1000px">
 <div class="cell_output docutils container">
-<img alt="_images/05.01_model_tests_7_0.png" src="_images/05.01_model_tests_7_0.png" />
-<img alt="_images/05.01_model_tests_7_1.png" src="_images/05.01_model_tests_7_1.png" />
+<img alt="_images/07.11_hold_out_13_0.png" src="_images/07.11_hold_out_13_0.png" />
 </div>
+<p class="caption"><span class="caption-number">Fig. 4.3 </span><span class="caption-text">RMSE for ZigZag10/10, ZigZag20/20 and turning circle, for all the VMM:s trained on all model tests.</span><a class="headerlink" href="#fig-ref" title="Permalink to this image">¶</a></p>
 </div>
+<div class="figure align-default" id="fig-hold-outs" style="width: 1000px">
+<div class="cell_output docutils container">
+<img alt="_images/07.11_hold_out_11_0.png" src="_images/07.11_hold_out_11_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 4.4 </span><span class="caption-text">RMSE of the total acceleration errors for all the VMM:s trained with ZigZag10/10, ZigZag20/20 and turning circle as hold out tests type.</span><a class="headerlink" href="#fig-hold-outs" title="Permalink to this image">¶</a></p>
+</div>
+<p>All of the VMM:s seem to work for the ZigZag10/10 and 20/20 hold-out tests. The accuracy is not decreased much for these cases, compared to the reference. The ZigZag10/10 hold-out has slightly better accuracy than ZigZag20/20 hold-out for all VMM:s. In other words: predicting a ZigZag10/10 from a 20/20 model test gives better accuracy than the reversed scenario.</p>
+<p>The more complex models, such as the Abkowitz model, have poor accuracy for the Turning circle hold-out, which can even mean that they are not possible to simulate as seen in the begining of this section.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -453,17 +337,17 @@
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="02.01_VMMs.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="07.10_robustness.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">1. </span>Vessel Manoeuvring Models</p>
+            <p class="prev-next-title"><span class="section-number">3. </span>Robustness</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="03.01_inverse_dynamics.html" title="next page">
+    <a class='right-next' id="next-link" href="06.01_results.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>Inverse dynamics</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Results</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

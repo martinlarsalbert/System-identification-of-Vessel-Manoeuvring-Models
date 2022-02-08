@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1. Model tests &#8212; Parameter identification of Vessel Manoeuvring Models</title>
+    <title>2. Acceleration accuracy &#8212; Parameter identification of Vessel Manoeuvring Models</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -43,6 +43,8 @@
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -53,8 +55,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="05.01_model_tests.html" />
-    <link rel="prev" title="Vessel Manoeuvring Models" href="02.01_VMMs.html" />
+    <link rel="next" title="3. Robustness" href="07.10_robustness.html" />
+    <link rel="prev" title="1. Key characteristics accuracy" href="07.02_key_characteristics_accuracy.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -99,9 +101,29 @@
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1">
   <a class="reference internal" href="02.01_VMMs.html">
-   Vessel Manoeuvring Models
+   1. Vessel Manoeuvring Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05.01_model_tests.html">
+   2. Model tests
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01_inverse_dynamics.html">
+   3. Inverse dynamics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04.01_EK.html">
+   4. Discrete-time Extended Kalman
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="07.01_accuracy_and_robustness.html">
+   5. Accuracy and robustness
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -109,31 +131,36 @@
    </i>
   </label>
   <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="07.02_key_characteristics_accuracy.html">
+     1. Key characteristics accuracy
+    </a>
+   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     1. Model tests
+     2. Acceleration accuracy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="07.10_robustness.html">
+     3. Robustness
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="07.11_hold_out.html">
+     4. Hold-out
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="03.01_inverse_dynamics.html">
-   1. Inverse dynamics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04.01_EK.html">
-   2. Discrete-time Extended Kalman
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="06.01_results.html">
-   3. Results
+   6. Results
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="bibligraphy.html">
-   4. Bibliography
+   7. Bibliography
   </a>
  </li>
 </ul>
@@ -177,9 +204,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/05.00_model_tests.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/07.03_acceleration_accuracy.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -197,7 +224,7 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/martinlarsalbert/wPCC_pipeline/issues/new?title=Issue%20on%20page%20%2F05.00_model_tests.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/martinlarsalbert/wPCC_pipeline/issues/new?title=Issue%20on%20page%20%2F07.03_acceleration_accuracy.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -213,6 +240,23 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/martinlarsalbert/wPCC_pipeline/master?urlpath=tree/docs/paper/07.03_acceleration_accuracy.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -225,7 +269,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Model tests</h1>
+                <h1>Acceleration accuracy</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -236,9 +280,24 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="model-tests">
-<h1><span class="section-number">1. </span>Model tests<a class="headerlink" href="#model-tests" title="Permalink to this headline">¶</a></h1>
-<p>A series of model tests</p>
+  <div class="section" id="acceleration-accuracy">
+<h1><span class="section-number">2. </span>Acceleration accuracy<a class="headerlink" href="#acceleration-accuracy" title="Permalink to this headline">¶</a></h1>
+<p>The root mean square error (RMSE) of the acceleration errors are shown for all the VMM:s in Fig.<a class="reference internal" href="#fig-x-dot-rmse"><span class="std std-ref">RMSE of the acceleration errors for all the VMM:s</span></a>.</p>
+<div class="figure align-default" id="fig-x-dot-rmse" style="width: 1000px">
+<div class="cell_output docutils container">
+<img alt="_images/07.03_acceleration_accuracy_3_0.png" src="_images/07.03_acceleration_accuracy_3_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 2.2 </span><span class="caption-text">RMSE of the acceleration errors for all the VMM:s</span><a class="headerlink" href="#fig-x-dot-rmse" title="Permalink to this image">¶</a></p>
+</div>
+<p>This figure is also showing <span class="math notranslate nohighlight">\(A_{FP}\)</span> which is an attempt to express a total error of all the three DOF:s as:</p>
+<div class="math notranslate nohighlight">
+\[ A_{FP}^2 = \dot{u}^2 + \left(|\dot{v}| + \frac{L_{pp}|\dot{r}|}{2} \right)^2 \]</div>
+<div class="figure align-default" id="fig-a-fp-rmse" style="width: 1000px">
+<div class="cell_output docutils container">
+<img alt="_images/07.03_acceleration_accuracy_4_0.png" src="_images/07.03_acceleration_accuracy_4_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 2.3 </span><span class="caption-text">RMSE of the total acceleration errors for all model tests and VMM:s</span><a class="headerlink" href="#fig-a-fp-rmse" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -266,17 +325,17 @@
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="02.01_VMMs.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="07.02_key_characteristics_accuracy.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Vessel Manoeuvring Models</p>
+            <p class="prev-next-title"><span class="section-number">1. </span>Key characteristics accuracy</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="05.01_model_tests.html" title="next page">
+    <a class='right-next' id="next-link" href="07.10_robustness.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Robustness</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
