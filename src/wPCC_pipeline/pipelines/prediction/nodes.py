@@ -50,6 +50,7 @@ def simulate_euler(
     data: pd.DataFrame,
     model: ModelSimulator,
     ek: ExtendedKalman,
+    solver="euler",
 ) -> pd.DataFrame:
     """Resimulate model test data with a model
 
@@ -76,7 +77,7 @@ def simulate_euler(
     s = signature(ek._lambda_f)
     input_columns = list(set(input_columns) & set(s.parameters.keys()))
 
-    df = ek.simulate(data=data, input_columns=input_columns)
+    df = ek.simulate(data=data, input_columns=input_columns, solver=solver)
 
     return df
 
@@ -147,13 +148,18 @@ def track_plot(
 
     dataframes = {"model test": data, "simulation": results}
     ax = plot.track_plots(
-        dataframes=dataframes, lpp=ship_data["L"], beam=ship_data["B"]
+        dataframes=dataframes,
+        lpp=ship_data["L"],
+        beam=ship_data["B"],
+        N=7,
     )
 
     return ax.get_figure()
 
 
-def plot_timeseries(data: pd.DataFrame, results: pd.DataFrame) -> plt.figure:
+def plot_timeseries(
+    data: pd.DataFrame, results: pd.DataFrame, ship_data: dict
+) -> plt.figure:
 
     if results["x0"].isnull().all():
         fig, ax = plt.subplots()

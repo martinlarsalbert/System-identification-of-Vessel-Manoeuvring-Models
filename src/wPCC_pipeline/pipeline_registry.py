@@ -60,6 +60,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     only_joined = global_variables[
         "only_joined"
     ]  # (regress/predict with only models from joined runs)
+    track_plot = global_variables["track_plot"]
 
     ########## Pipelines:
 
@@ -189,7 +190,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
         if not only_joined:
             for id in model_test_ids:
                 p = pipeline(
-                    prediction.create_pipeline(),
+                    prediction.create_pipeline(track_plot=track_plot),
                     namespace=f"{id}",
                     inputs={
                         f"ship_data": "ship_data",
@@ -218,8 +219,9 @@ def register_pipelines() -> Dict[str, Pipeline]:
         # joined:
         for join_name in joined_pipelines.keys():
             for id in model_test_ids:
+
                 p = pipeline(
-                    prediction.create_pipeline(),
+                    prediction.create_pipeline(track_plot=track_plot),
                     namespace=f"{id}",
                     inputs={
                         f"ship_data": "ship_data",
@@ -250,7 +252,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
         # force models:
         for id in model_test_ids:
             p = pipeline(
-                prediction.create_pipeline(),
+                prediction.create_pipeline(track_plot=track_plot),
                 namespace=f"{id}",
                 inputs={
                     f"ship_data": "ship_data",

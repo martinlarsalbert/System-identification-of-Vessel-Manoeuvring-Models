@@ -56,3 +56,6 @@ vmms = global_variables["vmms"]
 only_joined = global_variables[
     "only_joined"
 ]  # (regress/predict with only models from joined runs)S
+
+from src.visualization.plot import plot, track_plots
+ship_data = catalog.load("ship_data")

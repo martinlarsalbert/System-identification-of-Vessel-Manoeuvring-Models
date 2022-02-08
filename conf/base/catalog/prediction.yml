@@ -47,11 +47,12 @@
     index: True
 
 {{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.track_plot_resimulate:
-  type: matplotlib.MatplotlibWriter
+  #type: matplotlib.MatplotlibWriter
+  type: matplotlib_writer.MatplotlibWriter
   filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.track_plot_resimulate.png
 
 {{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.plot_resimulate:
-  type: matplotlib.MatplotlibWriter
+  type: matplotlib_writer.MatplotlibWriter
   filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.plot_resimulate.png
 
 {{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_damping_forces:

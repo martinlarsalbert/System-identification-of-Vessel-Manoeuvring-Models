@@ -143,7 +143,7 @@ def calculate_A_FP(df: pd.DataFrame, lpp: float) -> pd.Series:
     u = df["u1d"]
     v = df["v1d"]
     r = df["r1d"]
-    A_FP = np.sqrt(u ** 2 + (v + lpp / 2 * r) ** 2)
+    A_FP = np.sqrt(u ** 2 + (v.abs() + lpp / 2 * r.abs()) ** 2)
     return A_FP
 
 

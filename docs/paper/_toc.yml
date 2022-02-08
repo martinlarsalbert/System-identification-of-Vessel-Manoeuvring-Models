@@ -4,7 +4,7 @@
 format: jb-article
 defaults:
   numbered: 1
-  maxdepth: 2
+  maxdepth: 3
   
 root: index
 sections:
@@ -12,5 +12,11 @@ sections:
 - file: 05.01_model_tests
 - file: 03.01_inverse_dynamics
 - file: 04.01_EK
+- file: 07.01_accuracy_and_robustness
+  sections:
+  - file: 07.02_key_characteristics_accuracy
+  - file: 07.03_acceleration_accuracy
+  - file: 07.10_robustness
+  - file: 07.11_hold_out
 - file: 06.01_results
 - file: bibligraphy

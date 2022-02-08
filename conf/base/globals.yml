@@ -9,3 +9,4 @@ regressions:  # (What kind of regression to perform)
 - motion_regression
 
 only_joined: True  # (regress/predict with only models from joined runs)
+track_plot: False
