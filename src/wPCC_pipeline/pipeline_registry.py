@@ -338,7 +338,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     return_dict.update(motion_regression_pipelines)
     return_dict.update(force_regression_pipelines)
     return_dict.update(prediction_pipelines)
-    # return_dict.update(joined_pipelines)
+    return_dict.update(joined_pipelines)
     return_dict["vct_data_pipeline"] = vct_data_pipeline
     return_dict["vmm"] = vessel_manoeuvring_models_pipeline
     return_dict["ek"] = reduce(add, ek_pipelines.values())

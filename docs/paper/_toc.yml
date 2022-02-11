@@ -18,5 +18,6 @@ sections:
   - file: 07.03_acceleration_accuracy
   - file: 07.10_robustness
   - file: 07.11_hold_out
+  - file: 07.20_monte_carlo
 - file: 06.01_results
 - file: bibligraphy
