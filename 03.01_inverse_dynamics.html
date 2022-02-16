@@ -123,7 +123,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="07.01_accuracy_and_robustness.html">
-   Accuracy and robustness
+   5. Accuracy and robustness
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -165,12 +165,17 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="06.01_results.html">
-   5. Results
+   6. Results
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="bibligraphy.html">
-   6. Bibliography
+   7. Bibliography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix_vmms.html">
+   8. Vessel Manoeuvring Models
   </a>
  </li>
 </ul>
@@ -303,11 +308,11 @@
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output text_latex math notranslate nohighlight">
-\[\displaystyle \dot{u} = \epsilon + X_{X} A_{coeff}\]</div>
+\[\displaystyle \dot{u} = \epsilon_{X} + X_{X} A_{coeff}\]</div>
 <div class="output text_latex math notranslate nohighlight">
-\[\displaystyle \dot{v} = \epsilon + X_{Y} B_{coeff}\]</div>
+\[\displaystyle \dot{v} = \epsilon_{Y} + X_{Y} B_{coeff}\]</div>
 <div class="output text_latex math notranslate nohighlight">
-\[\displaystyle \dot{r} = \epsilon + X_{N} C_{coeff}\]</div>
+\[\displaystyle \dot{r} = \epsilon_{N} + X_{N} C_{coeff}\]</div>
 </div>
 </div>
 <p>The right hand side of the system equation can also be expressed in matrix form:</p>
@@ -336,6 +341,16 @@
 </div>
 </div>
 <p>Note that the decoupled and regressed parameters now also contain the contributions from the coriolis/centrepetal forces, which need to be substracted so that the parameters contain only hydrodyamic contributions. For instance in the X-equation <span class="math notranslate nohighlight">\(m \cdot x_G\)</span> needs to be substracted from <span class="math notranslate nohighlight">\(X_{rr}\)</span> and <span class="math notranslate nohighlight">\(m\)</span> needs to be subtracted from the <span class="math notranslate nohighlight">\(X_{vr}\)</span> derivative.</p>
+<p>The coefficient <span class="math notranslate nohighlight">\(X_{thrust}\)</span> that was added to the models so that measured thrust could be used as input to the models introduces problems with multicollinearity. Regressing both <span class="math notranslate nohighlight">\(X_{thrust}\)</span> and resistance coefficients such as <span class="math notranslate nohighlight">\(X_u\)</span> and <span class="math notranslate nohighlight">\(X_{uu}\)</span> etc. opens up for an infinite number of solutions to the longitudinal force equilibrium. The model will still give good predictions but the coefficients can take any value and have therby lost their physical meanings. The <span class="math notranslate nohighlight">\(X_{thrust}\)</span> coefficient is instead calculated from the thrust deduction factor <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eq-thrust-deduction">
+<span class="eqno">(3.1)<a class="headerlink" href="#equation-eq-thrust-deduction" title="Permalink to this equation">¶</a></span>\[
+X_{thrust} = (1-t)
+\]</div>
+<p>The <span class="math notranslate nohighlight">\(X_{thrust}\)</span> coefficient is excluded from the regression by moving it to the left hand side of the regression.</p>
+<div class="math notranslate nohighlight" id="equation-eq-remove-thrust">
+<span class="eqno">(3.2)<a class="headerlink" href="#equation-eq-remove-thrust" title="Permalink to this equation">¶</a></span>\[
+\dot{u}-\frac{X_{thrust} \cdot thrust}{-X_{\dot{u}}+m} = X_X A_{coeff} + \epsilon_X
+\]</div>
 <p>It has been confirmed that regression of the inverse dynamics can be solved with Ordinary Least Squares (OLS) to identidy the hydrodynamic derivatives in a VMM. Identifying the derivatives on simulated data gives a perfect match between the regressed parameters and the real model. This is the case when the model captures the physics perfectly (when there is no process noise <span class="math notranslate nohighlight">\(w\)</span>) and no measurement noise <span class="math notranslate nohighlight">\(\epsilon\)</span>.</p>
 <p>For real data from model tests or full scale ships this is of course never the case. Handling measurement errors and the fact the VMM used will be a good approximation of the real physics, at best, introduces a lot of challenges. Usually only the position and heading of the ships are measured, which means that the higher order states of velocities and accelerations are usually unknown. This introduces another challenge. Velocities and accelerations from noisy position measurements can be estimated using Extended Kalman Filter and Extended Kalman Smoother which will be introduced in the next section.</p>
 </div>

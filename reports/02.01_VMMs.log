@@ -72,10 +72,15 @@ global_variables = anyconfig.load(globals_path)
 
 
 
-vmms = global_variables["vmms"]
+vmm_names = global_variables["vmms"]
 only_joined = global_variables[
     "only_joined"
 ]  # (regress/predict with only models from joined runs)S
+
+vmms = {}
+for vmm_name in vmm_names:
+    vmms[vmm_name] = catalog.load(vmm_name)
+
 ------------------
 
 

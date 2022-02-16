@@ -123,7 +123,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="07.01_accuracy_and_robustness.html">
-   Accuracy and robustness
+   5. Accuracy and robustness
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -171,6 +171,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="bibligraphy.html">
    6. Bibliography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix_vmms.html">
+   7. Vessel Manoeuvring Models
   </a>
  </li>
 </ul>
@@ -405,7 +410,7 @@ This chapter will develop a general simulation model for ship manoeuvring, that 
 \[\begin{split}\displaystyle M_{RB} = \left[\begin{matrix}m &amp; 0 &amp; 0\\0 &amp; m &amp; m x_{G}\\0 &amp; m x_{G} &amp; I_{z}\end{matrix}\right]\end{split}\]</div>
 </div>
 </div>
-<p>The damping and control inputs from rudders and propellers are replaced with the functions <span class="math notranslate nohighlight">\(X_D(u,v,r,\delta,thrust)\)</span>, <span class="math notranslate nohighlight">\(Y_D(u,v,r,\delta,thrust)\)</span>, <span class="math notranslate nohighlight">\(N_D(u,v,r,\delta,thrust)\)</span>.</p>
+<p>The damping and control inputs from rudders and propellers are replaced with the functions <span class="math notranslate nohighlight">\(X_D(u,v,r,\delta,thrust)\)</span>, <span class="math notranslate nohighlight">\(Y_D(u,v,r,\delta,thrust)\)</span>, <span class="math notranslate nohighlight">\(N_D(u,v,r,\delta,thrust)\)</span>. Note that the measured thrust from the model tests is used as input to the models, which means that the propeller is not part of the models in this paper. Main focus is thereby on the modelling of rudder and hull forces and moments.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output text_latex math notranslate nohighlight">
@@ -454,7 +459,8 @@ This chapter will develop a general simulation model for ship manoeuvring, that 
 \[\begin{split}\displaystyle f{\left(\vec{x},u_{input},w_{noise} \right)} = \left[\begin{matrix}u \cos{\left(\Psi \right)} - v \sin{\left(\Psi \right)}\\u \sin{\left(\Psi \right)} + v \cos{\left(\Psi \right)}\\r\\\dot{u}\\\dot{v}\\\dot{r}\end{matrix}\right]\end{split}\]</div>
 </div>
 </div>
-<p>The manoeuvring simulation can now be conducted by numerical integration of the above equation. The main difference between various vessel manoeuvring models such as the Abkowitz model <span id="id5">[<a class="reference internal" href="bibligraphy.html#id141">Abk64</a>]</span> or the Norrbin model <span id="id6">[<a class="reference internal" href="bibligraphy.html#id128">Nor60</a>]</span> lies in how the hydrodynamic functions <span class="math notranslate nohighlight">\(X_D(u,v,r,\delta,thrust)\)</span>, <span class="math notranslate nohighlight">\(Y_D(u,v,r,\delta,thrust)\)</span>, <span class="math notranslate nohighlight">\(N_D(u,v,r,\delta,thrust)\)</span> are defined.</p>
+<p>The manoeuvring simulation can now be conducted by numerical integration of the above equation. The main difference between various vessel manoeuvring models such as the Abkowitz model <span id="id5">[<a class="reference internal" href="bibligraphy.html#id141">Abk64</a>]</span> or the Norrbin model <span id="id6">[<a class="reference internal" href="bibligraphy.html#id128">Nor60</a>]</span> lies in how the hydrodynamic functions <span class="math notranslate nohighlight">\(X_D(u,v,r,\delta,thrust)\)</span>, <span class="math notranslate nohighlight">\(Y_D(u,v,r,\delta,thrust)\)</span>, <span class="math notranslate nohighlight">\(N_D(u,v,r,\delta,thrust)\)</span> are defined. These functions cane be found in <a class="reference internal" href="appendix_vmms.html"><span class="doc std std-doc">Appendix</span></a>.</p>
+<p>Note that a coefficient <span class="math notranslate nohighlight">\(X_{thrust}\)</span> has been added to the Abkowitz X equation to allow for propeller thrust as an input to the model.</p>
 </div>
 
     <script type="text/x-thebe-config">
