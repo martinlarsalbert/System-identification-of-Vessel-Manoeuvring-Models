@@ -19,6 +19,7 @@ from .pipelines import force_regression
 from .pipelines import vessel_manoeuvring_models
 from .pipelines import vct_data
 from .pipelines import accuracy
+from .pipelines import setup
 from wPCC_pipeline import pipelines
 
 
@@ -65,6 +66,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     ########## Pipelines:
 
     ship_pipeline = brix.create_pipeline()
+    setup_pipeline = setup.create_pipeline()
 
     ek_pipelines = {}
     for vmm in vmms:
@@ -304,6 +306,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     return_dict = {}
     return_dict["__default__"] = (
         ship_pipeline
+        + setup_pipeline
         + reduce(add, runs_pipelines.values())
         + reduce(add, joined_pipelines.values())
         + vessel_manoeuvring_models_pipeline

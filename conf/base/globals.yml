@@ -1,5 +1,6 @@
 vmms:  # (What Vessel Manoeuvring Models to include)
 - vmm_abkowitz # (Not working with motion regression...)
+- vmm_abkowitz_simple
 - vmm_martin
 - vmm_linear
 - vmm_martins_simple

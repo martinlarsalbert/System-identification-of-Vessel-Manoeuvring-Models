@@ -40,8 +40,8 @@ joins:
 #- reference_speed
 #- spirals
 #- report
-- no_circle
-- no_ZZ10
-- no_ZZ20
+#- no_circle
+#- no_ZZ10
+#- no_ZZ20
 
 

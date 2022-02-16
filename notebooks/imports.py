@@ -3,6 +3,8 @@
 %reload_kedro
 %config Completer.use_jedi = False  ## (To fix autocomplete)
 import pandas as pd
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 500)
 from src.models.vmm import ModelSimulator
 import matplotlib.pyplot as plt
 from src.visualization.plot import track_plots, plot, captive_plot

@@ -4,6 +4,9 @@
 %config Completer.use_jedi = False  ## (To fix autocomplete)
 
 import pandas as pd
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 500)
+
 from src.models.vmm import ModelSimulator
 import matplotlib.pyplot as plt
 from src.visualization.plot import track_plots, plot, captive_plot
@@ -52,10 +55,10 @@ global_variables = anyconfig.load(globals_path)
 
 
 
-vmms = global_variables["vmms"]
+vmm_names = global_variables["vmms"]
 only_joined = global_variables[
     "only_joined"
-]  # (regress/predict with only models from joined runs)S
+]  # (regress/predict with only models from joined runs)
 
 from src.visualization.plot import plot, track_plots
 ship_data = catalog.load("ship_data")

@@ -15,11 +15,22 @@ added_masses:
   type: yaml.YAMLDataSet
   filepath: data/02_intermediate/added_masses.yml
 
-runs_meta_data:
+runs_meta_data_raw:
   type: pandas.CSVDataSet
   filepath: data/01_raw/runs_meta_data.csv
   load_args:
     index_col: 0
+    encoding: 'utf-8'
+
+runs_meta_data:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/runs_meta_data.csv
+  load_args:
+    index_col: 0
+    encoding: 'utf-8'
+  save_args:
+    index: True
+    encoding: 'utf-8'
 
 #ek:
 #  type: pickle.PickleDataSet
