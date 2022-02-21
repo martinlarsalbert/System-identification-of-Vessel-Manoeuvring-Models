@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>7. Vessel Manoeuvring Models &#8212; Parameter identification of Vessel Manoeuvring Models</title>
+    <title>8. Vessel Manoeuvring Models &#8212; Parameter identification of Vessel Manoeuvring Models</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -55,7 +55,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="6. Bibliography" href="bibligraphy.html" />
+    <link rel="prev" title="7. Bibliography" href="bibligraphy.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -131,50 +131,30 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="07.02_key_characteristics_accuracy.html">
-     1. Key characteristics accuracy
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="07.03_acceleration_accuracy.html">
-     2. Acceleration accuracy
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.10_robustness.html">
-     3. Robustness
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.11_hold_out.html">
-     4. Hold-out
+     1. Acceleration accuracy
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="07.30_vmm_bias_variance_tradeoff.html">
-     5. VMM Bias-variance tradeoff
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.20_monte_carlo.html">
-     6. Monte Carlo simulations
+     2. VMM Bias-variance tradeoff
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="06.01_results.html">
-   5. Results
+   6. Results
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="bibligraphy.html">
-   6. Bibliography
+   7. Bibliography
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   7. Vessel Manoeuvring Models
+   8. Vessel Manoeuvring Models
   </a>
  </li>
 </ul>
@@ -289,6 +269,11 @@
    vmm_martins_simple
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vmm-abkowitz-expanded">
+   vmm_abkowitz_expanded
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -334,6 +319,11 @@
    vmm_martins_simple
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vmm-abkowitz-expanded">
+   vmm_abkowitz_expanded
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -344,11 +334,11 @@
               <div>
                 
   <div class="section" id="vessel-manoeuvring-models">
-<h1><span class="section-number">7. </span>Vessel Manoeuvring Models<a class="headerlink" href="#vessel-manoeuvring-models" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">8. </span>Vessel Manoeuvring Models<a class="headerlink" href="#vessel-manoeuvring-models" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="vmm-abkowitz">
 <h2>vmm_abkowitz<a class="headerlink" href="#vmm-abkowitz" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight" id="equation-eq-x-d-vmm-abkowitz">
-<span class="eqno">(7.1)<a class="headerlink" href="#equation-eq-x-d-vmm-abkowitz" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(8.1)<a class="headerlink" href="#equation-eq-x-d-vmm-abkowitz" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
 \operatorname{X_{D}}{\left(u,v,r,\delta,T \right)} = &amp; X_{\delta\delta} \delta^{2} + X_{r\delta} \delta r + X_{rr} r^{2} + X_{T} T + X_{u\delta\delta} \delta^{2} u + X_{ur\delta} \delta r u \\
 &amp; + X_{urr} r^{2} u + X_{uuu} u^{3} + X_{uu} u^{2} + X_{uv\delta} \delta u v + X_{uvr} r u v + X_{uvv} u v^{2} \\
@@ -356,7 +346,7 @@
 \end{align*}
 \end{split}\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-y-d-vmm-abkowitz">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-eq-y-d-vmm-abkowitz" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(8.2)<a class="headerlink" href="#equation-eq-y-d-vmm-abkowitz" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
 \operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{0uu} u^{2} + Y_{0u} u + Y_{0} + Y_{\delta\delta\delta} \delta^{3} + Y_{\delta} \delta + Y_{r\delta\delta} \delta^{2} r \\
 &amp; + Y_{rr\delta} \delta r^{2} + Y_{rrr} r^{3} + Y_{r} r + Y_{u\delta} \delta u + Y_{ur} r u + Y_{uu\delta} \delta u^{2} \\
@@ -365,7 +355,7 @@
 \end{align*}
 \end{split}\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-n-d-vmm-abkowitz">
-<span class="eqno">(7.3)<a class="headerlink" href="#equation-eq-n-d-vmm-abkowitz" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(8.3)<a class="headerlink" href="#equation-eq-n-d-vmm-abkowitz" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
 \operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{0uu} u^{2} + N_{0u} u + N_{0} + N_{\delta\delta\delta} \delta^{3} + N_{\delta} \delta + N_{r\delta\delta} \delta^{2} r \\
 &amp; + N_{rr\delta} \delta r^{2} + N_{rrr} r^{3} + N_{r} r + N_{u\delta} \delta u + N_{ur} r u + N_{uu\delta} \delta u^{2} \\
@@ -377,45 +367,45 @@
 <div class="section" id="vmm-abkowitz-simple">
 <h2>vmm_abkowitz_simple<a class="headerlink" href="#vmm-abkowitz-simple" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight" id="equation-eq-x-d-vmm-abkowitz-simple">
-<span class="eqno">(7.4)<a class="headerlink" href="#equation-eq-x-d-vmm-abkowitz-simple" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(8.4)<a class="headerlink" href="#equation-eq-x-d-vmm-abkowitz-simple" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
 \operatorname{X_{D}}{\left(u,v,r,\delta,T \right)} = &amp; X_{rr} r^{2} + X_{T} T + X_{uuu} u^{3} + X_{uu} u^{2} + X_{uvr} r u v + X_{uvv} u v^{2} \\
 &amp; + X_{vr} r v + X_{vv} v^{2} 
 \end{align*}
 \end{split}\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-y-d-vmm-abkowitz-simple">
-<span class="eqno">(7.5)<a class="headerlink" href="#equation-eq-y-d-vmm-abkowitz-simple" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(8.5)<a class="headerlink" href="#equation-eq-y-d-vmm-abkowitz-simple" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
-\operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{\delta\delta\delta} \delta^{3} + Y_{\delta} \delta + Y_{r} r + Y_{u\delta} \delta u + Y_{ur} r u + Y_{uu\delta} \delta u^{2} \\
-&amp; + Y_{uuv} u^{2} v + Y_{uv} u v + Y_{v} v 
+\operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{\delta\delta\delta} \delta^{3} + Y_{\delta} \delta + Y_{r} r + Y_{T\delta} \delta T + Y_{u\delta} \delta u + Y_{ur} r u \\
+&amp; + Y_{uu\delta} \delta u^{2} + Y_{uuv} u^{2} v + Y_{uv} u v + Y_{v} v 
 \end{align*}
 \end{split}\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-n-d-vmm-abkowitz-simple">
-<span class="eqno">(7.6)<a class="headerlink" href="#equation-eq-n-d-vmm-abkowitz-simple" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(8.6)<a class="headerlink" href="#equation-eq-n-d-vmm-abkowitz-simple" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
-\operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{\delta\delta\delta} \delta^{3} + N_{\delta} \delta + N_{r} r + N_{u\delta} \delta u + N_{ur} r u + N_{uu\delta} \delta u^{2} \\
-&amp; + N_{uuv} u^{2} v + N_{uv} u v + N_{v} v 
+\operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{\delta\delta\delta} \delta^{3} + N_{\delta} \delta + N_{r} r + N_{T\delta} \delta T + N_{u\delta} \delta u + N_{ur} r u \\
+&amp; + N_{uu\delta} \delta u^{2} + N_{uuv} u^{2} v + N_{uv} u v + N_{v} v 
 \end{align*}
 \end{split}\]</div>
 </div>
 <div class="section" id="vmm-martin">
 <h2>vmm_martin<a class="headerlink" href="#vmm-martin" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight" id="equation-eq-x-d-vmm-martin">
-<span class="eqno">(7.7)<a class="headerlink" href="#equation-eq-x-d-vmm-martin" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(8.7)<a class="headerlink" href="#equation-eq-x-d-vmm-martin" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
 \operatorname{X_{D}}{\left(u,v,r,\delta,T \right)} = &amp; X_{\delta\delta} \delta^{2} + X_{rr} r^{2} + X_{T} T + X_{uu} u^{2} + X_{u} u + X_{v\delta} \delta v \\
 &amp; + X_{vr} r v 
 \end{align*}
 \end{split}\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-y-d-vmm-martin">
-<span class="eqno">(7.8)<a class="headerlink" href="#equation-eq-y-d-vmm-martin" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(8.8)<a class="headerlink" href="#equation-eq-y-d-vmm-martin" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
 \operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{\delta} \delta + Y_{r\delta\delta} \delta^{2} r + Y_{r} r + Y_{ur} r u + Y_{uv} u v + Y_{u} u \\
 &amp; + Y_{v\delta\delta} \delta^{2} v + Y_{v} v 
 \end{align*}
 \end{split}\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-n-d-vmm-martin">
-<span class="eqno">(7.9)<a class="headerlink" href="#equation-eq-n-d-vmm-martin" title="Permalink to this equation">¶</a></span>\[\begin{split}
+<span class="eqno">(8.9)<a class="headerlink" href="#equation-eq-n-d-vmm-martin" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
 \operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{\delta} \delta + N_{r\delta\delta} \delta^{2} r + N_{r} r + N_{ur} r u + N_{uv} u v + N_{u} u \\
 &amp; + N_{v\delta\delta} \delta^{2} v + N_{v} v 
@@ -425,19 +415,19 @@
 <div class="section" id="vmm-linear">
 <h2>vmm_linear<a class="headerlink" href="#vmm-linear" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight" id="equation-eq-x-d-vmm-linear">
-<span class="eqno">(7.10)<a class="headerlink" href="#equation-eq-x-d-vmm-linear" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(8.10)<a class="headerlink" href="#equation-eq-x-d-vmm-linear" title="Permalink to this equation">¶</a></span>\[
 \begin{align*}
 \operatorname{X_{D}}{\left(u,v,r,\delta,T \right)} = &amp; X_{\delta} \delta + X_{r} r + X_{u} u + X_{v} v 
 \end{align*}
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-y-d-vmm-linear">
-<span class="eqno">(7.11)<a class="headerlink" href="#equation-eq-y-d-vmm-linear" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(8.11)<a class="headerlink" href="#equation-eq-y-d-vmm-linear" title="Permalink to this equation">¶</a></span>\[
 \begin{align*}
 \operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{\delta} \delta + Y_{r} r + Y_{u} u + Y_{v} v 
 \end{align*}
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-n-d-vmm-linear">
-<span class="eqno">(7.12)<a class="headerlink" href="#equation-eq-n-d-vmm-linear" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(8.12)<a class="headerlink" href="#equation-eq-n-d-vmm-linear" title="Permalink to this equation">¶</a></span>\[
 \begin{align*}
 \operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{\delta} \delta + N_{r} r + N_{u} u + N_{v} v 
 \end{align*}
@@ -446,23 +436,52 @@
 <div class="section" id="vmm-martins-simple">
 <h2>vmm_martins_simple<a class="headerlink" href="#vmm-martins-simple" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight" id="equation-eq-x-d-vmm-martins-simple">
-<span class="eqno">(7.13)<a class="headerlink" href="#equation-eq-x-d-vmm-martins-simple" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(8.13)<a class="headerlink" href="#equation-eq-x-d-vmm-martins-simple" title="Permalink to this equation">¶</a></span>\[
 \begin{align*}
 \operatorname{X_{D}}{\left(u,v,r,\delta,T \right)} = &amp; X_{\delta\delta} \delta^{2} + X_{rr} r^{2} + X_{T} T + X_{u} u + X_{vr} r v 
 \end{align*}
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-y-d-vmm-martins-simple">
-<span class="eqno">(7.14)<a class="headerlink" href="#equation-eq-y-d-vmm-martins-simple" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(8.14)<a class="headerlink" href="#equation-eq-y-d-vmm-martins-simple" title="Permalink to this equation">¶</a></span>\[
 \begin{align*}
-\operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{\delta} \delta + Y_{r} r + Y_{ur} r u + Y_{u} u + Y_{v} v 
+\operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{\delta} \delta + Y_{r} r + Y_{T\delta} \delta T + Y_{ur} r u + Y_{u} u + Y_{v} v 
 \end{align*}
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-n-d-vmm-martins-simple">
-<span class="eqno">(7.15)<a class="headerlink" href="#equation-eq-n-d-vmm-martins-simple" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(8.15)<a class="headerlink" href="#equation-eq-n-d-vmm-martins-simple" title="Permalink to this equation">¶</a></span>\[
 \begin{align*}
-\operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{\delta} \delta + N_{r} r + N_{ur} r u + N_{u} u + N_{v} v 
+\operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{\delta} \delta + N_{r} r + N_{T\delta} \delta T + N_{ur} r u + N_{u} u + N_{v} v 
 \end{align*}
 \]</div>
+</div>
+<div class="section" id="vmm-abkowitz-expanded">
+<h2>vmm_abkowitz_expanded<a class="headerlink" href="#vmm-abkowitz-expanded" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight" id="equation-eq-x-d-vmm-abkowitz-expanded">
+<span class="eqno">(8.16)<a class="headerlink" href="#equation-eq-x-d-vmm-abkowitz-expanded" title="Permalink to this equation">¶</a></span>\[\begin{split}
+\begin{align*}
+\operatorname{X_{D}}{\left(u,v,r,\delta,T \right)} = &amp; X_{\delta\delta} \delta^{2} + X_{r\delta} \delta r + X_{rr} r^{2} + X_{T} T + X_{u\delta\delta} \delta^{2} u + X_{ur\delta} \delta r u \\
+&amp; + X_{urr} r^{2} u + X_{uuu} u^{3} + X_{uu} u^{2} + X_{uv\delta} \delta u v + X_{uvr} r u v + X_{uvv} u v^{2} \\
+&amp; + X_{u} u + X_{v\delta} \delta v + X_{vr} r v + X_{vv} v^{2} 
+\end{align*}
+\end{split}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-y-d-vmm-abkowitz-expanded">
+<span class="eqno">(8.17)<a class="headerlink" href="#equation-eq-y-d-vmm-abkowitz-expanded" title="Permalink to this equation">¶</a></span>\[\begin{split}
+\begin{align*}
+\operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{0uu} u^{2} + Y_{0u} u + Y_{0} + Y_{\delta\delta\delta} \delta^{3} + Y_{\delta} \delta + Y_{r\delta\delta} \delta^{2} r \\
+&amp; + Y_{rr\delta} \delta r^{2} + Y_{rrr} r^{3} + Y_{r} r + Y_{T\delta} \delta T + Y_{u\delta} \delta u + Y_{ur} r u \\
+&amp; + Y_{uu\delta} \delta u^{2} + Y_{uur} r u^{2} + Y_{uuv} u^{2} v + Y_{uv} u v + Y_{v\delta\delta} \delta^{2} v + Y_{vr\delta} \delta r v \\
+&amp; + Y_{vrr} r^{2} v + Y_{vv\delta} \delta v^{2} + Y_{vvr} r v^{2} + Y_{vvv} v^{3} + Y_{v} v 
+\end{align*}
+\end{split}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-n-d-vmm-abkowitz-expanded">
+<span class="eqno">(8.18)<a class="headerlink" href="#equation-eq-n-d-vmm-abkowitz-expanded" title="Permalink to this equation">¶</a></span>\[\begin{split}
+\begin{align*}
+\operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{0uu} u^{2} + N_{0u} u + N_{0} + N_{\delta\delta\delta} \delta^{3} + N_{\delta} \delta + N_{r\delta\delta} \delta^{2} r \\
+&amp; + N_{rr\delta} \delta r^{2} + N_{rrr} r^{3} + N_{r} r + N_{T\delta} \delta T + N_{u\delta} \delta u + N_{ur} r u \\
+&amp; + N_{uu\delta} \delta u^{2} + N_{uur} r u^{2} + N_{uuv} u^{2} v + N_{uv} u v + N_{v\delta\delta} \delta^{2} v + N_{vr\delta} \delta r v \\
+&amp; + N_{vrr} r^{2} v + N_{vv\delta} \delta v^{2} + N_{vvr} r v^{2} + N_{vvv} v^{3} + N_{v} v 
+\end{align*}
+\end{split}\]</div>
 </div>
 </div>
 
@@ -495,7 +514,7 @@
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">6. </span>Bibliography</p>
+            <p class="prev-next-title"><span class="section-number">7. </span>Bibliography</p>
         </div>
     </a>
 </div>

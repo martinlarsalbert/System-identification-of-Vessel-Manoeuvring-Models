@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4. Hold-out &#8212; Parameter identification of Vessel Manoeuvring Models</title>
+    <title>Hold-out &#8212; Parameter identification of Vessel Manoeuvring Models</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,8 +53,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="5. VMM Bias-variance tradeoff" href="07.30_vmm_bias_variance_tradeoff.html" />
-    <link rel="prev" title="3. Robustness" href="07.10_robustness.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -98,7 +96,7 @@
   </a>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="02.01_VMMs.html">
    1. Vessel Manoeuvring Models
@@ -119,44 +117,24 @@
    4. Discrete-time Extended Kalman
   </a>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="07.01_accuracy_and_robustness.html">
    5. Accuracy and robustness
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.02_key_characteristics_accuracy.html">
-     1. Key characteristics accuracy
-    </a>
-   </li>
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="07.03_acceleration_accuracy.html">
-     2. Acceleration accuracy
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.10_robustness.html">
-     3. Robustness
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     4. Hold-out
+     1. Acceleration accuracy
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="07.30_vmm_bias_variance_tradeoff.html">
-     5. VMM Bias-variance tradeoff
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.20_monte_carlo.html">
-     6. Monte Carlo simulations
+     2. VMM Bias-variance tradeoff
     </a>
    </li>
   </ul>
@@ -294,34 +272,25 @@
               <div>
                 
   <div class="section" id="hold-out">
-<h1><span class="section-number">4. </span>Hold-out<a class="headerlink" href="#hold-out" title="Permalink to this headline">¶</a></h1>
+<h1>Hold-out<a class="headerlink" href="#hold-out" title="Permalink to this headline">¶</a></h1>
 <p>One way to consider the robustness of the VMM:s is to hold-out one of the test types from the training data and then make a prediction on this test type.</p>
-<p><a class="reference internal" href="#fig-joined"><span class="std std-numref">Fig. 4.1</span></a> shows the track plots from the turning circle model test and simulations with the VMM:s. The VMM:s have been trained on all the model tests and it can be seen that all of the VMM:s, except the linear model, is in good agreement with the model test.</p>
-<p>Corresponding simulations have also been conducted with VMM:s where the turning circle test has been exluded from the training set (hold-out). Result from these simulations can be seen in <a class="reference internal" href="#fig-no-circle"><span class="std std-numref">Fig. 4.2</span></a>. Only two of the simpler models were able to complete the simulations for this case. Simulations with these models also have less agreement with the model tests then before.</p>
+<p><code class="xref std std-numref docutils literal notranslate"><span class="pre">fig_joined</span></code> shows the track plots from the turning circle model test and simulations with the VMM:s. The VMM:s have been trained on all the model tests and it can be seen that all of the VMM:s, except the linear model, is in good agreement with the model test.</p>
+<p>Corresponding simulations have also been conducted with VMM:s where the turning circle test has been exluded from the training set (hold-out). Result from these simulations can be seen in <code class="xref std std-numref docutils literal notranslate"><span class="pre">fig_no_circle</span></code>. Only two of the simpler models were able to complete the simulations for this case. Simulations with these models also have less agreement with the model tests then before.</p>
 <div class="figure align-default" id="fig-joined" style="width: 600px">
 <div class="cell_output docutils container">
 <img alt="_images/07.11_hold_out_3_1.png" src="_images/07.11_hold_out_3_1.png" />
 </div>
-<p class="caption"><span class="caption-number">Fig. 4.1 </span><span class="caption-text">Predictions of turning circle with VMM:s trained on all model tests.</span><a class="headerlink" href="#fig-joined" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Predictions of turning circle with VMM:s trained on all model tests.</span><a class="headerlink" href="#fig-joined" title="Permalink to this image">¶</a></p>
 </div>
 <div class="figure align-default" id="fig-no-circle" style="width: 600px">
-<div class="cell_output docutils container">
-<img alt="_images/07.11_hold_out_3_3.png" src="_images/07.11_hold_out_3_3.png" />
+<p class="caption"><span class="caption-text">Predictions of turning circle with VMM:s trained on turning circle as hold out.</span><a class="headerlink" href="#fig-no-circle" title="Permalink to this image">¶</a></p>
 </div>
-<p class="caption"><span class="caption-number">Fig. 4.2 </span><span class="caption-text">Predictions of turning circle with VMM:s trained on turning circle as hold out.</span><a class="headerlink" href="#fig-no-circle" title="Permalink to this image">¶</a></p>
-</div>
-<p>The same procedure can also be applied with ZigZag10/10 as hold-out and ZigZag20/20 as hold-out. As a reference, the accuracy for ZigZag10/10, ZigZag20/20 and turning circle from all VMM:s trained on all data is showed in <a class="reference internal" href="#fig-ref"><span class="std std-numref">Fig. 4.3</span></a>. How the accuracy of these test types change with hold-out-tests is shown in <a class="reference internal" href="#fig-hold-outs"><span class="std std-numref">Fig. 4.4</span></a>.</p>
+<p>The same procedure can also be applied with ZigZag10/10 as hold-out and ZigZag20/20 as hold-out. As a reference, the accuracy for ZigZag10/10, ZigZag20/20 and turning circle from all VMM:s trained on all data is showed in <code class="xref std std-numref docutils literal notranslate"><span class="pre">fig_ref</span></code>. How the accuracy of these test types change with hold-out-tests is shown in <code class="xref std std-numref docutils literal notranslate"><span class="pre">fig_hold_outs</span></code>.</p>
 <div class="figure align-default" id="fig-ref" style="width: 1000px">
-<div class="cell_output docutils container">
-<img alt="_images/07.11_hold_out_13_0.png" src="_images/07.11_hold_out_13_0.png" />
-</div>
-<p class="caption"><span class="caption-number">Fig. 4.3 </span><span class="caption-text">RMSE for ZigZag10/10, ZigZag20/20 and turning circle, for all the VMM:s trained on all model tests.</span><a class="headerlink" href="#fig-ref" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">RMSE for ZigZag10/10, ZigZag20/20 and turning circle, for all the VMM:s trained on all model tests.</span><a class="headerlink" href="#fig-ref" title="Permalink to this image">¶</a></p>
 </div>
 <div class="figure align-default" id="fig-hold-outs" style="width: 1000px">
-<div class="cell_output docutils container">
-<img alt="_images/07.11_hold_out_11_0.png" src="_images/07.11_hold_out_11_0.png" />
-</div>
-<p class="caption"><span class="caption-number">Fig. 4.4 </span><span class="caption-text">RMSE of the total acceleration errors for all the VMM:s trained with ZigZag10/10, ZigZag20/20 and turning circle as hold out tests type.</span><a class="headerlink" href="#fig-hold-outs" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">RMSE of the total acceleration errors for all the VMM:s trained with ZigZag10/10, ZigZag20/20 and turning circle as hold out tests type.</span><a class="headerlink" href="#fig-hold-outs" title="Permalink to this image">¶</a></p>
 </div>
 <p>All of the VMM:s seem to work for the ZigZag10/10 and 20/20 hold-out tests. The accuracy is not decreased much for these cases, compared to the reference. The ZigZag10/10 hold-out has slightly better accuracy than ZigZag20/20 hold-out for all VMM:s. In other words: predicting a ZigZag10/10 from a 20/20 model test gives better accuracy than the reversed scenario.</p>
 <p>The more complex models, such as the Abkowitz model, have poor accuracy for the Turning circle hold-out, which can even mean that they are not possible to simulate as seen in the begining of this section.</p>
@@ -351,21 +320,7 @@
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="07.10_robustness.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">3. </span>Robustness</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="07.30_vmm_bias_variance_tradeoff.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>VMM Bias-variance tradeoff</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
+<div class='prev-next-area'>
 </div>
             
         </div>

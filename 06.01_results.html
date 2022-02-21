@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5. Results &#8212; Parameter identification of Vessel Manoeuvring Models</title>
+    <title>6. Results &#8212; Parameter identification of Vessel Manoeuvring Models</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,8 +53,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="6. Bibliography" href="bibligraphy.html" />
-    <link rel="prev" title="6. Monte Carlo simulations" href="07.20_monte_carlo.html" />
+    <link rel="next" title="7. Bibliography" href="bibligraphy.html" />
+    <link rel="prev" title="2. VMM Bias-variance tradeoff" href="07.30_vmm_bias_variance_tradeoff.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -130,50 +130,30 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="07.02_key_characteristics_accuracy.html">
-     1. Key characteristics accuracy
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="07.03_acceleration_accuracy.html">
-     2. Acceleration accuracy
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.10_robustness.html">
-     3. Robustness
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.11_hold_out.html">
-     4. Hold-out
+     1. Acceleration accuracy
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="07.30_vmm_bias_variance_tradeoff.html">
-     5. VMM Bias-variance tradeoff
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.20_monte_carlo.html">
-     6. Monte Carlo simulations
+     2. VMM Bias-variance tradeoff
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   5. Results
+   6. Results
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="bibligraphy.html">
-   6. Bibliography
+   7. Bibliography
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="appendix_vmms.html">
-   7. Vessel Manoeuvring Models
+   8. Vessel Manoeuvring Models
   </a>
  </li>
 </ul>
@@ -294,11 +274,64 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="results">
-<h1><span class="section-number">5. </span>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h1>
-<div class="cell tag_remove-input docutils container">
+<h1><span class="section-number">6. </span>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h1>
+<p>Hydrodynamic derivatives regressed on all model tests are shown for the chosen VMM is shown in <a class="reference internal" href="#fig-parameters"><span class="std std-numref">Fig. 6.1</span></a> and <a class="reference internal" href="#tab-parameters"><span class="std std-numref">Fig. 6.2</span></a>. The bar plots show the mean values of these random variables together with the standard deviation shown as the black error bars.</p>
+<div class="figure align-default" id="fig-parameters" style="width: 800px">
 <div class="cell_output docutils container">
-<img alt="_images/06.01_results_5_0.png" src="_images/06.01_results_5_0.png" />
+<img alt="_images/06.01_results_7_1.png" src="_images/06.01_results_7_1.png" />
 </div>
+<p class="caption"><span class="caption-number">Fig. 6.1 </span><span class="caption-text">Regressed parameters on vmm_abkowitz_simple</span><a class="headerlink" href="#fig-parameters" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="tab-parameters">
+<div class="cell_output docutils container">
+<img alt="_images/06.01_results_12_0.png" src="_images/06.01_results_12_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 6.2 </span><span class="caption-text">Regressed parameters on the chosen VMM, mean values and standard deviations.</span><a class="headerlink" href="#tab-parameters" title="Permalink to this image">¶</a></p>
+</div>
+<p>A selection of simulations with the chosen VMM fitted on all model tests is shown for ZigZag10/10, ZigZag20/20 and Turning circle in <a class="reference internal" href="#fig-track-plot-zigzag10-10"><span class="std std-numref">Fig. 6.5</span></a>, <a class="reference internal" href="#fig-track-plot-zigzag10-10"><span class="std std-numref">Fig. 6.5</span></a>.
+The simulation with the most likely parameters (mean values from the regression) is shown as blue lines to be compared with corresponding values from the model test in black.
+Also results from simulations with alternative realizations of the regression are shown as transparent blue lines. These alternative realizations have been sampled from a multivariate normal distribution with mean values and covariance matrix from the regression.</p>
+<div class="figure align-default" id="fig-track-plot-turning-circle" style="width: 800px">
+<div class="cell_output docutils container">
+<img alt="_images/06.01_results_18_0.png" src="_images/06.01_results_18_0.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 6.3 </span><span class="caption-text">Track plot Turning circle model test and simulations with vmm_martins_simple</span><a class="headerlink" href="#fig-track-plot-turning-circle" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="plot-turning-circle" style="width: 800px">
+<div class="cell_output docutils container">
+<img alt="_images/06.01_results_18_2.png" src="_images/06.01_results_18_2.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 6.4 </span><span class="caption-text">Time series Turning circle model test and simulation with vmm_martins_simple</span><a class="headerlink" href="#plot-turning-circle" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="fig-track-plot-zigzag10-10" style="width: 800px">
+<div class="cell_output docutils container">
+<img alt="_images/06.01_results_18_4.png" src="_images/06.01_results_18_4.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 6.5 </span><span class="caption-text">Track plot ZigZag10/10 model test and simulations with vmm_martins_simple</span><a class="headerlink" href="#fig-track-plot-zigzag10-10" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="plot-zigzag10-10" style="width: 800px">
+<div class="cell_output docutils container">
+<img alt="_images/06.01_results_18_6.png" src="_images/06.01_results_18_6.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 6.6 </span><span class="caption-text">Time series ZigZag10/10 model test and simulation with vmm_martins_simple</span><a class="headerlink" href="#plot-zigzag10-10" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="fig-track-plot-zigzag20-20" style="width: 800px">
+<div class="cell_output docutils container">
+<img alt="_images/06.01_results_18_8.png" src="_images/06.01_results_18_8.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 6.7 </span><span class="caption-text">Track plot ZigZag20/20 model test and simulations with vmm_martins_simple</span><a class="headerlink" href="#fig-track-plot-zigzag20-20" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="plot-zigzag20-20" style="width: 800px">
+<div class="cell_output docutils container">
+<img alt="_images/06.01_results_18_10.png" src="_images/06.01_results_18_10.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 6.8 </span><span class="caption-text">Time series ZigZag20/20 model test and simulation with vmm_martins_simple</span><a class="headerlink" href="#plot-zigzag20-20" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="fig-track-plot-hold-out" style="width: 800px">
+<div class="cell_output docutils container">
+<img alt="_images/06.01_results_23_1.png" src="_images/06.01_results_23_1.png" />
+</div>
+<p class="caption"><span class="caption-number">Fig. 6.9 </span><span class="caption-text">Track plot for model test and simulations with VMM fitted on all data and all data except turning circle</span><a class="headerlink" href="#fig-track-plot-hold-out" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 
@@ -327,17 +360,17 @@
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="07.20_monte_carlo.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="07.30_vmm_bias_variance_tradeoff.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">6. </span>Monte Carlo simulations</p>
+            <p class="prev-next-title"><span class="section-number">2. </span>VMM Bias-variance tradeoff</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="bibligraphy.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>Bibliography</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Bibliography</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
