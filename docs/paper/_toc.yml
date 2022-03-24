@@ -14,12 +14,12 @@ sections:
 - file: 04.01_EK
 - file: 07.01_accuracy_and_robustness
   sections:
-  - file: 07.02_key_characteristics_accuracy
+  #- file: 07.02_key_characteristics_accuracy
   - file: 07.03_acceleration_accuracy
-  - file: 07.10_robustness
-  - file: 07.11_hold_out
+  #- file: 07.10_robustness
+  #- file: 07.11_hold_out
   - file: 07.30_vmm_bias_variance_tradeoff
-  - file: 07.20_monte_carlo
+  #- file: 07.20_monte_carlo
 - file: 06.01_results
 - file: bibligraphy
 - file: appendix_vmms

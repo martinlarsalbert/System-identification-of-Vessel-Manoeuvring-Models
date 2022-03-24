@@ -4,10 +4,11 @@ vmms:  # (What Vessel Manoeuvring Models to include)
 - vmm_martin
 - vmm_linear
 - vmm_martins_simple
+- vmm_abkowitz_expanded
 
 regressions:  # (What kind of regression to perform)
-- force_regression
+#- force_regression
 - motion_regression
 
 only_joined: True  # (regress/predict with only models from joined runs)
-track_plot: False
+create_track_plot: False

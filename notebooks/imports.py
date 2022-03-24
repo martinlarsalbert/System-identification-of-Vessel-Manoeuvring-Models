@@ -2,6 +2,10 @@
 %autoreload 2
 %reload_kedro
 %config Completer.use_jedi = False  ## (To fix autocomplete)
+
+import warnings
+warnings.filterwarnings('ignore')
+
 import pandas as pd
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
@@ -43,7 +47,7 @@ global_variables = anyconfig.load(globals_path)
 
 
 
-vmms = global_variables["vmms"]
+vmm_names = global_variables["vmms"]
 only_joined = global_variables[
     "only_joined"
 ]  # (regress/predict with only models from joined runs)S

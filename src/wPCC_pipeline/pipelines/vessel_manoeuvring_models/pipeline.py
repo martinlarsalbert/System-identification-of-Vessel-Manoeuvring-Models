@@ -10,6 +10,7 @@ from .nodes import (
     vmm_linear,
     vmm_martins_simple_model,
     vmm_abkowitz_model,
+    vmm_abkowitz_expanded,
 )
 
 
@@ -42,6 +43,13 @@ def create_pipeline(**kwargs):
                 inputs=[],
                 outputs="vmm_abkowitz",
                 name="vmm_abkowitz_model_node",
+                tags=["vessel_manoeuvring_models"],
+            ),
+            node(
+                func=vmm_abkowitz_expanded,
+                inputs=[],
+                outputs="vmm_abkowitz_expanded",
+                name="vmm_abkowitz_expanded_node",
                 tags=["vessel_manoeuvring_models"],
             ),
         ]

@@ -15,11 +15,14 @@
 {{ vmm }}.{{ regression }}.{{ id }}.track_plot_resimulate:
   type: matplotlib.MatplotlibWriter
   filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ id }}/{{ vmm }}.{{ regression }}.{{ id }}.track_plot_resimulate.png
-
+  save_args:
+    bbox_inches: 'tight'
 
 {{ vmm }}.{{ regression }}.{{ id }}.plot_resimulate:
   type: matplotlib.MatplotlibWriter
   filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ id }}/{{ vmm }}.{{ regression }}.{{ id }}.plot_resimulate.png
+  save_args:
+    bbox_inches: 'tight'
 
 {{ vmm }}.{{ regression }}.{{ id }}.data_damping_forces:
   type: pandas.CSVDataSet

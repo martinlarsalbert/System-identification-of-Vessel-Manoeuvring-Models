@@ -12,10 +12,13 @@ from .nodes import (
     plot_timeseries,
     damping_forces,
     simulation_accuracy,
+    monte_carlo,
 )
 
 
-def create_pipeline(track_plot=True, data_name: str = "data_ek_smooth", **kwargs):
+def create_pipeline(
+    create_track_plot=True, data_name: str = "data_ek_smooth", **kwargs
+):
 
     items = [
         # node(
@@ -52,7 +55,7 @@ def create_pipeline(track_plot=True, data_name: str = "data_ek_smooth", **kwargs
         ),
     ]
 
-    if track_plot:
+    if create_track_plot:
         items += [
             node(
                 func=track_plot,
@@ -80,6 +83,13 @@ def create_pipeline(track_plot=True, data_name: str = "data_ek_smooth", **kwargs
             outputs="simulation_accuracy",
             name="simulation_accuracy_node",
         ),
+        # node(
+        #    func=monte_carlo,
+        #    inputs=[data_name, "regression", "model", "ek"],
+        #    outputs="simulation_monte_carlo",
+        #    name="monte_carlo_node",
+        #    tags=["monte_carlo"],
+        # ),
     ]
 
     return Pipeline(items)

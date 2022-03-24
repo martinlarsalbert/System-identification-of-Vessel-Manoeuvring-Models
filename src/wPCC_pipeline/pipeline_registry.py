@@ -61,7 +61,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     only_joined = global_variables[
         "only_joined"
     ]  # (regress/predict with only models from joined runs)
-    track_plot = global_variables["track_plot"]
+    create_track_plot = global_variables["create_track_plot"]
 
     ########## Pipelines:
 
@@ -171,18 +171,19 @@ def register_pipelines() -> Dict[str, Pipeline]:
     ## Force regression:
     # "force_regression"
     force_regression_pipelines = {}
-    for vmm in vmms:
-        key = f"{vmm}.force_regression"
-        force_regression_pipelines[key] = pipeline(
-            force_regression.create_pipeline(),
-            namespace=f"{vmm}.force_regression",
-            inputs={
-                f"ship_data": "ship_data",
-                f"added_masses": "added_masses",
-                "vmm": vmm,
-                "data_scaled_resistance_corrected": "force_regression.data_scaled_resistance_corrected",
-            },
-        )
+    if "force_regression" in regressions:
+        for vmm in vmms:
+            key = f"{vmm}.force_regression"
+            force_regression_pipelines[key] = pipeline(
+                force_regression.create_pipeline(),
+                namespace=f"{vmm}.force_regression",
+                inputs={
+                    f"ship_data": "ship_data",
+                    f"added_masses": "added_masses",
+                    "vmm": vmm,
+                    "data_scaled_resistance_corrected": "force_regression.data_scaled_resistance_corrected",
+                },
+            )
 
     ## Predictions:
     # motion models:
@@ -192,7 +193,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
         if not only_joined:
             for id in model_test_ids:
                 p = pipeline(
-                    prediction.create_pipeline(track_plot=track_plot),
+                    prediction.create_pipeline(create_track_plot=create_track_plot),
                     namespace=f"{id}",
                     inputs={
                         f"ship_data": "ship_data",
@@ -223,7 +224,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
             for id in model_test_ids:
 
                 p = pipeline(
-                    prediction.create_pipeline(track_plot=track_plot),
+                    prediction.create_pipeline(create_track_plot=create_track_plot),
                     namespace=f"{id}",
                     inputs={
                         f"ship_data": "ship_data",
@@ -252,35 +253,36 @@ def register_pipelines() -> Dict[str, Pipeline]:
                 )
 
         # force models:
-        for id in model_test_ids:
-            p = pipeline(
-                prediction.create_pipeline(track_plot=track_plot),
-                namespace=f"{id}",
-                inputs={
-                    f"ship_data": "ship_data",
-                },
-            )
-            p2 = pipeline(
-                p,
-                namespace="force_regression",
-                inputs={
-                    f"ship_data": "ship_data",
-                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-                    f"{id}.model": f"{vmm}.force_regression.model",
-                },
-            )
-            prediction_id = f"predict.{vmm}.force_regression.{id}"
-            prediction_pipelines[prediction_id] = pipeline(
-                p2,
-                namespace=vmm,
-                inputs={
-                    f"ship_data": "ship_data",
-                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-                    f"{vmm}.force_regression.model": f"{vmm}.force_regression.model",
-                    f"force_regression.{id}.force_regression.data_scaled_resistance_corrected": "force_regression.data_scaled_resistance_corrected",
-                    f"force_regression.{id}.ek": f"{vmm}.ek",
-                },
-            )
+        if "force_regression" in regressions:
+            for id in model_test_ids:
+                p = pipeline(
+                    prediction.create_pipeline(create_track_plot=create_track_plot),
+                    namespace=f"{id}",
+                    inputs={
+                        f"ship_data": "ship_data",
+                    },
+                )
+                p2 = pipeline(
+                    p,
+                    namespace="force_regression",
+                    inputs={
+                        f"ship_data": "ship_data",
+                        f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                        f"{id}.model": f"{vmm}.force_regression.model",
+                    },
+                )
+                prediction_id = f"predict.{vmm}.force_regression.{id}"
+                prediction_pipelines[prediction_id] = pipeline(
+                    p2,
+                    namespace=vmm,
+                    inputs={
+                        f"ship_data": "ship_data",
+                        f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
+                        f"{vmm}.force_regression.model": f"{vmm}.force_regression.model",
+                        f"force_regression.{id}.force_regression.data_scaled_resistance_corrected": "force_regression.data_scaled_resistance_corrected",
+                        f"force_regression.{id}.ek": f"{vmm}.ek",
+                    },
+                )
 
     ## accuracy:
     accuracy_pipelines = {}
@@ -313,16 +315,23 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + reduce(add, ek_pipelines.values())
         + reduce(add, motion_regression_pipelines.values())
         + vct_data_pipeline
-        + reduce(add, force_regression_pipelines.values())
         + reduce(add, prediction_pipelines.values())
         + reduce(add, accuracy_pipelines.values())
     )
-    return_dict["ship"] = ship_pipeline
+
     return_dict["motion_regression"] = reduce(add, motion_regression_pipelines.values())
-    return_dict["force_regression"] = reduce(add, force_regression_pipelines.values())
-    return_dict["regression"] = (
-        return_dict["motion_regression"] + return_dict["force_regression"]
-    )
+    return_dict["regression"] = return_dict["motion_regression"]
+
+    if "force_regression" in regressions:
+        return_dict += reduce(add, force_regression_pipelines.values())
+        return_dict["force_regression"] = reduce(
+            add, force_regression_pipelines.values()
+        )
+
+        return_dict["regression"] += return_dict["force_regression"]
+        return_dict.update(force_regression_pipelines)
+
+    return_dict["ship"] = ship_pipeline
 
     return_dict["predict"] = reduce(add, prediction_pipelines.values())
     return_dict["vmm"] = vessel_manoeuvring_models_pipeline
@@ -332,14 +341,13 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + vessel_manoeuvring_models_pipeline
         + reduce(add, motion_regression_pipelines.values())
         + vct_data_pipeline
-        + reduce(add, force_regression_pipelines.values())
         + reduce(add, prediction_pipelines.values())
     )
 
     return_dict.update(ek_pipelines)
     return_dict.update(runs_pipelines)
     return_dict.update(motion_regression_pipelines)
-    return_dict.update(force_regression_pipelines)
+
     return_dict.update(prediction_pipelines)
     return_dict.update(joined_pipelines)
     return_dict["vct_data_pipeline"] = vct_data_pipeline

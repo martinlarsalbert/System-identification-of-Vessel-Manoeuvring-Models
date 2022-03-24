@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 import src.visualization.plot as plot
 from sklearn.metrics import r2_score, mean_squared_error
 from inspect import signature
+from scipy.stats import norm, multivariate_normal
+from src.models.regression import Regression
 
 import logging
 import numpy as np
@@ -184,3 +186,55 @@ def simulation_accuracy(
     }
 
     return accuracies
+
+
+def monte_carlo(
+    data: pd.DataFrame,
+    regression: Regression,
+    model: ModelSimulator,
+    ek: ExtendedKalman,
+    N=10,
+    seed=42,
+    solver="Radau",
+) -> pd.DataFrame:
+    """Monte carlo simulation with variation of hydrodynamic derivatives
+       according to mean values and covariance matrix from regression.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        Model test time series
+    regression : Regression
+        mean values ans covariance matrix
+    model : ModelSimulator
+        Not really used but is needed to get the "simulate_euler" to work
+    ek : ExtendedKalman
+        Is running the simulations (faster than model.simulate)
+    N : int, optional
+        Number of monte carlo simulations (parameter variations), by default 10
+    seed : int
+        seed used in the random
+    Returns
+    -------
+    pd.DataFrame
+        dataframe with simulation stacked and numbered with "realization" column.
+    """
+
+    means = regression.parameters["regressed"]
+    cov = regression.covs.values
+
+    rv = multivariate_normal(mean=means, cov=cov, allow_singular=True)
+    np.random.seed(seed)
+
+    df_parameter_variation = pd.DataFrame(data=rv.rvs(N), columns=means.index)
+
+    dfs = []
+    for index, parameters_ in df_parameter_variation.iterrows():
+        model_ = model.copy()
+        model_.parameters.update(parameters_)
+
+        df_ = simulate_euler(data=data, model=model_, ek=ek, solver=solver)
+        df_["realization"] = index
+
+    df = pd.concat(dfs)
+    return df

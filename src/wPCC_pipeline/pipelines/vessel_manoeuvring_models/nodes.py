@@ -28,3 +28,9 @@ def vmm_abkowitz_model() -> VMM:
     from src.models.vmm_abkowitz import abkowitz_model
 
     return abkowitz_model
+
+
+def vmm_abkowitz_expanded() -> VMM:
+    from src.models.vmm_abkowitz_expanded import abkowitz_model_expanded
+
+    return abkowitz_model_expanded

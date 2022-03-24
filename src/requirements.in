@@ -26,3 +26,4 @@ sphinx-proof
 seaborn
 ghp-import
 tqdm
+openpyxl
