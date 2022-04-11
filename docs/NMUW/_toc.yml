@@ -9,3 +9,4 @@ chapters:
 - file: 03.01_inverse_dynamics
 - file: 06.01_EKS
 - file: 07.01_results
+- file: 08.01_monte_carlo

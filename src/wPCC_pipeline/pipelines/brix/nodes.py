@@ -42,13 +42,13 @@ def initial_parameters(ship_data: dict) -> dict:
     df_parameters.loc["Nur", "prime"] = 0
     df_parameters.loc["Xdelta", "prime"] = -0.001
     df_parameters.loc["Xr", "prime"] = 0
-    df_parameters.loc["Xrr", "prime"] = 0.007
-    df_parameters.loc["Xu", "prime"] = -0.003
+    df_parameters.loc["Xrr", "prime"] = 0.000
+    df_parameters.loc["Xu", "prime"] = -0.002
     df_parameters.loc["Xuu", "prime"] = 0
     df_parameters.loc["Xv", "prime"] = 0
-    df_parameters.loc["Xvr", "prime"] = -0.006
+    df_parameters.loc["Xvr", "prime"] = -0.001
     df_parameters.loc["Yu", "prime"] = 0
-    df_parameters.loc["Yur", "prime"] = 0.001
+    df_parameters.loc["Yur", "prime"] = 0.00
 
     df_parameters.loc["Nuv", "prime"] = 0.0
     df_parameters.loc["Xthrust", "prime"] = 1.0

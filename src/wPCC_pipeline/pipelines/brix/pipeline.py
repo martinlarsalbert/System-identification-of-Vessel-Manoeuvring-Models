@@ -15,12 +15,14 @@ def create_pipeline(**kwargs):
                 inputs=["ship_data"],
                 outputs="initial_parameters",
                 name="initial_parameters_node",
+                tags=["brix"],
             ),
             node(
                 func=extract_added_masses,
                 inputs=["initial_parameters"],
                 outputs="added_masses",
                 name="extract_added_masses_node",
+                tags=["brix"],
             ),
         ]
     )
