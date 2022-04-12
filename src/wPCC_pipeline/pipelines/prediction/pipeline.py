@@ -8,72 +8,43 @@ from .nodes import (
     simulate,
     simulate_with_time_out,
     simulate_euler,
-    track_plot,
-    plot_timeseries,
     damping_forces,
     simulation_accuracy,
     monte_carlo,
 )
 
 
-def create_pipeline(
-    create_track_plot=True, data_name: str = "data_ek_smooth", **kwargs
-):
+def create_pipeline(**kwargs):
 
-    items = [
-        
-        node(
-            func=simulate_euler,
-            inputs=[
-                data_name,  # Which data to use here is not obvious...
-                "model",
-                "ek",
-            ],
-            outputs="data_resimulate",
-            name="simulate_node",
-            tags=["predict"],
-        ),
-        #node(
-        #    func=damping_forces,
-        #    inputs=[
-        #        "force_regression.data_scaled_resistance_corrected",
-        #        "model",
-        #    ],
-        #    outputs="data_damping_forces",
-        #    name="damping_forces_node",
-        #    tags=["predict"],
-        #),
-    ]
-
-    if create_track_plot:
-        items += [
+    return Pipeline(
+        [
             node(
-                func=track_plot,
-                # inputs=["data", "data_resimulate_model_motion", "ship_data"],
-                inputs=[data_name, "data_resimulate", "ship_data"],
-                outputs="track_plot_resimulate",
-                name="resimulate_track_plot_node",
-                tags=["plot", "track_plot"],
+                func=simulate_euler,
+                inputs=[
+                    "data_ek_smooth",  # Which data to use here is not obvious...
+                    "model",
+                    "ek",
+                ],
+                outputs="data_resimulate",
+                name="simulate_node",
+                tags=["predict"],
+            ),
+            # node(
+            #    func=damping_forces,
+            #    inputs=[
+            #        "force_regression.data_scaled_resistance_corrected",
+            #        "model",
+            #    ],
+            #    outputs="data_damping_forces",
+            #    name="damping_forces_node",
+            #    tags=["predict"],
+            # ),
+            node(
+                func=simulation_accuracy,
+                # inputs=["data", "data_resimulate_model_motion"],
+                inputs=["data_ek_smooth", "data_resimulate"],
+                outputs="simulation_accuracy",
+                name="simulation_accuracy_node",
             ),
         ]
-
-    items += [
-        node(
-            func=plot_timeseries,
-            # inputs=["data", "data_resimulate_model_motion"],
-            inputs=[data_name, "data_resimulate", "ship_data"],
-            outputs="plot_resimulate",
-            name="resimulate_plot_node",
-            tags=["plot"],
-        ),
-        node(
-            func=simulation_accuracy,
-            # inputs=["data", "data_resimulate_model_motion"],
-            inputs=[data_name, "data_resimulate"],
-            outputs="simulation_accuracy",
-            name="simulation_accuracy_node",
-        ),
-       
-    ]
-
-    return Pipeline(items)
+    )

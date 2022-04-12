@@ -52,7 +52,6 @@ def create_pipeline(ship: str):
     )
     global_variables = anyconfig.load(globals_path)
     vmms = global_variables["vmms"]
-    create_track_plot = global_variables["create_track_plot"]
 
     ########## Pipelines:
 
@@ -148,13 +147,12 @@ def create_pipeline(ship: str):
     for id in model_test_ids:
 
         p = pipeline(
-            prediction.create_pipeline(create_track_plot=create_track_plot),
+            prediction.create_pipeline(),
             namespace=id,
             inputs={
                 "data_ek_smooth": "data_ek_smooth",
                 "model": f"model",
                 "ek": "ek",
-                "ship_data": "ship_data",
             },
         )
 
@@ -167,7 +165,6 @@ def create_pipeline(ship: str):
                     "data_ek_smooth": "data_ek_smooth",
                     "model": f"model",
                     "ek": "ek",
-                    "ship_data": "ship_data",
                 },
             )
 
@@ -180,7 +177,6 @@ def create_pipeline(ship: str):
                         "data_ek_smooth": f"{id}.data_ek_smooth",
                         "model": f"{vmm}.{dataset_name}.model",
                         "ek": f"{vmm}.ek",
-                        "ship_data": "ship_data",
                     },
                 )
                 prediction_pipelines.append(p3)

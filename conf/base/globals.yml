@@ -3,14 +3,12 @@ ships:
 
 
 vmms:  # (What Vessel Manoeuvring Models to include)
-#- vmm_abkowitz # 
+- vmm_abkowitz # 
 - vmm_martin
-#- vmm_linear
-#- vmm_martins_simple
+- vmm_linear
+- vmm_martins_simple
 #- vmm_abkowitz_expanded
 
 regressions:  # (What kind of regression to perform)
 #- force_regression
 - motion_regression
-
-create_track_plot: True
