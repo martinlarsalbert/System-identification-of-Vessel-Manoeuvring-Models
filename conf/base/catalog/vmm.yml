@@ -9,9 +9,7 @@
   type: system_matrixes_dataset.SystemMatrixesDataSet
   filepath: data/03_primary/{{ vmm }}.system_matrixes.pkl
 
-{{ vmm }}.covariance_matrixes:
-  type: json.JSONDataSet
-  filepath: data/03_primary/{{ vmm }}.covariance_matrixes.json
+
 
 
   {% for ship in ships %} # (vmm defined in globals.yml)
@@ -19,6 +17,10 @@
 {{ ship }}.{{ vmm }}.ek:
   type: ek_dataset.ExtendedKalmanDataSet
   filepath: data/03_primary/{{ ship }}/{{ vmm }}.ek.pkl
+
+{{ ship }}.{{ vmm }}.covariance_matrixes:
+  type: json.JSONDataSet
+  filepath: data/03_primary/{{ ship }}/{{ ship }}.{{ vmm }}.covariance_matrixes.json
   
   {% endfor %}
 {% endfor %}
