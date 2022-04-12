@@ -1,5 +1,5 @@
 """
-This is a boilerplate pipeline 'vessel_manoeuvring_models'
+This is a boilerplate pipeline 'vmm'
 generated using Kedro 0.17.6
 """
 
@@ -22,35 +22,35 @@ def create_pipeline(**kwargs):
                 inputs=[],
                 outputs="vmm_martin",
                 name="martins_model_node",
-                tags=["vessel_manoeuvring_models"],
+                tags=["vmm"],
             ),
             node(
                 func=vmm_linear,
                 inputs=[],
                 outputs="vmm_linear",
                 name="vmm_linear_node",
-                tags=["vessel_manoeuvring_models"],
+                tags=["vmm"],
             ),
             node(
                 func=vmm_martins_simple_model,
                 inputs=[],
                 outputs="vmm_martins_simple",
                 name="vmm_martins_simple_model_node",
-                tags=["vessel_manoeuvring_models"],
+                tags=["vmm"],
             ),
             node(
                 func=vmm_abkowitz_model,
                 inputs=[],
                 outputs="vmm_abkowitz",
                 name="vmm_abkowitz_model_node",
-                tags=["vessel_manoeuvring_models"],
+                tags=["vmm"],
             ),
             node(
                 func=vmm_abkowitz_expanded,
                 inputs=[],
                 outputs="vmm_abkowitz_expanded",
                 name="vmm_abkowitz_expanded_node",
-                tags=["vessel_manoeuvring_models"],
+                tags=["vmm"],
             ),
         ]
     )

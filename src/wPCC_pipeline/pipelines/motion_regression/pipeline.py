@@ -5,6 +5,7 @@ generated using Kedro 0.17.6
 
 from kedro.pipeline import Pipeline, node
 from .nodes import (
+    predict_force,
     fit_motions,
     create_model_from_motion_regression,
     motion_regression_summaries,
@@ -16,9 +17,21 @@ def create_pipeline(**kwargs):
     return Pipeline(
         [
             node(
-                func=fit_motions,
+                func=predict_force,
                 inputs=[
                     "data_ek_smooth",
+                    "added_masses",
+                    "ship_data",
+                    "vmm",
+                ],
+                outputs="data_with_force",
+                name="predict_force_node",
+                tags=["motion_regression"],
+            ),
+            node(
+                func=fit_motions,
+                inputs=[
+                    "data_with_force",
                     "added_masses",
                     "ship_data",
                     "vmm",

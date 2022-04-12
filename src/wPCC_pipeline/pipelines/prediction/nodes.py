@@ -52,7 +52,7 @@ def simulate_euler(
     data: pd.DataFrame,
     model: ModelSimulator,
     ek: ExtendedKalman,
-    solver="euler",
+    solver="Radau",
 ) -> pd.DataFrame:
     """Resimulate model test data with a model
 

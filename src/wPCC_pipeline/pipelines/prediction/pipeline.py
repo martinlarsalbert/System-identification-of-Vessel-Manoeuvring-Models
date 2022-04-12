@@ -21,17 +21,7 @@ def create_pipeline(
 ):
 
     items = [
-        # node(
-        #    func=simulate,
-        #    # inputs=["data", "model_motion_regression"],
-        #    inputs=[
-        #        data_name,  # Which data to use here is not obvious...
-        #        "model",
-        #    ],
-        #    outputs="data_resimulate",
-        #    name="simulate_node",
-        #    tags=["predict"],
-        # ),
+        
         node(
             func=simulate_euler,
             inputs=[
@@ -83,13 +73,7 @@ def create_pipeline(
             outputs="simulation_accuracy",
             name="simulation_accuracy_node",
         ),
-        # node(
-        #    func=monte_carlo,
-        #    inputs=[data_name, "regression", "model", "ek"],
-        #    outputs="simulation_monte_carlo",
-        #    name="monte_carlo_node",
-        #    tags=["monte_carlo"],
-        # ),
+       
     ]
 
     return Pipeline(items)

@@ -3,7 +3,7 @@ This is a boilerplate pipeline 'motion_regression'
 generated using Kedro 0.17.6
 """
 
-from src.models.regression import MotionRegression
+from src.models.regression import Regression
 import pandas as pd
 import src.prime_system as prime_system
 from src.models.vmm import VMM
@@ -11,6 +11,7 @@ import src.symbols as s
 from typing import Union
 from src.models.vmm import ModelSimulator
 import matplotlib.pyplot as plt
+from src.models.force_from_motion import predict_force
 
 
 def fit_motions(
@@ -19,13 +20,13 @@ def fit_motions(
     ship_data: dict,
     vmm: VMM,
     exclude_parameters: dict = {},
-) -> Union[MotionRegression, pd.DataFrame]:
+) -> Union[Regression, pd.DataFrame]:
     """Fit damping force parameters in a dynamic model to ship MOTION measurements
 
     Parameters
     ----------
     data : pd.DataFrame
-        Measurements of motions : positions, velocities and accelerations
+        Measurements of forces predicted from motions : positions, velocities and accelerations
     added_masses : dict
         ship added masses in prime-system
     ship_data : dict
@@ -47,7 +48,7 @@ def fit_motions(
 
     ps = prime_system.PrimeSystem(**ship_data)  # model
 
-    regression = MotionRegression(
+    regression = Regression(
         vmm=vmm,
         data=data,
         added_masses=added_masses,
@@ -61,7 +62,7 @@ def fit_motions(
     return regression, parameters
 
 
-def motion_regression_summaries(regression: MotionRegression) -> Union[str, str, str]:
+def motion_regression_summaries(regression: Regression) -> Union[str, str, str]:
     return (
         regression.model_X.summary().as_text(),
         regression.model_Y.summary().as_text(),
@@ -70,7 +71,7 @@ def motion_regression_summaries(regression: MotionRegression) -> Union[str, str,
 
 
 def motion_regression_plots(
-    regression: MotionRegression,
+    regression: Regression,
 ) -> Union[plt.figure, plt.figure, plt.figure]:
     return (
         regression.plot_pred_X().get_figure(),
@@ -79,7 +80,7 @@ def motion_regression_plots(
     )
 
 
-def create_model_from_motion_regression(regression: MotionRegression) -> ModelSimulator:
+def create_model_from_motion_regression(regression: Regression) -> ModelSimulator:
 
     model = regression.create_model(
         control_keys=["delta", "thrust"],
