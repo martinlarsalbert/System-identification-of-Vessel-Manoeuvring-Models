@@ -3,28 +3,29 @@
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://kedro.readthedocs.io/en/stable/05_data/01_data_catalog.html
 
-ship_data:
+{% for ship in ships %}  # (runs defined in runs_globals.yml)
+{{ ship }}.ship_data:
   type: yaml.YAMLDataSet
-  filepath: data/01_raw/ship_data.yml
+  filepath: data/01_raw/{{ ship }}/ship_data.yml
 
-initial_parameters:
+{{ ship }}.initial_parameters:
   type: yaml.YAMLDataSet
-  filepath: data/02_intermediate/initial_parameters.yml
+  filepath: data/02_intermediate/{{ ship }}/{{ ship }}.initial_parameters.yml
 
-added_masses:
+{{ ship }}.added_masses:
   type: yaml.YAMLDataSet
-  filepath: data/02_intermediate/added_masses.yml
+  filepath: data/02_intermediate/{{ ship }}/{{ ship }}.added_masses.yml
 
-runs_meta_data_raw:
+{{ ship }}.runs_meta_data_raw:
   type: pandas.CSVDataSet
-  filepath: data/01_raw/runs_meta_data.csv
+  filepath: data/01_raw/{{ ship }}/runs_meta_data.csv
   load_args:
     index_col: 0
     encoding: 'utf-8'
 
-runs_meta_data:
+{{ ship }}.runs_meta_data:
   type: pandas.CSVDataSet
-  filepath: data/02_intermediate/runs_meta_data.csv
+  filepath: data/02_intermediate/{{ ship }}/{{ ship }}.runs_meta_data
   load_args:
     index_col: 0
     encoding: 'utf-8'
@@ -32,9 +33,4 @@ runs_meta_data:
     index: True
     encoding: 'utf-8'
 
-#ek:
-#  type: pickle.PickleDataSet
-#  filepath: data/03_primary/ek.pkl
-#  backend: dill
-#  save_args:
-#    byref: True
+{% endfor %}

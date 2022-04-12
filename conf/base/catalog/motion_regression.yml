@@ -1,52 +1,53 @@
-{% set model_ids = model_test_ids + joins %}
 
-{% for vmm in vmms %} # (vmm defined in globals.yml)
+{% for ship in ships %} # (vmm defined in globals.yml)
+
+  {% for vmm in vmms %} # (vmm defined in globals.yml)
+
+    {% for id in joins %}  # (runs defined in runs_globals.yml)
 
 
-  {% for id in model_ids %}  # (runs defined in runs_globals.yml)
-
-
-{{ vmm }}.{{ id }}.derivatives:
+{{ ship }}.{{ vmm }}.{{ id }}.derivatives:
   type: pandas.CSVDataSet
-  filepath: data/06_models/{{ vmm }}/{{ id }}/{{ vmm }}.{{ id }}.derivatives.csv
+  filepath: data/06_models/{{ ship }}/{{ vmm }}/{{ id }}/{{ ship }}.{{ vmm }}.{{ id }}.derivatives.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ vmm }}.{{ id }}.regression:
+{{ ship }}.{{ vmm }}.{{ id }}.regression:
   type: pickle.PickleDataSet
-  filepath: data/06_models/{{ vmm }}/{{ id }}/{{ vmm }}.{{ id }}.regression.pkl
+  filepath: data/06_models/{{ ship }}/{{ vmm }}/{{ id }}/{{ ship }}.{{ vmm }}.{{ id }}.regression.pkl
   backend: dill
   
-{{ vmm }}.{{ id }}.summary_X:
+{{ ship }}.{{ vmm }}.{{ id }}.summary_X:
   type: text.TextDataSet
-  filepath: data/06_models/{{ vmm }}/{{ id }}/{{ vmm }}.{{ id }}.summary_X.txt
+  filepath: data/06_models/{{ ship }}/{{ vmm }}/{{ id }}/{{ ship }}.{{ vmm }}.{{ id }}.summary_X.txt
 
-{{ vmm }}.{{ id }}.summary_Y:
+{{ ship }}.{{ vmm }}.{{ id }}.summary_Y:
   type: text.TextDataSet
-  filepath: data/06_models/{{ vmm }}/{{ id }}/{{ vmm }}.{{ id }}.summary_Y.txt
+  filepath: data/06_models/{{ ship }}/{{ vmm }}/{{ id }}/{{ ship }}.{{ vmm }}.{{ id }}.summary_Y.txt
 
-{{ vmm }}.{{ id }}.summary_N:
+{{ ship }}.{{ vmm }}.{{ id }}.summary_N:
   type: text.TextDataSet
-  filepath: data/06_models/{{ vmm }}/{{ id }}/{{ vmm }}.{{ id }}.summary_N.txt
+  filepath: data/06_models/{{ ship }}/{{ vmm }}/{{ id }}/{{ ship }}.{{ vmm }}.{{ id }}.summary_N.txt
 
-{{ vmm }}.{{ id }}.plot_X:
+{{ ship }}.{{ vmm }}.{{ id }}.plot_X:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/{{ vmm }}/{{ id }}/{{ vmm }}.{{ id }}.plot_X.png
+  filepath: data/06_models/{{ ship }}/{{ vmm }}/{{ id }}/{{ ship }}.{{ vmm }}.{{ id }}.plot_X.png
 
-{{ vmm }}.{{ id }}.plot_Y:
+{{ ship }}.{{ vmm }}.{{ id }}.plot_Y:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/{{ vmm }}/{{ id }}/{{ vmm }}.{{ id }}.plot_Y.png
+  filepath: data/06_models/{{ ship }}/{{ vmm }}/{{ id }}/{{ ship }}.{{ vmm }}.{{ id }}.plot_Y.png
 
-{{ vmm }}.{{ id }}.plot_N:
+{{ ship }}.{{ vmm }}.{{ id }}.plot_N:
   type: matplotlib.MatplotlibWriter
-  filepath: data/06_models/{{ vmm }}/{{ id }}/{{ vmm }}.{{ id }}.plot_N.png
+  filepath: data/06_models/{{ ship }}/{{ vmm }}/{{ id }}/{{ ship }}.{{ vmm }}.{{ id }}.plot_N.png
 
-{{ vmm }}.{{ id }}.model:
+{{ ship }}.{{ vmm }}.{{ id }}.model:
   type: pickle.PickleDataSet
-  filepath: data/06_models/{{ vmm }}/{{ id }}/{{ vmm }}.{{ id }}.model.pkl
+  filepath: data/06_models/{{ ship }}/{{ vmm }}/{{ id }}/{{ ship }}.{{ vmm }}.{{ id }}.model.pkl
   backend: dill
-
+  
+    {% endfor %}
   {% endfor %}
 {% endfor %}

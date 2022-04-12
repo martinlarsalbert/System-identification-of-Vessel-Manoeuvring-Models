@@ -1,6 +1,10 @@
+ships:
+  - wpcc
+
+
 vmms:  # (What Vessel Manoeuvring Models to include)
-- vmm_abkowitz # (Not working with motion regression...)
-#- vmm_martin
+#- vmm_abkowitz # 
+- vmm_martin
 #- vmm_linear
 #- vmm_martins_simple
 #- vmm_abkowitz_expanded

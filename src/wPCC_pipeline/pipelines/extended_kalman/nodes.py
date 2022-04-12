@@ -4,13 +4,15 @@ generated using Kedro 0.17.6
 """
 
 import pandas as pd
-from src.extended_kalman_vmm import ExtendedKalman
+from src.extended_kalman_vmm import ExtendedKalman, SystemMatrixes
 from src.models.vmm import VMM
 import numpy as np
 
 
+
+
 def create_extended_kalman(
-    parameters: dict, ship_data: dict, vmm: VMM
+    parameters: dict, ship_data: dict, vmm: VMM, system_matrixes: SystemMatrixes,
 ) -> ExtendedKalman:
     """Create an Extended Kalman Filter (EKF)
 
@@ -29,7 +31,7 @@ def create_extended_kalman(
         object of Extendedkalman class, that can be used to predict measured states.
     """
 
-    ek = ExtendedKalman(vmm=vmm, parameters=parameters, ship_parameters=ship_data)
+    ek = ExtendedKalman(vmm=vmm, parameters=parameters, ship_parameters=ship_data, system_matrixes=system_matrixes)
 
     return ek
 

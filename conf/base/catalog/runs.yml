@@ -1,72 +1,73 @@
 ## Jinja2
 
-{% for id in model_test_ids %}  # (runs defined in runs_globals.yml)
+{% for ship, ids in model_test_ids.items() %}
+  {% for id in ids %}  # (runs defined in runs_globals.yml)
 
-{{ id }}.raw_data:
+{{ ship }}.{{ id }}.raw_data:
   type: pandas.CSVDataSet
-  filepath: data/01_raw/{{ id }}.csv
+  filepath: data/01_raw/{{ ship }}/{{ id }}.csv
 #  filepath: data/01_raw/22774.csv
   load_args:
     index_col: 0
 
-{{ id }}.data_with_thrust:
+{{ ship }}.{{ id }}.data_with_thrust:
   type: pandas.CSVDataSet
-  filepath: data/02_intermediate/{{ id }}.data_with_thrust.csv
+  filepath: data/02_intermediate/{{ ship }}/{{ ship }}.{{ id }}.data_with_thrust.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
 
-{{ id }}.data:
+{{ ship }}.{{ id }}.data:
   type: pandas.CSVDataSet
-  filepath: data/02_intermediate/{{ id }}.csv
+  filepath: data/02_intermediate/{{ ship }}/{{ ship }}.{{ id }}.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ id }}.track_plot:
+{{ ship }}.{{ id }}.track_plot:
   type: matplotlib.MatplotlibWriter
-  filepath: data/08_reporting/{{ id }}.track_plot.png
+  filepath: data/08_reporting/{{ ship }}/{{ ship }}.{{ id }}.track_plot.png
 
-{{ id }}.data_lowpass:
+{{ ship }}.{{ id }}.data_lowpass:
   type: pandas.CSVDataSet
-  filepath: data/02_intermediate/{{ id }}.lowpass_22773.csv
+  filepath: data/02_intermediate/{{ ship }}/{{ ship }}.{{ id }}.lowpass_22773.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ id }}.initial_parameters:
+{{ ship }}.{{ id }}.initial_parameters:
   type: yaml.YAMLDataSet
   filepath: data/02_intermediate/initial_parameters.yml
 
 
 
-{{ id }}.data_resimulate_extended_kalman:
+{{ ship }}.{{ id }}.data_resimulate_extended_kalman:
   type: pandas.CSVDataSet
-  filepath: data/02_intermediate/{{ id }}.data_resimulate_extended_kalman.csv
+  filepath: data/02_intermediate/{{ ship }}/{{ ship }}.{{ id }}.data_resimulate_extended_kalman.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ id }}.data_ek_filter:
+{{ ship }}.{{ id }}.data_ek_filter:
   type: pandas.CSVDataSet
-  filepath: data/03_primary/{{ id }}.ek_filter.csv
+  filepath: data/03_primary/{{ ship }}/{{ ship }}.{{ id }}.ek_filter.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ id }}.data_ek_smooth:
+{{ ship }}.{{ id }}.data_ek_smooth:
   type: pandas.CSVDataSet
-  filepath: data/03_primary/{{ id }}.ek_smooth.csv
+  filepath: data/03_primary/{{ ship }}/{{ ship }}.{{ id }}.ek_smooth.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-
+  {% endfor %}
 {% endfor %}

@@ -1,54 +1,55 @@
 
 {% for vmm in vmms %} # (vmm defined in globals.yml)
-  {% for id in model_test_ids %}  # (id defined in runs_globals.yml)
-    {% for regression in regressions %}  # (runs defined in /globals/runs.yml)
+  {% for ship, ids in model_test_ids.items() %}
+    {% for id in ids %}  # (runs defined in runs_globals.yml)
+    
 
-## Joins:
+      ## Joins:
       {% for join in joins %}  # (runs defined in join_globals.yml)
 
-{{ vmm }}.{{ join }}.{{ id }}.data_resimulate:
+{{ ship }}.{{ vmm }}.{{ join }}.{{ id }}.data_resimulate:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ join }}/{{ vmm }}.{{ join }}.{{ id }}.data_resimulate.csv
+  filepath: data/07_model_output/{{ ship }}/{{ vmm }}/{{ join }}.{{ vmm }}.{{ join }}.{{ id }}.data_resimulate.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ vmm }}.{{ join }}.{{ id }}.track_plot_resimulate:
+{{ ship }}.{{ vmm }}.{{ join }}.{{ id }}.track_plot_resimulate:
   #type: matplotlib.MatplotlibWriter
   type: matplotlib_writer.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}/{{ join }}/{{ vmm }}.{{ join }}.{{ id }}.track_plot_resimulate.png
+  filepath: data/07_model_output/{{ ship }}/{{ vmm }}/{{ join }}.{{ vmm }}.{{ join }}.{{ id }}.track_plot_resimulate.png
 
-{{ vmm }}.{{ join }}.{{ id }}.plot_resimulate:
+{{ ship }}.{{ vmm }}.{{ join }}.{{ id }}.plot_resimulate:
   type: matplotlib_writer.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}/{{ join }}/{{ vmm }}.{{ join }}.{{ id }}.plot_resimulate.png
+  filepath: data/07_model_output/{{ ship }}/{{ vmm }}/{{ join }}.{{ vmm }}.{{ join }}.{{ id }}.plot_resimulate.png
 
-{{ vmm }}.{{ join }}.{{ id }}.data_damping_forces:
+{{ ship }}.{{ vmm }}.{{ join }}.{{ id }}.data_damping_forces:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ join }}/{{ vmm }}.{{ join }}.{{ id }}.data_damping_forces.csv
+  filepath: data/07_model_output/{{ ship }}/{{ vmm }}/{{ join }}.{{ vmm }}.{{ join }}.{{ id }}.data_damping_forces.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ vmm }}.{{ join }}.{{ id }}.simulation_accuracy:
+{{ ship }}.{{ vmm }}.{{ join }}.{{ id }}.simulation_accuracy:
   #type: tracking.MetricsDataSet
   type: json.JSONDataSet
-  filepath: data/09_tracking/{{ vmm }}.{{ join }}.{{ id }}.simulation_accuracy.json
+  filepath: data/09_tracking/{{ ship }}/{{ vmm }}/{{ ship }}.{{ vmm }}.{{ join }}.{{ id }}.simulation_accuracy.json
   versioned: True
 
 ## Accuracy:
-{{ vmm }}.{{ join }}.{{ id }}.data_online_predict:
+{{ ship }}.{{ vmm }}.{{ join }}.{{ id }}.data_online_predict:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ join }}/{{ vmm }}.{{ join }}.{{ id }}.data_online_predict.csv
+  filepath: data/07_model_output/{{ ship }}/{{ vmm }}/{{ join }}.{{ vmm }}.{{ join }}.{{ id }}.data_online_predict.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ vmm }}.{{ join }}.{{ id }}.online_prediction_rmse:
+{{ ship }}.{{ vmm }}.{{ join }}.{{ id }}.online_prediction_rmse:
   type: json.JSONDataSet
-  filepath: data/09_tracking/{{ vmm }}/{{ join }}/{{ vmm }}.{{ join }}.{{ id }}.data_online_predict_rmse.json
+  filepath: data/09_tracking/{{ ship }}/{{ vmm }}/{{ ship }}.{{ vmm }}.{{ join }}.{{ id }}.data_online_predict_rmse.json
   versioned: False
 
 
