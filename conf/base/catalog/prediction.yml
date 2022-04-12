@@ -3,88 +3,53 @@
   {% for id in model_test_ids %}  # (id defined in runs_globals.yml)
     {% for regression in regressions %}  # (runs defined in /globals/runs.yml)
 
-{{ vmm }}.{{ regression }}.{{ id }}.data_resimulate:
-  type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ id }}/{{ vmm }}.{{ regression }}.{{ id }}.data_resimulate.csv
-  versioned: true
-  load_args:
-    index_col: 0
-  save_args:
-    index: True
-
-{{ vmm }}.{{ regression }}.{{ id }}.track_plot_resimulate:
-  type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ id }}/{{ vmm }}.{{ regression }}.{{ id }}.track_plot_resimulate.png
-  save_args:
-    bbox_inches: 'tight'
-
-{{ vmm }}.{{ regression }}.{{ id }}.plot_resimulate:
-  type: matplotlib.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ id }}/{{ vmm }}.{{ regression }}.{{ id }}.plot_resimulate.png
-  save_args:
-    bbox_inches: 'tight'
-
-{{ vmm }}.{{ regression }}.{{ id }}.data_damping_forces:
-  type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ id }}/{{ vmm }}.{{ regression }}.{{ id }}.data_damping_forces.csv
-  load_args:
-    index_col: 0
-  save_args:
-    index: True
-
-{{ vmm }}.{{ regression }}.{{ id }}.simulation_accuracy:
-  #type: tracking.MetricsDataSet
-  type: json.JSONDataSet
-  filepath: data/09_tracking/{{ vmm }}.{{ regression }}.{{ id }}.simulation_accuracy.json
-  versioned: True
-
 ## Joins:
       {% for join in joins %}  # (runs defined in join_globals.yml)
 
-{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_resimulate:
+{{ vmm }}.{{ join }}.{{ id }}.data_resimulate:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_resimulate.csv
+  filepath: data/07_model_output/{{ vmm }}/{{ join }}/{{ vmm }}.{{ join }}.{{ id }}.data_resimulate.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.track_plot_resimulate:
+{{ vmm }}.{{ join }}.{{ id }}.track_plot_resimulate:
   #type: matplotlib.MatplotlibWriter
   type: matplotlib_writer.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.track_plot_resimulate.png
+  filepath: data/07_model_output/{{ vmm }}/{{ join }}/{{ vmm }}.{{ join }}.{{ id }}.track_plot_resimulate.png
 
-{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.plot_resimulate:
+{{ vmm }}.{{ join }}.{{ id }}.plot_resimulate:
   type: matplotlib_writer.MatplotlibWriter
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.plot_resimulate.png
+  filepath: data/07_model_output/{{ vmm }}/{{ join }}/{{ vmm }}.{{ join }}.{{ id }}.plot_resimulate.png
 
-{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_damping_forces:
+{{ vmm }}.{{ join }}.{{ id }}.data_damping_forces:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_damping_forces.csv
+  filepath: data/07_model_output/{{ vmm }}/{{ join }}/{{ vmm }}.{{ join }}.{{ id }}.data_damping_forces.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.simulation_accuracy:
+{{ vmm }}.{{ join }}.{{ id }}.simulation_accuracy:
   #type: tracking.MetricsDataSet
   type: json.JSONDataSet
-  filepath: data/09_tracking/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.simulation_accuracy.json
+  filepath: data/09_tracking/{{ vmm }}.{{ join }}.{{ id }}.simulation_accuracy.json
   versioned: True
 
 ## Accuracy:
-{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_online_predict:
+{{ vmm }}.{{ join }}.{{ id }}.data_online_predict:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_online_predict.csv
+  filepath: data/07_model_output/{{ vmm }}/{{ join }}/{{ vmm }}.{{ join }}.{{ id }}.data_online_predict.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.online_prediction_rmse:
+{{ vmm }}.{{ join }}.{{ id }}.online_prediction_rmse:
   type: json.JSONDataSet
-  filepath: data/09_tracking/{{ vmm }}/{{ regression }}/{{ join }}/{{ vmm }}.{{ regression }}.{{ join }}.{{ id }}.data_online_predict_rmse.csv
-  versioned: True
+  filepath: data/09_tracking/{{ vmm }}/{{ join }}/{{ vmm }}.{{ join }}.{{ id }}.data_online_predict_rmse.json
+  versioned: False
 
 
       {% endfor %}

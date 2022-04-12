@@ -77,13 +77,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
                 "ship_data": "ship_data",
             },
         )
-
-    vct_data_pipeline = pipeline(
-        vct_data.create_pipeline(),
-        namespace="force_regression",
-        inputs={"ship_data": "ship_data"},
-    )
-
+    
     ## Preprocess model tests:
     runs_pipelines = {}
     for id in model_test_ids:
@@ -156,72 +150,48 @@ def register_pipelines() -> Dict[str, Pipeline]:
     ## Predictions:
     # motion models:
     # model tests:
-    prediction_pipelines = {}
-    for vmm in vmms:
+    prediction_pipelines = []
+    
+    for id in model_test_ids:
+        
+        p = pipeline(
+                prediction.create_pipeline(create_track_plot=create_track_plot),
+                namespace=id,
+                inputs={
+                    "data_ek_smooth": "data_ek_smooth",
+                    "model":f"model",
+                    "ek":"ek",
+                    "ship_data":"ship_data",
+                     })
+
         for dataset_name in dataset_names:
-            for id in model_test_ids:
-
-                p = pipeline(
-                    prediction.create_pipeline(create_track_plot=create_track_plot),
-                    namespace=f"{id}",
-                    inputs={
-                        f"ship_data": "ship_data",
-                    },
-                )
-                p2 = pipeline(
+        
+            p2 = pipeline(
                     p,
-                    namespace=f"motion_regression.{dataset_name}",
+                    namespace=dataset_name,
                     inputs={
-                        f"ship_data": "ship_data",
-                        f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-                        f"{id}.model": f"{vmm}.motion_regression.{dataset_name}.model",
+                    "data_ek_smooth": "data_ek_smooth",
+                    "model":f"model",
+                    "ek":"ek",
+                    "ship_data":"ship_data",
                     },
                 )
-                prediction_id = f"predict.{vmm}.motion_regression.{dataset_name}.{id}"
-                prediction_pipelines[prediction_id] = pipeline(
+
+            for vmm in vmms:          
+    
+                p3 = pipeline(
                     p2,
                     namespace=vmm,
                     inputs={
-                        f"ship_data": "ship_data",
-                        f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-                        f"{vmm}.motion_regression.{dataset_name}.model": f"{vmm}.motion_regression.{dataset_name}.model",
-                        f"motion_regression.{dataset_name}.{id}.force_regression.data_scaled_resistance_corrected": "force_regression.data_scaled_resistance_corrected",
-                        f"motion_regression.{dataset_name}.{id}.ek": f"{vmm}.ek",
+                    "data_ek_smooth": f"{id}.data_ek_smooth",
+                    "model":f"{vmm}.{dataset_name}.model",
+                    "ek":f"{vmm}.ek",
+                    "ship_data":"ship_data",
                     },
                 )
+                prediction_pipelines.append(p3)
 
-        # force models:
-        if "force_regression" in regressions:
-            for id in model_test_ids:
-                p = pipeline(
-                    prediction.create_pipeline(create_track_plot=create_track_plot),
-                    namespace=f"{id}",
-                    inputs={
-                        f"ship_data": "ship_data",
-                    },
-                )
-                p2 = pipeline(
-                    p,
-                    namespace="force_regression",
-                    inputs={
-                        f"ship_data": "ship_data",
-                        f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-                        f"{id}.model": f"{vmm}.force_regression.model",
-                    },
-                )
-                prediction_id = f"predict.{vmm}.force_regression.{id}"
-                prediction_pipelines[prediction_id] = pipeline(
-                    p2,
-                    namespace=vmm,
-                    inputs={
-                        f"ship_data": "ship_data",
-                        f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-                        f"{vmm}.force_regression.model": f"{vmm}.force_regression.model",
-                        f"force_regression.{id}.force_regression.data_scaled_resistance_corrected": "force_regression.data_scaled_resistance_corrected",
-                        f"force_regression.{id}.ek": f"{vmm}.ek",
-                    },
-                )
-
+                
     ## accuracy:
     accuracy_pipelines = {}
 
@@ -231,14 +201,14 @@ def register_pipelines() -> Dict[str, Pipeline]:
 
             for id in model_test_ids:
 
-                key = f"accuracy.{vmm}.motion_regression.{dataset_name}.{id}"
+                key = f"accuracy.{vmm}.{dataset_name}.{id}"
                 accuracy_pipelines[key] = pipeline(
                     accuracy.create_pipeline(),
-                    namespace=f"{vmm}.motion_regression.{dataset_name}.{id}",
+                    namespace=f"{vmm}.{dataset_name}.{id}",
                     inputs={
                         "data_ek_smooth": f"{id}.data_ek_smooth",
                         "ek": f"{vmm}.ek",
-                        "model": f"{ vmm }.motion_regression.{ dataset_name }.model",
+                        "model": f"{ vmm }.{ dataset_name }.model",
                         "ship_data": "ship_data",
                     },
                 )
@@ -252,9 +222,8 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + vessel_manoeuvring_models_pipeline
         + reduce(add, ek_pipelines.values())
         + reduce(add, motion_regression_pipelines)
-        #+ vct_data_pipeline
-        #+ reduce(add, prediction_pipelines.values())
-        #+ reduce(add, accuracy_pipelines.values())
+        + reduce(add, prediction_pipelines)
+        + reduce(add, accuracy_pipelines.values())
     )
 
     

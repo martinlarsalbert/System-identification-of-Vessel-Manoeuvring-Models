@@ -33,16 +33,16 @@ def create_pipeline(
             name="simulate_node",
             tags=["predict"],
         ),
-        node(
-            func=damping_forces,
-            inputs=[
-                "force_regression.data_scaled_resistance_corrected",
-                "model",
-            ],
-            outputs="data_damping_forces",
-            name="damping_forces_node",
-            tags=["predict"],
-        ),
+        #node(
+        #    func=damping_forces,
+        #    inputs=[
+        #        "force_regression.data_scaled_resistance_corrected",
+        #        "model",
+        #    ],
+        #    outputs="data_damping_forces",
+        #    name="damping_forces_node",
+        #    tags=["predict"],
+        #),
     ]
 
     if create_track_plot:
