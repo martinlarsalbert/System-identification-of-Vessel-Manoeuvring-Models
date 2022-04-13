@@ -4,7 +4,11 @@ from functools import reduce
 from operator import add
 
 
-def create_pipeline(model_test_ids, dataset_names, vmms):
+def create_pipeline(model_test_ids, vmms):
+
+    join_runs_dict = {}
+    join_runs_dict["joined"] = model_test_ids
+    dataset_names = list(join_runs_dict.keys())
 
     prediction_pipelines = []
 

@@ -5,8 +5,7 @@ from operator import add
 
 from kedro.pipeline import Pipeline
 from kedro.pipeline.modular_pipeline import pipeline
-import anyconfig
-import os.path
+
 
 from .pipelines import preprocess as preprocess
 from .pipelines import brix as brix
@@ -14,44 +13,18 @@ from .pipelines import filter_data_extended_kalman as filter_data_extended_kalma
 from .pipelines import motion_regression as motion_regression
 from .pipelines import prediction as prediction
 from .pipelines import join_runs
-from .pipelines import force_regression
 
-from .pipelines import vct_data
 from .pipelines import accuracy
 from .pipelines import setup
 from .pipelines import extended_kalman as extended_kalman
 
 
-def create_pipeline(ship: str):
+def create_pipeline(model_test_ids, vmms):
     """Creates a pipeline for one ship"""
-    # Read configs:
-    conf_path = os.path.join(
-        os.path.split(os.path.split(os.path.dirname(__file__))[0])[0],
-        "conf",
-        "base",
-    )
-    runs_globals_path = os.path.join(
-        conf_path,
-        "runs_globals.yml",
-    )
 
-    runs_globals = anyconfig.load(runs_globals_path)
-    model_test_ids = runs_globals["model_test_ids"][ship]
-
-    join_globals_path = os.path.join(
-        conf_path,
-        "join_globals.yml",
-    )
-
-    joins = runs_globals["joins"]
-    join_runs_dict = anyconfig.load(join_globals_path)
-
-    globals_path = os.path.join(
-        conf_path,
-        "globals.yml",
-    )
-    global_variables = anyconfig.load(globals_path)
-    vmms = global_variables["vmms"]
+    join_runs_dict = {}
+    join_runs_dict["joined"] = model_test_ids
+    dataset_names = list(join_runs_dict.keys())
 
     ########## Pipelines:
 
@@ -94,8 +67,6 @@ def create_pipeline(ship: str):
     #    join_runs.create_pipeline(model_test_ids=model_test_ids, namespace="joined", )
     # )
 
-    join_runs_dict["joined"] = model_test_ids
-    join_runs_dict = {join_name: join_runs_dict[join_name] for join_name in joins}
     # other selections:
     for dataset_name, runs_selection in join_runs_dict.items():
         joined_pipelines[dataset_name] = pipeline(

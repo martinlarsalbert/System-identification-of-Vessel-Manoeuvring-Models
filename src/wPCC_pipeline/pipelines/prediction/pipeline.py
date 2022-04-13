@@ -6,7 +6,6 @@ generated using Kedro 0.17.6
 from kedro.pipeline import Pipeline, node
 from .nodes import (
     simulate,
-    simulate_with_time_out,
     simulate_euler,
     damping_forces,
     simulation_accuracy,

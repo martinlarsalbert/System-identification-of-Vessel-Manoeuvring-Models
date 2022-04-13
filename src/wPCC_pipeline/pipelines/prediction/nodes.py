@@ -15,6 +15,8 @@ from src.models.regression import Regression
 
 import logging
 import numpy as np
+import multiprocessing
+import dill
 
 log = logging.getLogger("kedro.pipeline")
 
@@ -52,7 +54,7 @@ def simulate_euler(
     data: pd.DataFrame,
     model: ModelSimulator,
     ek: ExtendedKalman,
-    solver="Radau",
+    solver="euler",
 ) -> pd.DataFrame:
     """Resimulate model test data with a model
 
@@ -84,33 +86,55 @@ def simulate_euler(
     return df
 
 
-import multiprocessing as mp
-import multiprocessing.queues as mpq
+def worker(queue_input: multiprocessing.Queue, queue_output: multiprocessing.Queue):
+    """_summary_
+
+    Parameters
+    ----------
+    method : Method to run
+    queue_input : multiprocessing.Queue with dictionary input
+    queue_output : multiprocessing.Queue() with return value from method
+        _description_
+    """
+
+    input = queue_input.get()
+
+    input["model"] = dill.loads(input["model"])
+    input["ek"] = dill.loads(input["ek"])
+
+    return_values = simulate_euler(**input)
+
+    queue_output.put(return_values)
 
 
-def sim_worker(q, data, model):
-    df = simulate(data=data, model=model)
-    q.put(df)
-
-
-def simulate_with_time_out(
-    data: pd.DataFrame, model: ModelSimulator, timeout=1000
+def simulate_euler_with_timeout(
+    data: pd.DataFrame,
+    model: ModelSimulator,
+    ek: ExtendedKalman,
+    solver="Radau",
 ) -> pd.DataFrame:
 
-    # mp.set_start_method("spawn")
-    q = mp.Queue()
-    p = mp.Process(target=sim_worker, args=(q, data, model))
+    queue_input = multiprocessing.Queue()
+    queue_output = multiprocessing.Queue()
+
+    input = {
+        "data": data,
+        "model": dill.dumps(model),
+        "ek": dill.dumps(ek),
+        "solver": solver,
+    }
+
+    queue_input.put(input)
+
+    p = multiprocessing.Process(target=worker, args=(queue_input, queue_output))
     p.start()
 
-    try:
-        res = q.get(timeout=timeout)
-        print(res)
-        p.join()
+    p.join(timeout=100)
 
-    except mpq.Empty as e:
-        p.terminate()
-        log.error("Timeout!")
-        raise e
+    if p.exitcode is None:
+        log.error("The worker timed out.")
+    else:
+        return queue_output.get()
 
 
 def damping_forces(data: pd.DataFrame, model: ModelSimulator):

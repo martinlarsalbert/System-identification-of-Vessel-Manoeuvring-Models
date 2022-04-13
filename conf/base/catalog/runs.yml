@@ -1,14 +1,42 @@
 ## Jinja2
 
+## kvlcc2 raw:
+{% set columns = [
+        "time",
+        "x0",
+        "y0",
+        "phi",
+        "psi",
+        "u",
+        "v",
+        "p",
+        "r",
+        "delta",
+        "rev",
+    ] %}
+
+{% for id in model_test_ids.kvlcc2 %}  # (runs defined in runs_globals.yml)
+kvlcc2.{{ id }}.raw_data_unformated:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/kvlcc2/{{ id }}.dat
+  load_args:
+    header: 1
+    sep: "\t"
+    names: {{ columns }}
+
+{% endfor %}
+
+
 {% for ship, ids in model_test_ids.items() %}
   {% for id in ids %}  # (runs defined in runs_globals.yml)
 
 {{ ship }}.{{ id }}.raw_data:
   type: pandas.CSVDataSet
   filepath: data/01_raw/{{ ship }}/{{ id }}.csv
-#  filepath: data/01_raw/22774.csv
   load_args:
     index_col: 0
+  save_args:
+    index: True
 
 {{ ship }}.{{ id }}.data_with_thrust:
   type: pandas.CSVDataSet
@@ -33,7 +61,7 @@
 
 {{ ship }}.{{ id }}.data_lowpass:
   type: pandas.CSVDataSet
-  filepath: data/02_intermediate/{{ ship }}/{{ ship }}.{{ id }}.lowpass_22773.csv
+  filepath: data/02_intermediate/{{ ship }}/{{ ship }}.{{ id }}.lowpass.csv
   load_args:
     index_col: 0
   save_args:

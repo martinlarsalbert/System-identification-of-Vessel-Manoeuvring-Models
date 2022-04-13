@@ -9,6 +9,7 @@ import anyconfig
 import os.path
 
 from . import pipeline_ship
+from .pipelines import kvlcc2
 from .pipelines import vessel_manoeuvring_models
 from .pipelines import system_matrixes
 from . import pipeline_plot
@@ -42,17 +43,6 @@ def register_pipelines() -> Dict[str, Pipeline]:
     global_variables = anyconfig.load(globals_path)
     vmms = global_variables["vmms"]
 
-    join_globals_path = os.path.join(
-        conf_path,
-        "join_globals.yml",
-    )
-    joins = runs_globals["joins"]
-    join_runs_dict = anyconfig.load(join_globals_path)
-
-    join_runs_dict["joined"] = model_test_ids
-    join_runs_dict = {join_name: join_runs_dict[join_name] for join_name in joins}
-    dataset_names = list(join_runs_dict.keys())
-
     ## Vessel Manoeuvring Models (VMMs)
     vessel_manoeuvring_models_pipeline = vessel_manoeuvring_models.create_pipeline()
 
@@ -72,9 +62,17 @@ def register_pipelines() -> Dict[str, Pipeline]:
     inputs = {vmm: vmm for vmm in vmms}
     inputs.update({f"{vmm}.system_matrixes": f"{vmm}.system_matrixes" for vmm in vmms})
     pipeline_wpcc = pipeline(
-        pipeline_ship.create_pipeline(ship="wpcc"),
+        pipeline_ship.create_pipeline(model_test_ids=model_test_ids["wpcc"], vmms=vmms),
         namespace="wpcc",
         inputs=inputs,
+        parameters={"params:thrust_channels": "params:wpcc.thrust_channels"},
+    )
+
+    pipeline_kvlcc2 = pipeline(
+        kvlcc2.create_pipeline(model_test_ids=model_test_ids["kvlcc2"], vmms=vmms),
+        namespace="kvlcc2",
+        inputs=inputs,
+        parameters={"params:thrust_channels": "params:kvlcc2.thrust_channels"},
     )
 
     return_dict = {}
@@ -82,16 +80,29 @@ def register_pipelines() -> Dict[str, Pipeline]:
         vessel_manoeuvring_models_pipeline
         + reduce(add, ek_pipelines.values())
         + pipeline_wpcc
+        + pipeline_kvlcc2
     )
 
-    return_dict["plot"] = pipeline(
+    return_dict["kvlcc2"] = (
+        vessel_manoeuvring_models_pipeline
+        + reduce(add, ek_pipelines.values())
+        + pipeline_kvlcc2
+    )
+
+    return_dict["plot_wpcc"] = pipeline(
         pipeline_plot.create_pipeline(
             model_test_ids=model_test_ids["wpcc"],
-            dataset_names=dataset_names,
             vmms=vmms,
         ),
         namespace="wpcc",
-        # inputs={"ship_data": "wpcc.ship_data"},
+    )
+
+    return_dict["plot_kvlcc2"] = pipeline(
+        pipeline_plot.create_pipeline(
+            model_test_ids=model_test_ids["kvlcc2"],
+            vmms=vmms,
+        ),
+        namespace="kvlcc2",
     )
 
     return return_dict
