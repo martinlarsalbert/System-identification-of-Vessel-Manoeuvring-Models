@@ -4,7 +4,7 @@ ships:
 
 
 vmms:  # (What Vessel Manoeuvring Models to include)
-#- vmm_abkowitz # 
+- vmm_abkowitz # 
 - vmm_martin  # (needed for kalman)
 #- vmm_linear
 #- vmm_martins_simple

@@ -9,10 +9,11 @@ from src.models.vmm import VMM
 import numpy as np
 
 
-
-
 def create_extended_kalman(
-    parameters: dict, ship_data: dict, vmm: VMM, system_matrixes: SystemMatrixes,
+    parameters: dict,
+    ship_data: dict,
+    vmm: VMM,
+    system_matrixes: SystemMatrixes,
 ) -> ExtendedKalman:
     """Create an Extended Kalman Filter (EKF)
 
@@ -31,23 +32,30 @@ def create_extended_kalman(
         object of Extendedkalman class, that can be used to predict measured states.
     """
 
-    ek = ExtendedKalman(vmm=vmm, parameters=parameters, ship_parameters=ship_data, system_matrixes=system_matrixes)
+    ek = ExtendedKalman(
+        vmm=vmm,
+        parameters=parameters,
+        ship_parameters=ship_data,
+        system_matrixes=system_matrixes,
+    )
 
     return ek
 
 
-def guess_covariance_matrixes() -> dict:
+def guess_covariance_matrixes(ek_covariance_input: dict) -> dict:
 
-    variance_u = 0.1
-    variance_v = 0.1
-    variance_r = np.deg2rad(0.1)
+    process_variance = ek_covariance_input["process_variance"]
+    variance_u = process_variance["u"]
+    variance_v = process_variance["v"]
+    variance_r = np.deg2rad(process_variance["r"])
     Qd = np.diag([variance_u, variance_v, variance_r])  # process variances: u,v,r
 
-    error_max_pos = 0.05
+    measurement_error_max = ek_covariance_input["measurement_error_max"]
+    error_max_pos = measurement_error_max["positions"]
     sigma_pos = error_max_pos / 3
     variance_pos = sigma_pos ** 2
 
-    error_max_psi = np.deg2rad(0.5)
+    error_max_psi = np.deg2rad(measurement_error_max["psi"])
     sigma_psi = error_max_psi / 3
     variance_psi = sigma_psi ** 2
 

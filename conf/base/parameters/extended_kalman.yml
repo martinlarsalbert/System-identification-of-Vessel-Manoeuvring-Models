@@ -1,0 +1,17 @@
+wpcc.ek_covariance_input:
+  process_variance:
+    u : 0.1
+    v : 0.1
+    r : 0.1  # [deg]
+  measurement_error_max:
+    positions: 0.05
+    psi: 0.5  # [deg]
+
+kvlcc2.ek_covariance_input:
+  process_variance:
+    u : 0.1
+    v : 0.1
+    r : 0.1  # [deg]
+  measurement_error_max:
+    positions: 0.5
+    psi: 5  # [deg]

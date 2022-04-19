@@ -18,14 +18,14 @@ def create_pipeline(**kwargs):
                 inputs=["initial_parameters", "ship_data", "vmm", "system_matrixes"],
                 outputs="ek",
                 name="create_extended_kalman_node",
-                tags=['ek'],
+                tags=["ek"],
             ),
             node(
                 func=guess_covariance_matrixes,
-                inputs=[],
+                inputs=["params:ek_covariance_input"],
                 outputs="covariance_matrixes",
                 name="guess_covariance_matrixes_node",
-                tags=['ek'],
+                tags=["ek"],
             ),
         ]
     )

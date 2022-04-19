@@ -65,14 +65,22 @@ def register_pipelines() -> Dict[str, Pipeline]:
         pipeline_ship.create_pipeline(model_test_ids=model_test_ids["wpcc"], vmms=vmms),
         namespace="wpcc",
         inputs=inputs,
-        parameters={"params:thrust_channels": "params:wpcc.thrust_channels"},
+        parameters={
+            "params:thrust_channels": "params:wpcc.thrust_channels",
+            "params:ek_covariance_input": "params:wpcc.ek_covariance_input",
+            "params:motion_regression.exclude_parameters": "params:wpcc.motion_regression.exclude_parameters",
+        },
     )
 
     pipeline_kvlcc2 = pipeline(
         kvlcc2.create_pipeline(model_test_ids=model_test_ids["kvlcc2"], vmms=vmms),
         namespace="kvlcc2",
         inputs=inputs,
-        parameters={"params:thrust_channels": "params:kvlcc2.thrust_channels"},
+        parameters={
+            "params:thrust_channels": "params:kvlcc2.thrust_channels",
+            "params:ek_covariance_input": "params:kvlcc2.ek_covariance_input",
+            "params:motion_regression.exclude_parameters": "params:kvlcc2.motion_regression.exclude_parameters",
+        },
     )
 
     return_dict = {}

@@ -33,4 +33,13 @@
     index: True
     encoding: 'utf-8'
 
+
+
+{{ ship }}.open_water_characteristics:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/{{ ship }}/open_water_characteristics.csv
+  load_args:
+    index_col: 0
+    encoding: 'utf-8'
+
 {% endfor %}

@@ -44,6 +44,7 @@ def create_pipeline(model_test_ids, vmms):
                 "ship_data": "ship_data",
                 "system_matrixes": f"{vmm}.system_matrixes",
             },
+            parameters={"params:ek_covariance_input": "params:ek_covariance_input"},
         )
 
     ## Preprocess model tests:

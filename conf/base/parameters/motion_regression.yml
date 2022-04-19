@@ -5,5 +5,8 @@
 # Link: https://kedro.readthedocs.io/en/0.17.6/04_kedro_project_setup/02_configuration.html#parameters
 
 # Parameters that should not be included in the regression and are instead taking the defined values
-motion_regression.exclude_parameters:
+wpcc.motion_regression.exclude_parameters:
   Xthrust : 0.883  # (1-tdf) (Remember to change the force_regression.exclude_parameters also)
+
+kvlcc2.motion_regression.exclude_parameters:
+  Xthrust : 0.78  # (1-tdf) (Remember to change the force_regression.exclude_parameters also)
