@@ -13,7 +13,7 @@
             "args": [
                 "run",
                 "--pipeline",
-                "kvlcc2",
+                "kvlcc2_captive",
                 "--tag",
                 "preprocess",
             ]

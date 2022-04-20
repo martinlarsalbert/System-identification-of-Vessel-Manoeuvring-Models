@@ -5,7 +5,7 @@ generated using Kedro 0.17.6
 from kedro.pipeline.modular_pipeline import pipeline
 from kedro.pipeline import Pipeline, node
 from wPCC_pipeline import pipeline_ship
-from .nodes import load, calculate_thrust
+from .nodes import load, fit_propeller_characteristics, calculate_thrust
 from functools import reduce
 from operator import add
 
@@ -16,6 +16,18 @@ def create_pipeline(model_test_ids, vmms, **kwargs):
 
     ship_pipeline = pipeline_ship.create_pipeline(
         model_test_ids=model_test_ids, vmms=vmms
+    )
+
+    propeller = Pipeline(
+        [
+            node(
+                func=fit_propeller_characteristics,
+                inputs=["open_water_characteristics"],
+                outputs="propeller_coefficients",
+                name="fit_propeller_characteristics_node",
+                tags=["preprocess"],
+            ),
+        ]
     )
 
     preprocess = Pipeline(
@@ -29,7 +41,7 @@ def create_pipeline(model_test_ids, vmms, **kwargs):
             ),
             node(
                 func=calculate_thrust,
-                inputs=["raw_data_", "ship_data", "open_water_characteristics"],
+                inputs=["raw_data_", "ship_data", "propeller_coefficients"],
                 outputs="raw_data",
                 name="calculate_thrust_node",
                 tags=["preprocess"],
@@ -45,9 +57,9 @@ def create_pipeline(model_test_ids, vmms, **kwargs):
             namespace=id,
             inputs={
                 "ship_data": "ship_data",
-                "open_water_characteristics": "open_water_characteristics",
+                "propeller_coefficients": "propeller_coefficients",
             },
         )
         preprocessors.append(p)
 
-    return reduce(add, preprocessors) + ship_pipeline
+    return propeller + reduce(add, preprocessors) + ship_pipeline

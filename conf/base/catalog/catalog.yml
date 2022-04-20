@@ -33,8 +33,6 @@
     index: True
     encoding: 'utf-8'
 
-
-
 {{ ship }}.open_water_characteristics:
   type: pandas.CSVDataSet
   filepath: data/01_raw/{{ ship }}/open_water_characteristics.csv
@@ -42,4 +40,33 @@
     index_col: 0
     encoding: 'utf-8'
 
+{{ ship }}.propeller_coefficients:
+  type: yaml.YAMLDataSet
+  filepath: data/03_primary/{{ ship }}/propeller_coefficients.yml
+
 {% endfor %}
+
+kvlcc2.derivatives_prime2:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/kvlcc2/MMG_derivatives.csv
+
+kvlcc2.derivatives:
+  type: yaml.YAMLDataSet
+  filepath: data/03_primary/kvlcc2/MMG_derivatives.yml
+
+
+
+kvlcc2.captive_prime:
+  type: pandas.CSVDataSet
+  load_args:
+    index_col: 0
+  filepath: data/01_raw/kvlcc2/captive.csv
+
+kvlcc2.captive:
+  type: pandas.CSVDataSet
+  load_args:
+    index_col: 0
+  save_args:
+    index: True
+  filepath: data/02_intermediate/kvlcc2/captive.csv
+

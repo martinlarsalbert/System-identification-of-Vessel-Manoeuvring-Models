@@ -13,6 +13,7 @@ from .pipelines import kvlcc2
 from .pipelines import vessel_manoeuvring_models
 from .pipelines import system_matrixes
 from . import pipeline_plot
+from .pipelines import captive
 
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -83,6 +84,8 @@ def register_pipelines() -> Dict[str, Pipeline]:
         },
     )
 
+    pipeline_kvlcc2_captive = pipeline(captive.create_pipeline(), namespace="kvlcc2")
+
     return_dict = {}
     return_dict["__default__"] = (
         vessel_manoeuvring_models_pipeline
@@ -112,5 +115,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
         ),
         namespace="kvlcc2",
     )
+
+    return_dict["kvlcc2_captive"] = pipeline_kvlcc2_captive
 
     return return_dict
