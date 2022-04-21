@@ -19,6 +19,7 @@ def create_pipeline(model_test_ids, vmms):
             namespace=id,
             inputs={
                 "data_ek_smooth": "data_ek_smooth",
+                "raw_data": "raw_data",
                 "data_resimulate": "data_resimulate",
                 "ship_data": "ship_data",
             },
@@ -31,6 +32,7 @@ def create_pipeline(model_test_ids, vmms):
                 namespace=dataset_name,
                 inputs={
                     "data_ek_smooth": "data_ek_smooth",
+                    "raw_data": "raw_data",
                     "data_resimulate": "data_resimulate",
                     "ship_data": "ship_data",
                 },
@@ -43,6 +45,7 @@ def create_pipeline(model_test_ids, vmms):
                     namespace=vmm,
                     inputs={
                         "data_ek_smooth": f"{id}.data_ek_smooth",
+                        "raw_data": f"{id}.raw_data",
                         "data_resimulate": f"{vmm}.{dataset_name}.{id}.data_resimulate",
                         "ship_data": "ship_data",
                     },

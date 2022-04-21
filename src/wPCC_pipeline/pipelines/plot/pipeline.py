@@ -15,8 +15,7 @@ def create_pipeline(**kwargs):
         [
             node(
                 func=track_plot,
-                # inputs=["data", "data_resimulate_model_motion", "ship_data"],
-                inputs=["data_ek_smooth", "data_resimulate", "ship_data"],
+                inputs=["raw_data", "data_resimulate", "ship_data"],
                 outputs="track_plot_resimulate",
                 name="resimulate_track_plot_node",
                 tags=["plot", "track_plot"],
@@ -24,7 +23,7 @@ def create_pipeline(**kwargs):
             node(
                 func=plot_timeseries,
                 # inputs=["data", "data_resimulate_model_motion"],
-                inputs=["data_ek_smooth", "data_resimulate", "ship_data"],
+                inputs=["data_ek_smooth", "data_resimulate", "ship_data", "raw_data"],
                 outputs="plot_resimulate",
                 name="resimulate_plot_node",
                 tags=["plot"],

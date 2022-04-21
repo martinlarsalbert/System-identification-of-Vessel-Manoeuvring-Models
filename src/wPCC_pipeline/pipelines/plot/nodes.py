@@ -28,14 +28,17 @@ def track_plot(
 
 
 def plot_timeseries(
-    data: pd.DataFrame, results: pd.DataFrame, ship_data: dict
+    data: pd.DataFrame,
+    results: pd.DataFrame,
+    ship_data: dict,
+    raw_data: pd.DataFrame,
 ) -> plt.figure:
 
     if results["x0"].isnull().all():
         fig, ax = plt.subplots()
         return fig
 
-    dataframes = {"model test": data, "simulation": results}
+    dataframes = {"model test": data, "simulation": results, "raw": raw_data}
     ax = plot.plot(
         dataframes=dataframes, keys=["thrust", "psi", "u", "v", "r", "delta"]
     )

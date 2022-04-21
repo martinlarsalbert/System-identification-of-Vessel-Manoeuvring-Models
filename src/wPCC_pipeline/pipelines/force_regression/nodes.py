@@ -6,7 +6,7 @@ generated using Kedro 0.17.6
 import pandas as pd
 from typing import Union
 from src.models.vmm import ModelSimulator
-from src.models.regression import ForceRegression
+from src.models.regression import Regression
 import matplotlib.pyplot as plt
 from src.models.vmm import VMM
 
@@ -17,7 +17,7 @@ def fit_forces(
     ship_data: dict,
     vmm: VMM,
     exclude_parameters: dict = {},
-) -> Union[ForceRegression, pd.DataFrame]:
+) -> Union[Regression, pd.DataFrame]:
     """Fit damping force parameters in a dynamic model to ship FORCE measurements
 
     Parameters
@@ -38,15 +38,15 @@ def fit_forces(
 
     Returns
     -------
-    Union[ForceRegression, pd.DataFrame]
-        ForceRegression object
+    Union[Regression, pd.DataFrame]
+        Regression object
         Dataframe with regressed parameters and their confidence intervals etc.
     """
 
     interesting = ["u", "v", "r", "delta", "thrust", "fx", "fy", "mz"]
     data = data[interesting].copy()
 
-    regression = ForceRegression(
+    regression = Regression(
         vmm=vmm,
         data=data,
         added_masses=added_masses,
@@ -58,7 +58,7 @@ def fit_forces(
     return regression, parameters
 
 
-def force_regression_summaries(regression: ForceRegression) -> Union[str, str, str]:
+def force_regression_summaries(regression: Regression) -> Union[str, str, str]:
     return (
         regression.model_X.summary().as_text(),
         regression.model_Y.summary().as_text(),
@@ -67,7 +67,7 @@ def force_regression_summaries(regression: ForceRegression) -> Union[str, str, s
 
 
 def force_regression_plots(
-    regression: ForceRegression,
+    regression: Regression,
 ) -> Union[plt.figure, plt.figure, plt.figure]:
     return (
         regression.plot_pred_X().get_figure(),
@@ -76,7 +76,7 @@ def force_regression_plots(
     )
 
 
-def create_model_from_force_regression(regression: ForceRegression) -> ModelSimulator:
+def create_model_from_force_regression(regression: Regression) -> ModelSimulator:
 
     model = regression.create_model(
         control_keys=["delta", "thrust"],
