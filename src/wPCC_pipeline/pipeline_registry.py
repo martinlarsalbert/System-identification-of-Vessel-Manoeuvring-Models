@@ -100,6 +100,12 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + pipeline_kvlcc2
     )
 
+    return_dict["wpcc"] = (
+        vessel_manoeuvring_models_pipeline
+        + reduce(add, ek_pipelines.values())
+        + pipeline_wpcc
+    )
+
     return_dict["plot_wpcc"] = pipeline(
         pipeline_plot.create_pipeline(
             model_test_ids=model_test_ids["wpcc"],

@@ -18,7 +18,7 @@ def load(raw_data: pd.DataFrame):
     data = raw_data.copy()
 
     ## Zeroing:
-    data.index -= data.index[0]
+    # data.index -= data.index[0]
     data["x0"] -= data.iloc[0]["x0"]
     data["y0"] -= data.iloc[0]["y0"]
     # data["psi"] -= data.iloc[0]["psi"]
@@ -109,7 +109,7 @@ def assemble_data(df_lowpass: pd.DataFrame, raw_data: pd.DataFrame) -> pd.DataFr
         data[key] = raw_data[key].values  # Initial position measurements are preserved
 
     data = data.iloc[200:-100].copy()
-    data.index -= data.index[0]
+    # data.index -= data.index[0]
 
     # data.dropna(subset=["x0", "y0", "psi", "u", "v", "r"], inplace=True)
 
