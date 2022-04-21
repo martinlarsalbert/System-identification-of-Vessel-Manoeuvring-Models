@@ -27,6 +27,13 @@ def create_pipeline(model_test_ids, vmms, **kwargs):
                 name="fit_propeller_characteristics_node",
                 tags=["preprocess"],
             ),
+            node(
+                func=fit_propeller_characteristics,
+                inputs=["open_water_characteristics_captive"],
+                outputs="propeller_coefficients_captive",
+                name="fit_propeller_characteristics_captive_node",
+                tags=["preprocess"],
+            ),
         ]
     )
 

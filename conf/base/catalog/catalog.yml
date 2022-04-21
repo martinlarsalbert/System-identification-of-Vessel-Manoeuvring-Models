@@ -40,9 +40,21 @@
     index_col: 0
     encoding: 'utf-8'
 
+{{ ship }}.open_water_characteristics_captive:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/{{ ship }}/open_water_characteristics_captive.csv
+  load_args:
+    index_col: 0
+    encoding: 'utf-8'
+
+
 {{ ship }}.propeller_coefficients:
   type: yaml.YAMLDataSet
   filepath: data/03_primary/{{ ship }}/propeller_coefficients.yml
+
+{{ ship }}.propeller_coefficients_captive:
+  type: yaml.YAMLDataSet
+  filepath: data/03_primary/{{ ship }}/propeller_coefficients_captive.yml
 
 {% endfor %}
 
