@@ -39,6 +39,7 @@ def extended_kalman_filter(
     data: pd.DataFrame,
     covariance_matrixes: dict,
     x0: list,
+    hydrodynamic_derivatives: dict,
     input_columns=["delta", "thrust"],
 ):
     """Filter with existing Extended Kalman filter
@@ -55,12 +56,21 @@ def extended_kalman_filter(
             Covariance matrix of the process model (no_hidden_states x no_hidden_states)
         Rd : float
             Covariance matrix of the measurement (no_measurement_states x no_measurement_states)
+    parameters: dict
+        hydrodynamic derivatives used in the VMM in the extended kalman filter.
 
     Returns
     -------
     [type]
         extended kalman filter, filtered data
     """
+
+    ## Update parameters
+    ek = ek.copy()
+    if isinstance(hydrodynamic_derivatives, pd.DataFrame):
+        ek.parameters.update(hydrodynamic_derivatives["regressed"])
+    else:
+        ek.parameters.update(hydrodynamic_derivatives)
 
     # Initial state guess:
     # x0 = np.concatenate((data.iloc[0][["x0", "y0", "psi"]].values, [0, 0, 0]))
@@ -106,8 +116,19 @@ def extended_kalman_filter(
 
 
 def extended_kalman_smoother(
-    ek: ExtendedKalman, data: pd.DataFrame, time_steps, covariance_matrixes: dict
+    ek: ExtendedKalman,
+    data: pd.DataFrame,
+    time_steps,
+    covariance_matrixes: dict,
+    hydrodynamic_derivatives: dict,
 ):
+
+    ## Update parameters
+    ek = ek.copy()
+    if isinstance(hydrodynamic_derivatives, pd.DataFrame):
+        ek.parameters.update(hydrodynamic_derivatives["regressed"])
+    else:
+        ek.parameters.update(hydrodynamic_derivatives)
 
     E = np.array(
         [

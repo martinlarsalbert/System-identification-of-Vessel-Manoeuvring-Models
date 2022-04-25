@@ -11,25 +11,12 @@ def create_pipeline(model_test_ids, vmms):
     dataset_names = list(join_runs_dict.keys())
 
     prediction_pipelines = []
+    for update in ["initial", "updated"]:
+        for id in model_test_ids:
 
-    for id in model_test_ids:
-
-        p = pipeline(
-            plot.create_pipeline(),
-            namespace=id,
-            inputs={
-                "data_ek_smooth": "data_ek_smooth",
-                "raw_data": "raw_data",
-                "data_resimulate": "data_resimulate",
-                "ship_data": "ship_data",
-            },
-        )
-
-        for dataset_name in dataset_names:
-
-            p2 = pipeline(
-                p,
-                namespace=dataset_name,
+            p = pipeline(
+                plot.create_pipeline(),
+                namespace=id,
                 inputs={
                     "data_ek_smooth": "data_ek_smooth",
                     "raw_data": "raw_data",
@@ -38,18 +25,31 @@ def create_pipeline(model_test_ids, vmms):
                 },
             )
 
-            for vmm in vmms:
+            for dataset_name in dataset_names:
 
-                p3 = pipeline(
-                    p2,
-                    namespace=vmm,
+                p2 = pipeline(
+                    p,
+                    namespace=dataset_name,
                     inputs={
-                        "data_ek_smooth": f"{id}.data_ek_smooth",
-                        "raw_data": f"{id}.raw_data",
-                        "data_resimulate": f"{vmm}.{dataset_name}.{id}.data_resimulate",
+                        "data_ek_smooth": "data_ek_smooth",
+                        "raw_data": "raw_data",
+                        "data_resimulate": "data_resimulate",
                         "ship_data": "ship_data",
                     },
                 )
-                prediction_pipelines.append(p3)
+
+                for vmm in vmms:
+
+                    p3 = pipeline(
+                        p2,
+                        namespace=f"{update}.{vmm}",
+                        inputs={
+                            "data_ek_smooth": f"{update}.{id}.data_ek_smooth",
+                            "raw_data": f"{id}.raw_data",
+                            "data_resimulate": f"{update}.{vmm}.{dataset_name}.{id}.data_resimulate",
+                            "ship_data": "ship_data",
+                        },
+                    )
+                    prediction_pipelines.append(p3)
 
     return reduce(add, prediction_pipelines)

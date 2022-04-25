@@ -38,12 +38,12 @@ def create_pipeline(**kwargs):
             #    name="damping_forces_node",
             #    tags=["predict"],
             # ),
-            node(
-                func=simulation_accuracy,
-                # inputs=["data", "data_resimulate_model_motion"],
-                inputs=["data_ek_smooth", "data_resimulate"],
-                outputs="simulation_accuracy",
-                name="simulation_accuracy_node",
-            ),
+            # node(
+            #    func=simulation_accuracy,
+            #    # inputs=["data", "data_resimulate_model_motion"],
+            #    inputs=["data_ek_smooth", "data_resimulate"],
+            #    outputs="simulation_accuracy",
+            #    name="simulation_accuracy_node",
+            # ),
         ]
     )

@@ -9,14 +9,13 @@ from kedro.pipeline.modular_pipeline import pipeline
 
 from .pipelines import preprocess as preprocess
 from .pipelines import brix as brix
-from .pipelines import filter_data_extended_kalman as filter_data_extended_kalman
-from .pipelines import motion_regression as motion_regression
+
 from .pipelines import prediction as prediction
-from .pipelines import join_runs
 
 from .pipelines import accuracy
 from .pipelines import setup
 from .pipelines import extended_kalman as extended_kalman
+from . import pipeline_filter_join_regress
 
 
 def create_pipeline(model_test_ids, vmms):
@@ -58,137 +57,72 @@ def create_pipeline(model_test_ids, vmms):
             },
         )
 
-    ## Filter:
-    filter_pipelines = {}
-    for id in model_test_ids:
-        filter_pipelines[id] = pipeline(
-            filter_data_extended_kalman.create_pipeline(),
-            namespace=f"{id}",
-            inputs={
-                f"ek": "vmm_martin.ek",  # (Overriding the namespace)
-                "covariance_matrixes": "vmm_martin.covariance_matrixes",
-            },
-        )
+    ## initial parameters:
+    inputs = {
+        "covariance_matrixes": "vmm_martin.covariance_matrixes",
+        f"hydrodynamic_derivatives": "initial_parameters",
+        "vmm_martin.ek": "vmm_martin.ek",
+        "ship_data": "ship_data",
+        "added_masses": "added_masses",
+    }
+    inputs.update({f"{key}.data": f"{key}.data" for key in model_test_ids})
+    inputs.update({f"{key}": f"{key}" for key in vmms})
 
-    ## Join the tests:
-    joined_pipelines = {}
+    filter_join_regress_pipeline = pipeline(
+        pipeline_filter_join_regress.create_pipeline(
+            model_test_ids=model_test_ids, join_runs_dict=join_runs_dict, vmms=vmms
+        ),
+        namespace="initial",
+        inputs=inputs,
+    )
 
-    # other selections:
-    for dataset_name, runs_selection in join_runs_dict.items():
-        joined_pipelines[dataset_name] = pipeline(
-            join_runs.create_pipeline(model_test_ids=runs_selection),
-            namespace=dataset_name,
-            inputs={
-                f"{run}.data_ek_smooth": f"{run}.data_ek_smooth"
-                for run in runs_selection
-            },
-        )
+    ## updated parameters
+    inputs = {
+        "covariance_matrixes": "vmm_martin.covariance_matrixes",
+        f"hydrodynamic_derivatives": "initial.vmm_martin.joined.derivatives",
+        "vmm_martin.ek": "vmm_martin.ek",
+        "ship_data": "ship_data",
+        "added_masses": "added_masses",
+    }
+    inputs.update({f"{key}.data": f"{key}.data" for key in model_test_ids})
+    inputs.update({f"{key}": f"{key}" for key in vmms})
 
-    ## Motion regression pipeline:
-    # "motion_regression"
-    motion_regression_pipelines = []
-    dataset_names = list(joined_pipelines.keys())
+    filter_join_regress_pipeline_updated_model = pipeline(
+        pipeline_filter_join_regress.create_pipeline(
+            model_test_ids=model_test_ids, join_runs_dict=join_runs_dict, vmms=vmms
+        ),
+        namespace="updated",
+        inputs=inputs,
+    )
 
-    for id in dataset_names:
-
-        p = pipeline(
-            motion_regression.create_pipeline(),
-            namespace=id,
-            inputs={
-                f"ship_data": "ship_data",
-                f"added_masses": "added_masses",
-                f"vmm": "vmm",
-                f"data_ek_smooth": f"{id}.data_ek_smooth",
-            },
-        )
-
-        for vmm in vmms:
-            p2 = pipeline(
-                p,
-                namespace=f"{vmm}",
-                inputs={
-                    f"ship_data": "ship_data",
-                    f"added_masses": "added_masses",
-                    "vmm": vmm,
-                    f"{id}.data_ek_smooth": f"{id}.data_ek_smooth",
-                },
-            )
-
-            motion_regression_pipelines.append(p2)
     #
     ## Predictions:
     # motion models:
     # model tests:
     prediction_pipelines = []
+    for update in ["initial", "updated"]:
+        for id in model_test_ids:
+            for dataset_name in dataset_names:
+                for vmm in vmms:
+                    p = pipeline(
+                        prediction.create_pipeline(),
+                        namespace=f"{update}.{vmm}.{dataset_name}.{id}",
+                        inputs={
+                            "data_ek_smooth": f"{update}.{id}.data_ek_smooth",
+                            "model": f"{update}.{vmm}.{dataset_name}.model",
+                            "ek": f"{vmm}.ek",
+                        },
+                    )
+                    prediction_pipelines.append(p)
 
-    for id in model_test_ids:
-
-        p = pipeline(
-            prediction.create_pipeline(),
-            namespace=id,
-            inputs={
-                "data_ek_smooth": "data_ek_smooth",
-                "model": f"model",
-                "ek": "ek",
-            },
+        pipeline_ship = (
+            ship_pipeline
+            + setup_pipeline
+            + reduce(add, runs_pipelines.values())
+            + reduce(add, ek_pipelines.values())
+            + filter_join_regress_pipeline
+            + filter_join_regress_pipeline_updated_model
+            + reduce(add, prediction_pipelines)
         )
-
-        for dataset_name in dataset_names:
-
-            p2 = pipeline(
-                p,
-                namespace=dataset_name,
-                inputs={
-                    "data_ek_smooth": "data_ek_smooth",
-                    "model": f"model",
-                    "ek": "ek",
-                },
-            )
-
-            for vmm in vmms:
-
-                p3 = pipeline(
-                    p2,
-                    namespace=vmm,
-                    inputs={
-                        "data_ek_smooth": f"{id}.data_ek_smooth",
-                        "model": f"{vmm}.{dataset_name}.model",
-                        "ek": f"{vmm}.ek",
-                    },
-                )
-                prediction_pipelines.append(p3)
-
-    ## accuracy:
-    accuracy_pipelines = {}
-
-    for vmm in vmms:
-
-        for dataset_name in join_runs_dict.keys():
-
-            for id in model_test_ids:
-
-                key = f"accuracy.{vmm}.{dataset_name}.{id}"
-                accuracy_pipelines[key] = pipeline(
-                    accuracy.create_pipeline(),
-                    namespace=f"{vmm}.{dataset_name}.{id}",
-                    inputs={
-                        "data_ek_smooth": f"{id}.data_ek_smooth",
-                        "ek": f"{vmm}.ek",
-                        "model": f"{ vmm }.{ dataset_name }.model",
-                        "ship_data": "ship_data",
-                    },
-                )
-
-    pipeline_ship = (
-        ship_pipeline
-        + setup_pipeline
-        + reduce(add, runs_pipelines.values())
-        + reduce(add, filter_pipelines.values())
-        + reduce(add, ek_pipelines.values())
-        + reduce(add, joined_pipelines.values())
-        + reduce(add, motion_regression_pipelines)
-        + reduce(add, prediction_pipelines)
-        + reduce(add, accuracy_pipelines.values())
-    )
 
     return pipeline_ship

@@ -1,5 +1,10 @@
 ## Jinja2
 
+{% set updates = [
+        "initial",
+        "updated",
+] %}
+
 ## kvlcc2 raw:
 {% set columns = [
         "time",
@@ -85,29 +90,32 @@ kvlcc2.{{ id }}.raw_data_unformated:
   type: yaml.YAMLDataSet
   filepath: data/02_intermediate/{{ ship }}/{{ ship }}.{{ id }}.x0.yml
 
-{{ ship }}.{{ id }}.data_ek_filter:
+    {% for update in updates %}
+
+{{ ship }}.{{ update }}.{{ id }}.data_ek_filter:
   type: pandas.CSVDataSet
-  filepath: data/03_primary/{{ ship }}/{{ ship }}.{{ id }}.ek_filter.csv
+  filepath: data/03_primary/{{ ship }}/{{ ship }}.{{ update }}.{{ id }}.ek_filter.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ ship }}.{{ id }}.data_ek_smooth:
+{{ ship }}.{{ update }}.{{ id }}.data_ek_smooth:
   type: pandas.CSVDataSet
-  filepath: data/03_primary/{{ ship }}/{{ ship }}.{{ id }}.ek_smooth.csv
+  filepath: data/03_primary/{{ ship }}/{{ ship }}.{{ update }}.{{ id }}.ek_smooth.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
-{{ ship }}.joined.data_ek_smooth:
+{{ ship }}.{{ update }}.joined.data_ek_smooth:
   type: pandas.CSVDataSet
-  filepath: data/03_primary/{{ ship }}/{{ ship }}.joined.ek_smooth.csv
+  filepath: data/03_primary/{{ ship }}/{{ ship }}.{{ update }}.joined.ek_smooth.csv
   load_args:
     index_col: 0
   save_args:
     index: True
 
+    {% endfor %}
   {% endfor %}
 {% endfor %}

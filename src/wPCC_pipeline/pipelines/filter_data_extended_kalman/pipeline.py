@@ -30,7 +30,13 @@ def create_pipeline(**kwargs):
             ),
             node(
                 func=extended_kalman_filter,
-                inputs=["ek", "data", "covariance_matrixes", "x0"],
+                inputs=[
+                    "ek",
+                    "data",
+                    "covariance_matrixes",
+                    "x0",
+                    "hydrodynamic_derivatives",
+                ],
                 outputs=["ek_filtered", "data_ek_filter", "time_steps"],
                 name="extended_kalman_filter_node",
                 tags=["ek", "filter"],
@@ -42,6 +48,7 @@ def create_pipeline(**kwargs):
                     "data",  # (data has the raw positions)
                     "time_steps",
                     "covariance_matrixes",
+                    "hydrodynamic_derivatives",
                 ],
                 outputs=["ek_smooth", "data_ek_smooth"],
                 name="extended_kalman_smoother_node",
