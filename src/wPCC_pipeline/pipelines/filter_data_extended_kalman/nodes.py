@@ -25,10 +25,20 @@ def resimulate_extended_kalman(ek: ExtendedKalman, data) -> pd.DataFrame:
     return df_sim
 
 
+def initial_state(
+    data: pd.DataFrame, state_columns=["x0", "y0", "psi", "u", "v", "r"]
+) -> np.ndarray:
+    # x0 = data.iloc[0][state_columns].values
+    x0 = data.iloc[0:5][state_columns].mean()
+
+    return {key: float(value) for key, value in x0.items()}
+
+
 def extended_kalman_filter(
     ek: ExtendedKalman,
     data: pd.DataFrame,
     covariance_matrixes: dict,
+    x0: list,
     input_columns=["delta", "thrust"],
 ):
     """Filter with existing Extended Kalman filter
@@ -80,6 +90,7 @@ def extended_kalman_filter(
         ],
     )
 
+    x0_ = pd.Series(x0)[["x0", "y0", "psi", "u", "v", "r"]].values
     time_steps = ek.filter(
         data=data,
         P_prd=P_prd,
@@ -88,7 +99,7 @@ def extended_kalman_filter(
         E=E,
         Cd=Cd,
         input_columns=input_columns,
-        # x0=x0,
+        x0_=x0_,
     )
 
     return ek, ek.df_kalman, time_steps

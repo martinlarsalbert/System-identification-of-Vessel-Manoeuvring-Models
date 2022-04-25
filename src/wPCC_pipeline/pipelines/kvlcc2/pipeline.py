@@ -44,14 +44,14 @@ def create_pipeline(model_test_ids, vmms, **kwargs):
                 inputs=["raw_data_unformated", "ship_data"],
                 outputs="raw_data_",
                 name="transform_node",
-                tags=["preprocess"],
+                tags=["preprocess", "filter"],
             ),
             node(
                 func=calculate_thrust,
                 inputs=["raw_data_", "ship_data", "propeller_coefficients"],
                 outputs="raw_data",
                 name="calculate_thrust_node",
-                tags=["preprocess"],
+                tags=["preprocess", "filter"],
             ),
         ]
     )

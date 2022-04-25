@@ -1,47 +1,47 @@
 # All model tests used are defined here:
 model_test_ids:
   wpcc: 
-#  #- "22605"
-#  #- "22606"
-#  #- "22607"
-#  #- "22608"
-#  #- "22609"
-#  #- "22610"
-#  - "22611"  # ref speed 12
-#  - "22612"
-#  - "22613"
-#  - "22614"
-#  - "22615"
-#  - "22616"
-#  #- "22631"
-#  #- "22632"
-#  #- "22633"
-#  #- "22634"
-#  - "22635" # ref speed 10
-#  #- "22636"
-#  #- "22637"
-#  #- "22638"
-#  - "22639" # ref speed 8
-#  #- "22762"
-#  #- "22763"
-#  - "22764"  # ZZ10 SB (Report)
-#  #- "22765"
-#  #- "22768"
-#  - "22769"   # ZZ10 PS (Report)
-#  - "22770"   # ZZ10 PS 
-#  - "22771"   # ZZ20 SB
-#  - "22772"   # ZZ20 SB (Report)
+  #- "22605"
+  #- "22606"
+  #- "22607"
+  #- "22608"
+  #- "22609"
+  #- "22610"
+  - "22611"  # ref speed 12
+  - "22612"
+  - "22613"
+  - "22614"
+  - "22615"
+  - "22616"
+  #- "22631"
+  #- "22632"
+  #- "22633"
+  #- "22634"
+  - "22635" # ref speed 10
+  #- "22636"
+  #- "22637"
+  #- "22638"
+  - "22639" # ref speed 8
+  #- "22762"
+  #- "22763"
+  - "22764"  # ZZ10 SB (Report)
+  #- "22765"
+  #- "22768"
+  - "22769"   # ZZ10 PS (Report)
+  - "22770"   # ZZ10 PS 
+  - "22771"   # ZZ20 SB
+  - "22772"   # ZZ20 SB (Report)
   - "22773"   # ZZ20 PS (Report)
   - "22774"   # circle (Report)
-#  #- "22775"  # (Sailing test) 
-#  #- "22776"
+  #- "22775"  # (Sailing test) 
+  #- "22776"
   kvlcc2:
-    - MARIN_FREE_KVLCC2_tc_35_m
-#    - MARIN_FREE_KVLCC2_tc_-35_m
+#    - MARIN_FREE_KVLCC2_tc_35_m
+##    - MARIN_FREE_KVLCC2_tc_-35_m
     - MARIN_FREE_KVLCC2_zz_10_m
-#    - MARIN_FREE_KVLCC2_zz_-10_m
-    - MARIN_FREE_KVLCC2_zz_20_m
-#    - MARIN_FREE_KVLCC2_zz_-20_m
+##    - MARIN_FREE_KVLCC2_zz_-10_m
+#    - MARIN_FREE_KVLCC2_zz_20_m
+##    - MARIN_FREE_KVLCC2_zz_-20_m
 
 joins:
 - joined  ## Mandatory

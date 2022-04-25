@@ -25,7 +25,7 @@ def create_pipeline(**kwargs):
                 inputs=["params:ek_covariance_input"],
                 outputs="covariance_matrixes",
                 name="guess_covariance_matrixes_node",
-                tags=["ek"],
+                tags=["ek", "filter"],
             ),
         ]
     )

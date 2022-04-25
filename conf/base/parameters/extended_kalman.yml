@@ -9,7 +9,7 @@ wpcc.ek_covariance_input:
 
 kvlcc2.ek_covariance_input:
   process_variance:
-    u : 0.01
+    u : 0.5
     v : 0.01
     r : 0.01  # [deg]
   measurement_error_max:

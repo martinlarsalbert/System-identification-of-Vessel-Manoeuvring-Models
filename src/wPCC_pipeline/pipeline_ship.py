@@ -51,22 +51,27 @@ def create_pipeline(model_test_ids, vmms):
     runs_pipelines = {}
     for id in model_test_ids:
         runs_pipelines[id] = pipeline(
-            preprocess.create_pipeline()
-            + filter_data_extended_kalman.create_pipeline(),
+            preprocess.create_pipeline(),
+            namespace=f"{id}",
+            inputs={
+                f"ship_data": "ship_data",
+            },
+        )
+
+    ## Filter:
+    filter_pipelines = {}
+    for id in model_test_ids:
+        filter_pipelines[id] = pipeline(
+            filter_data_extended_kalman.create_pipeline(),
             namespace=f"{id}",
             inputs={
                 f"ek": "vmm_martin.ek",  # (Overriding the namespace)
-                f"ship_data": "ship_data",
                 "covariance_matrixes": "vmm_martin.covariance_matrixes",
             },
         )
 
     ## Join the tests:
     joined_pipelines = {}
-    # All runs:
-    # joined_pipelines["joined"] = pipeline(
-    #    join_runs.create_pipeline(model_test_ids=model_test_ids, namespace="joined", )
-    # )
 
     # other selections:
     for dataset_name, runs_selection in join_runs_dict.items():
@@ -178,6 +183,7 @@ def create_pipeline(model_test_ids, vmms):
         ship_pipeline
         + setup_pipeline
         + reduce(add, runs_pipelines.values())
+        + reduce(add, filter_pipelines.values())
         + reduce(add, ek_pipelines.values())
         + reduce(add, joined_pipelines.values())
         + reduce(add, motion_regression_pipelines)

@@ -34,16 +34,27 @@ def load(df: pd.DataFrame, ship_data: dict) -> pd.DataFrame:
     angles = ["phi", "psi", "r", "delta"]
     df[angles] = np.deg2rad(df[angles])
 
+    df.rename(
+        columns={"u": "dx0", "v": "dy0"}, inplace=True
+    )  # I checked that u,v, are not in ship coordinates.
+
     ## To model scale:
     df["x0"] /= scale_factor
     df["y0"] /= scale_factor
-    df["u"] /= np.sqrt(scale_factor)
-    df["v"] /= np.sqrt(scale_factor)
+    df["dx0"] /= np.sqrt(scale_factor)
+    df["dy0"] /= np.sqrt(scale_factor)
     df["p"] *= np.sqrt(scale_factor)
     df["r"] *= np.sqrt(scale_factor)
     df["rev"] *= 1 / 60 * np.sqrt(scale_factor)  # [rps]
     df["thrust"] = 0  # not true...
-    df["V"] = np.sqrt(df["u"] ** 2 + df["v"] ** 2)
+    df["V"] = np.sqrt(df["dx0"] ** 2 + df["dy0"] ** 2)
+
+    dx = df["dx0"]
+    dy = df["dy0"]
+    psi = df["psi"]
+
+    df["u"] = dx * np.cos(psi) + dy * np.sin(psi)
+    df["v"] = -dx * np.sin(psi) + dy * np.cos(psi)
 
     return df
 

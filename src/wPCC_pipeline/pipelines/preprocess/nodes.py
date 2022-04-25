@@ -23,6 +23,21 @@ def load(raw_data: pd.DataFrame):
     data["y0"] -= data.iloc[0]["y0"]
     # data["psi"] -= data.iloc[0]["psi"]
 
+    ## estimating higher states with numerical differentiation:
+    t = data.index
+    x0 = data["x0"]
+    y0 = data["y0"]
+    dxdt = np.gradient(x0, t)
+    dydt = np.gradient(y0, t)
+    psi = data["psi"]
+    data["u"] = u = dxdt * np.cos(psi) + dydt * np.sin(psi)
+    data["v"] = v = -dxdt * np.sin(psi) + dydt * np.cos(psi)
+    data["r"] = r = np.gradient(psi, t)
+
+    data["u1d"] = np.gradient(u, t)
+    data["v1d"] = np.gradient(v, t)
+    data["r1d"] = np.gradient(r, t)
+
     return data
 
 
@@ -113,4 +128,4 @@ def assemble_data(df_lowpass: pd.DataFrame, raw_data: pd.DataFrame) -> pd.DataFr
 
     # data.dropna(subset=["x0", "y0", "psi", "u", "v", "r"], inplace=True)
 
-    return data
+    return raw_data
