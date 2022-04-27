@@ -6,6 +6,7 @@ generated using Kedro 0.17.6
 from kedro.pipeline import Pipeline, node
 from .nodes import (
     resimulate_extended_kalman,
+    guess_covariance_matrixes,
     initial_state,
     extended_kalman_filter,
     extended_kalman_smoother,
@@ -21,6 +22,13 @@ def create_pipeline(**kwargs):
             #    outputs="data_resimulate_extended_kalman",
             #    name="resimulate_extended_kalman_node",
             # ),
+            node(
+                func=guess_covariance_matrixes,
+                inputs=["params:ek_covariance_input"],
+                outputs="covariance_matrixes",
+                name="guess_covariance_matrixes_node",
+                tags=["ek", "filter"],
+            ),
             node(
                 func=initial_state,
                 inputs=["data"],  # (data has the raw positions)

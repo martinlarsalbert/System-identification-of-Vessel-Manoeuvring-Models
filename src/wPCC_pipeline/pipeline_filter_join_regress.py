@@ -18,9 +18,9 @@ def create_pipeline(model_test_ids, join_runs_dict, vmms, **kwargs):
             namespace=f"{id}",
             inputs={
                 f"ek": "vmm_martin.ek",  # (Overriding the namespace)
-                "covariance_matrixes": "covariance_matrixes",
                 "hydrodynamic_derivatives": "hydrodynamic_derivatives",
             },
+            parameters={"params:ek_covariance_input": "params:ek_covariance_input"},
         )
 
     ## Join the tests:

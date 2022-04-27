@@ -24,13 +24,15 @@ def load(df: pd.DataFrame, ship_data: dict) -> pd.DataFrame:
 
     df.dropna(how="all", inplace=True)
 
-    scale_factor = ship_data["scale_factor"]
-
-    dt = 0.135 / np.sqrt(scale_factor)
-    df["time"] = np.arange(0, len(df) * dt, dt)
-
+    mask = df["time"].diff() != 0
+    df = df.loc[mask]
     df.set_index("time", inplace=True)
     df.sort_index(inplace=True)
+    df.index = pd.to_timedelta(df.index, unit="s")
+    df = df.resample("0.1S").interpolate().resample("2S").mean()
+    scale_factor = ship_data["scale_factor"]
+    df.index = df.index.total_seconds() / np.sqrt(scale_factor)
+
     angles = ["phi", "psi", "r", "delta"]
     df[angles] = np.deg2rad(df[angles])
 

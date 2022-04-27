@@ -38,7 +38,8 @@ def plot_timeseries(
         fig, ax = plt.subplots()
         return fig
 
-    dataframes = {"raw": raw_data, "model test": data, "simulation": results}
+    # dataframes = {"raw": raw_data, "model test": data, "simulation": results}
+    dataframes = {"model test": data, "simulation": results}
     ax = plot.plot(
         dataframes=dataframes, keys=["thrust", "psi", "u", "v", "r", "delta"]
     )

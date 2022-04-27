@@ -18,7 +18,7 @@ def load(raw_data: pd.DataFrame):
     data = raw_data.copy()
 
     ## Zeroing:
-    # data.index -= data.index[0]
+    data.index -= data.index[0]
     data["x0"] -= data.iloc[0]["x0"]
     data["y0"] -= data.iloc[0]["y0"]
     # data["psi"] -= data.iloc[0]["psi"]
@@ -30,9 +30,19 @@ def load(raw_data: pd.DataFrame):
     dxdt = np.gradient(x0, t)
     dydt = np.gradient(y0, t)
     psi = data["psi"]
-    data["u"] = u = dxdt * np.cos(psi) + dydt * np.sin(psi)
-    data["v"] = v = -dxdt * np.sin(psi) + dydt * np.cos(psi)
-    data["r"] = r = np.gradient(psi, t)
+
+    if not "u" in data:
+        data["u"] = dxdt * np.cos(psi) + dydt * np.sin(psi)
+
+    if not "v" in data:
+        data["v"] = v = -dxdt * np.sin(psi) + dydt * np.cos(psi)
+
+    if not "r" in data:
+        data["r"] = r = np.gradient(psi, t)
+
+    u = data["u"]
+    v = data["v"]
+    r = data["r"]
 
     data["u1d"] = np.gradient(u, t)
     data["v1d"] = np.gradient(v, t)

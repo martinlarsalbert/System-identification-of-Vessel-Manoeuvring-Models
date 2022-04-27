@@ -14,6 +14,7 @@ from .pipelines import vessel_manoeuvring_models
 from .pipelines import system_matrixes
 from . import pipeline_plot
 from .pipelines import captive
+from .pipelines import generic_data
 
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -68,7 +69,9 @@ def register_pipelines() -> Dict[str, Pipeline]:
         inputs=inputs,
         parameters={
             "params:thrust_channels": "params:wpcc.thrust_channels",
-            "params:ek_covariance_input": "params:wpcc.ek_covariance_input",
+            "params:initial.ek_covariance_input": f"params:wpcc.updated.initial.ek_covariance_input",
+            "params:initial.ek_covariance_input": f"params:wpcc.initial.ek_covariance_input",
+            "params:updated.ek_covariance_input": f"params:wpcc.updated.ek_covariance_input",
             "params:motion_regression.exclude_parameters": "params:wpcc.motion_regression.exclude_parameters",
         },
     )
@@ -79,8 +82,23 @@ def register_pipelines() -> Dict[str, Pipeline]:
         inputs=inputs,
         parameters={
             "params:thrust_channels": "params:kvlcc2.thrust_channels",
-            "params:ek_covariance_input": "params:kvlcc2.ek_covariance_input",
+            "params:initial.ek_covariance_input": f"params:kvlcc2.initial.ek_covariance_input",
+            "params:updated.ek_covariance_input": f"params:kvlcc2.updated.ek_covariance_input",
             "params:motion_regression.exclude_parameters": "params:kvlcc2.motion_regression.exclude_parameters",
+        },
+    )
+
+    pipeline_tanker = pipeline(
+        pipeline_ship.create_pipeline(
+            model_test_ids=model_test_ids["tanker"], vmms=vmms
+        ),
+        namespace="tanker",
+        inputs=inputs,
+        parameters={
+            "params:thrust_channels": "params:tanker.thrust_channels",
+            "params:initial.ek_covariance_input": f"params:tanker.initial.ek_covariance_input",
+            "params:updated.ek_covariance_input": f"params:tanker.updated.ek_covariance_input",
+            "params:motion_regression.exclude_parameters": "params:tanker.motion_regression.exclude_parameters",
         },
     )
 
@@ -100,28 +118,29 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + pipeline_kvlcc2
     )
 
+    return_dict["tanker"] = (
+        vessel_manoeuvring_models_pipeline
+        + reduce(add, ek_pipelines.values())
+        + pipeline_tanker
+    )
+
     return_dict["wpcc"] = (
         vessel_manoeuvring_models_pipeline
         + reduce(add, ek_pipelines.values())
         + pipeline_wpcc
     )
 
-    return_dict["plot_wpcc"] = pipeline(
-        pipeline_plot.create_pipeline(
-            model_test_ids=model_test_ids["wpcc"],
-            vmms=vmms,
-        ),
-        namespace="wpcc",
-    )
-
-    return_dict["plot_kvlcc2"] = pipeline(
-        pipeline_plot.create_pipeline(
-            model_test_ids=model_test_ids["kvlcc2"],
-            vmms=vmms,
-        ),
-        namespace="kvlcc2",
-    )
+    for ship_name, model_test_ids_ in model_test_ids.items():
+        return_dict[f"plot_{ship_name}"] = pipeline(
+            pipeline_plot.create_pipeline(
+                model_test_ids=model_test_ids_,
+                vmms=vmms,
+            ),
+            namespace=ship_name,
+        )
 
     return_dict["kvlcc2_captive"] = pipeline_kvlcc2_captive
+
+    return_dict["generic_data"] = generic_data.create_pipeline()
 
     return return_dict

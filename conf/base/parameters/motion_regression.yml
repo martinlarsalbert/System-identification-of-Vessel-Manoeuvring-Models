@@ -10,3 +10,6 @@ wpcc.motion_regression.exclude_parameters:
 
 kvlcc2.motion_regression.exclude_parameters:
   Xthrust : 0.78  # (1-tdf) (Remember to change the force_regression.exclude_parameters also)
+
+tanker.motion_regression.exclude_parameters:
+  Xthrust : 0.78  # (1-tdf) (Remember to change the force_regression.exclude_parameters also)

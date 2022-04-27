@@ -25,10 +25,12 @@
   #type: matplotlib.MatplotlibWriter
   type: matplotlib_writer.MatplotlibWriter
   filepath: data/07_model_output/{{ ship }}/{{ vmm }}/{{ update }}/{{ join }}.{{ vmm }}.{{ join }}.{{ update }}.{{ id }}.track_plot_resimulate.png
+  overwrite: True
 
 {{ ship }}.{{ update }}.{{ vmm }}.{{ join }}.{{ id }}.plot_resimulate:
   type: matplotlib_writer.MatplotlibWriter
   filepath: data/07_model_output/{{ ship }}/{{ vmm }}/{{ update }}/{{ join }}.{{ vmm }}.{{ join }}.{{ update }}.{{ id }}.plot_resimulate.png
+  overwrite: True
 
 {{ ship }}.{{ update }}.{{ vmm }}.{{ join }}.{{ id }}.data_damping_forces:
   type: pandas.CSVDataSet

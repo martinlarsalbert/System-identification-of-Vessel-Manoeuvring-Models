@@ -148,3 +148,41 @@ def extended_kalman_smoother(
     ek.data = data
 
     return ek, ek.df_smooth
+
+
+def guess_covariance_matrixes(ek_covariance_input: dict) -> dict:
+
+    process_variance = ek_covariance_input["process_variance"]
+    variance_u = process_variance["u"]
+    variance_v = process_variance["v"]
+    variance_r = np.deg2rad(process_variance["r"])
+    Qd = np.diag([variance_u, variance_v, variance_r])  # process variances: u,v,r
+
+    measurement_error_max = ek_covariance_input["measurement_error_max"]
+    error_max_pos = measurement_error_max["positions"]
+    sigma_pos = error_max_pos / 3
+    variance_pos = sigma_pos ** 2
+
+    error_max_psi = np.deg2rad(measurement_error_max["psi"])
+    sigma_psi = error_max_psi / 3
+    variance_psi = sigma_psi ** 2
+
+    Rd = np.diag([variance_pos, variance_pos, variance_psi])
+    P_prd = np.diag(
+        [
+            variance_pos,
+            variance_pos,
+            variance_psi,
+            variance_u,
+            variance_v,
+            variance_r,
+        ]
+    )
+
+    covariance_matrixes = {
+        "P_prd": P_prd.tolist(),
+        "Qd": Qd.tolist(),
+        "Rd": Rd.tolist(),
+    }
+
+    return covariance_matrixes

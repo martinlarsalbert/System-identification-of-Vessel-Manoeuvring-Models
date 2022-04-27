@@ -9,6 +9,8 @@ wpcc.thrust_channels:
   - Prop/SB/Thrust
 
 kvlcc2.thrust_channels: []
+
+tanker.thrust_channels: []
   
 lowpass:
   cutoff: 10.0

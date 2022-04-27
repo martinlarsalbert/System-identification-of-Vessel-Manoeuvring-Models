@@ -86,11 +86,12 @@ kvlcc2.{{ id }}.raw_data_unformated:
   save_args:
     index: True
 
-{{ ship }}.{{ id }}.x0:
-  type: yaml.YAMLDataSet
-  filepath: data/02_intermediate/{{ ship }}/{{ ship }}.{{ id }}.x0.yml
 
     {% for update in updates %}
+
+{{ ship }}.{{ update }}.{{ id }}.x0:
+  type: yaml.YAMLDataSet
+  filepath: data/02_intermediate/{{ ship }}/{{ ship }}.{{ update }}.{{ id }}.x0.yml
 
 {{ ship }}.{{ update }}.{{ id }}.data_ek_filter:
   type: pandas.CSVDataSet

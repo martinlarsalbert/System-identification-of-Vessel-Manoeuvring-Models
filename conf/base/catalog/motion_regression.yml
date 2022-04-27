@@ -39,14 +39,17 @@
 {{ ship }}.{{ update }}.{{ vmm }}.{{ id }}.plot_X:
   type: matplotlib.MatplotlibWriter
   filepath: data/06_models/{{ ship }}/{{ vmm }}/{{ id }}/{{ ship }}.{{ update }}.{{ vmm }}.{{ id }}.plot_X.png
+  overwrite: True
 
 {{ ship }}.{{ update }}.{{ vmm }}.{{ id }}.plot_Y:
   type: matplotlib.MatplotlibWriter
   filepath: data/06_models/{{ ship }}/{{ vmm }}/{{ id }}/{{ ship }}.{{ update }}.{{ vmm }}.{{ id }}.plot_Y.png
+  overwrite: True
 
 {{ ship }}.{{ update }}.{{ vmm }}.{{ id }}.plot_N:
   type: matplotlib.MatplotlibWriter
   filepath: data/06_models/{{ ship }}/{{ vmm }}/{{ id }}/{{ ship }}.{{ update }}.{{ vmm }}.{{ id }}.plot_N.png
+  overwrite: True
 
 {{ ship }}.{{ update }}.{{ vmm }}.{{ id }}.model:
   type: pickle.PickleDataSet

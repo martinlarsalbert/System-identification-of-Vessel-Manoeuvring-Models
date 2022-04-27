@@ -43,7 +43,6 @@ def create_pipeline(model_test_ids, vmms):
                 "ship_data": "ship_data",
                 "system_matrixes": f"{vmm}.system_matrixes",
             },
-            parameters={"params:ek_covariance_input": "params:ek_covariance_input"},
         )
 
     ## Preprocess model tests:
@@ -59,7 +58,7 @@ def create_pipeline(model_test_ids, vmms):
 
     ## initial parameters:
     inputs = {
-        "covariance_matrixes": "vmm_martin.covariance_matrixes",
+        # "covariance_matrixes": "vmm_martin.initial.covariance_matrixes",
         f"hydrodynamic_derivatives": "initial_parameters",
         "vmm_martin.ek": "vmm_martin.ek",
         "ship_data": "ship_data",
@@ -74,11 +73,12 @@ def create_pipeline(model_test_ids, vmms):
         ),
         namespace="initial",
         inputs=inputs,
+        parameters={"params:ek_covariance_input": "params:initial.ek_covariance_input"},
     )
 
     ## updated parameters
     inputs = {
-        "covariance_matrixes": "vmm_martin.covariance_matrixes",
+        # "covariance_matrixes": "vmm_martin.updated.covariance_matrixes",
         f"hydrodynamic_derivatives": "initial.vmm_martin.joined.derivatives",
         "vmm_martin.ek": "vmm_martin.ek",
         "ship_data": "ship_data",
@@ -93,6 +93,7 @@ def create_pipeline(model_test_ids, vmms):
         ),
         namespace="updated",
         inputs=inputs,
+        parameters={"params:ek_covariance_input": "params:updated.ek_covariance_input"},
     )
 
     #

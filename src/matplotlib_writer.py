@@ -6,10 +6,7 @@ from copy import deepcopy
 from pathlib import PurePosixPath
 from typing import Any, Dict, List, Union
 from warnings import warn
-import gc
-
-import matplotlib.pyplot as plt
-
+import os
 import fsspec
 import matplotlib.pyplot as plt
 
@@ -36,6 +33,16 @@ class MatplotlibWriter(AbstractVersionedDataSet):
         >>> plt.plot([1, 2, 3], [4, 5, 6])
         >>> single_plot_writer = MatplotlibWriter(
         >>>     filepath="matplot_lib_single_plot.png"
+        >>> )
+        >>> plt.close()
+        >>> single_plot_writer.save(plt)
+        >>>
+        >>> # MatplotlibWriter can output other formats as well, such as PDF files.
+        >>> # For this, we need to specify the format:
+        >>> plt.plot([1, 2, 3], [4, 5, 6])
+        >>> single_plot_writer = MatplotlibWriter(
+        >>>     filepath="matplot_lib_single_plot.pdf",
+        >>>     save_args={"format": "pdf"},
         >>> )
         >>> plt.close()
         >>> single_plot_writer.save(plt)
@@ -153,6 +160,10 @@ class MatplotlibWriter(AbstractVersionedDataSet):
     ) -> None:
         save_path = self._get_save_path()
 
+        # Overwrite!!!
+        if os.path.exists(save_path):
+            os.remove(save_path)
+
         if isinstance(data, (list, dict)) and self._overwrite and self._exists():
             self._fs.rm(get_filepath_str(save_path, self._protocol), recursive=True)
 
@@ -180,10 +191,6 @@ class MatplotlibWriter(AbstractVersionedDataSet):
 
         with self._fs.open(full_key_path, **self._fs_open_args_save) as fs_file:
             fs_file.write(bytes_buffer.getvalue())
-
-        plot.clear()
-        plt.close(plot)
-        gc.collect()
 
     def _exists(self) -> bool:
         load_path = get_filepath_str(self._get_load_path(), self._protocol)
