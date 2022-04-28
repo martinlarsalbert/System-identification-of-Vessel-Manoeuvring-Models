@@ -5,6 +5,7 @@ from operator import add
 
 from kedro.pipeline import Pipeline
 from kedro.pipeline.modular_pipeline import pipeline
+from pytest import param
 
 
 from .pipelines import preprocess as preprocess
@@ -60,7 +61,8 @@ def create_pipeline(model_test_ids, vmms):
     inputs = {
         # "covariance_matrixes": "vmm_martin.initial.covariance_matrixes",
         f"hydrodynamic_derivatives": "initial_parameters",
-        "vmm_martin.ek": "vmm_martin.ek",
+        # "vmm_martin.ek": "vmm_martin.ek",
+        "vmm_linear.ek": "vmm_linear.ek",
         "ship_data": "ship_data",
         "added_masses": "added_masses",
     }
@@ -69,7 +71,10 @@ def create_pipeline(model_test_ids, vmms):
 
     filter_join_regress_pipeline = pipeline(
         pipeline_filter_join_regress.create_pipeline(
-            model_test_ids=model_test_ids, join_runs_dict=join_runs_dict, vmms=vmms
+            model_test_ids=model_test_ids,
+            join_runs_dict=join_runs_dict,
+            vmms=vmms,
+            ek="vmm_linear.ek",
         ),
         namespace="initial",
         inputs=inputs,

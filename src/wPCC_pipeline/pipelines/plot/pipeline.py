@@ -23,7 +23,12 @@ def create_pipeline(**kwargs):
             node(
                 func=plot_timeseries,
                 # inputs=["data", "data_resimulate_model_motion"],
-                inputs=["data_ek_smooth", "data_resimulate", "ship_data", "data"],
+                inputs=[
+                    "data_ek_smooth",
+                    "data_resimulate",
+                    "ship_data",
+                    "data_lowpass",
+                ],
                 outputs="plot_resimulate",
                 name="resimulate_plot_node",
                 tags=["plot"],

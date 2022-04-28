@@ -13,6 +13,12 @@ import numpy as np
 from src.data.lowpass_filter import lowpass_filter
 
 
+def derivative(df, key):
+    d = np.diff(df[key]) / np.diff(df.index)
+    d = np.concatenate((d, [d[-1]]))
+    return d
+
+
 def load(raw_data: pd.DataFrame):
 
     data = raw_data.copy()
@@ -25,10 +31,9 @@ def load(raw_data: pd.DataFrame):
 
     ## estimating higher states with numerical differentiation:
     t = data.index
-    x0 = data["x0"]
-    y0 = data["y0"]
-    dxdt = np.gradient(x0, t)
-    dydt = np.gradient(y0, t)
+
+    dxdt = derivative(data, "x0")
+    dydt = derivative(data, "y0")
     psi = data["psi"]
 
     if not "u" in data:
@@ -38,15 +43,13 @@ def load(raw_data: pd.DataFrame):
         data["v"] = v = -dxdt * np.sin(psi) + dydt * np.cos(psi)
 
     if not "r" in data:
-        data["r"] = r = np.gradient(psi, t)
+        data["r"] = r = derivative(data, "psi")
 
-    u = data["u"]
-    v = data["v"]
-    r = data["r"]
+    data["u1d"] = derivative(data, "u")
+    data["v1d"] = derivative(data, "v")
+    data["r1d"] = derivative(data, "r")
 
-    data["u1d"] = np.gradient(u, t)
-    data["v1d"] = np.gradient(v, t)
-    data["r1d"] = np.gradient(r, t)
+    data["V"] = data["U"] = np.sqrt(data["u"] ** 2 + data["v"] ** 2)
 
     return data
 
@@ -107,9 +110,9 @@ def filter(df: pd.DataFrame, cutoff: float = 1.0, order=1) -> pd.DataFrame:
             data=df_lowpass[key], fs=fs, cutoff=cutoff, order=order
         )
 
-    df_lowpass["x01d_gradient"] = x1d_ = np.gradient(df_lowpass["x0"], t)
-    df_lowpass["y01d_gradient"] = y1d_ = np.gradient(df_lowpass["y0"], t)
-    df_lowpass["r"] = r_ = np.gradient(df_lowpass["psi"], t)
+    df_lowpass["x01d_gradient"] = x1d_ = derivative(df_lowpass, "x0")
+    df_lowpass["y01d_gradient"] = y1d_ = derivative(df_lowpass, "y0")
+    df_lowpass["r"] = r_ = derivative(df_lowpass, "psi")
 
     psi_ = df_lowpass["psi"]
 
@@ -122,7 +125,7 @@ def filter(df: pd.DataFrame, cutoff: float = 1.0, order=1) -> pd.DataFrame:
             data=df_lowpass[key], fs=fs, cutoff=cutoff, order=order
         )
 
-    return df_lowpass
+    return df_lowpass.iloc[100:-100]
 
 
 def assemble_data(df_lowpass: pd.DataFrame, raw_data: pd.DataFrame) -> pd.DataFrame:

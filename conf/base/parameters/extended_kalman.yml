@@ -1,39 +1,56 @@
 wpcc.initial.ek_covariance_input:
   process_variance:
-    u : 0.1
-    v : 0.1
-    r : 0.1  # [deg]
+    u : 0.003
+    v : 0.003
+    r : 0.019  # [deg]
   measurement_error_max:
     positions: 0.05
     psi: 0.5  # [deg]
 
 wpcc.updated.ek_covariance_input:
   process_variance:
-    u : 0.05
-    v : 0.05
-    r : 0.05  # [deg]
+    u : 0.003
+    v : 0.003
+    r : 0.0019  # [deg]
   measurement_error_max:
     positions: 0.05
     psi: 0.5  # [deg]
 
 kvlcc2.initial.ek_covariance_input:
   process_variance:
-    u : 0.00050
-    v : 0.00025
-    r : 0.00025  # [deg]
+    u : 0.03
+    v : 0.03
+    r : 0.59  # [deg]
   measurement_error_max:
     positions: 0.5
-    psi: 5  # [deg]
+    psi: 0.5  # [deg]
 
 kvlcc2.updated.ek_covariance_input:
   process_variance:
-    u : 0.00025
-    v : 0.00025
-    r : 0.00025  # [deg]
+    u : 0.003
+    v : 0.003
+    r : 0.519  # [deg]
   measurement_error_max:
     positions: 0.5
-    psi: 5  # [deg]
+    psi: 0.5  # [deg]
 
+generic_kvlcc2.initial.ek_covariance_input:
+  process_variance:
+    u : 0.0003
+    v : 0.0003
+    r : 0.0019  # [deg]
+  measurement_error_max:
+    positions: 0.0003
+    psi: 0.019  # [deg]
+
+generic_kvlcc2.updated.ek_covariance_input:
+  process_variance:
+    u : 0.0000003
+    v : 0.0000003
+    r : 0.000019  # [deg]
+  measurement_error_max:
+    positions: 0.0003
+    psi: 0.019  # [deg]
 
 tanker.initial.ek_covariance_input:
   process_variance:

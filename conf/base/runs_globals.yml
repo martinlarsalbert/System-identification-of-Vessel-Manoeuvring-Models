@@ -36,14 +36,22 @@ model_test_ids:
   #- "22775"  # (Sailing test) 
   #- "22776"
   kvlcc2:
-#    - MARIN_FREE_KVLCC2_tc_35_m
-#    - MARIN_FREE_KVLCC2_tc_-35_m
+    - MARIN_FREE_KVLCC2_tc_35_m
+    - MARIN_FREE_KVLCC2_tc_-35_m
     - MARIN_FREE_KVLCC2_zz_10_m
     - MARIN_FREE_KVLCC2_zz_-10_m
     - MARIN_FREE_KVLCC2_zz_20_m
     - MARIN_FREE_KVLCC2_zz_-20_m
+  generic_kvlcc2:
+#    - MARIN_FREE_KVLCC2_tc_35_m
+#    - MARIN_FREE_KVLCC2_tc_-35_m
+    - MARIN_FREE_KVLCC2_zz_10_m
+#    - MARIN_FREE_KVLCC2_zz_-10_m
+    - MARIN_FREE_KVLCC2_zz_20_m
+#    - MARIN_FREE_KVLCC2_zz_-20_m
   tanker:
     - simulation1
+    - simulation2
   
 joins:
 - joined  ## Mandatory

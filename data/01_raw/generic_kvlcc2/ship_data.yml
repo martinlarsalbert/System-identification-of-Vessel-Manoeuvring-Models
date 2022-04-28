@@ -1,0 +1,25 @@
+# [1]: Yasukawa, H., Yoshimura, Y., 2015. Introduction of MMG standard method for ship maneuvering predictions. J Mar Sci Technol 20, 37–52. https://doi.org/10.1007/s00773-014-0293-y
+ 
+T: 0.46
+L: 7.0
+CB: 0.810
+B: 1.27
+rho: 1000
+x_G: 0.24359999999999998
+m: 3270
+#I_z: 92438.5  # Including added mass (I think)
+I_z: 10014.375  # kzz:0.25
+volume: 3.27
+scale_factor: 45.7
+x_p: -3.386214442013129  # propeller x-position from lpp/2
+x_r: -3.5 # rudder x-position from lpp/2
+D: 0.204  # propeller diameter
+w_p0: 0.40
+C_1: 2.0 # [1]
+C_2_beta_p_pos: 1.6
+C_2_beta_p_neg: 1.1
+tdf: 0.220  # Thrust deduction factor [1]
+
+A_R: 0.0539  # Rudder area
+H_R: 0.345
+C_R: 0.1916

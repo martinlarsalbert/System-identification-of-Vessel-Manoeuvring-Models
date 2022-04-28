@@ -61,8 +61,16 @@ kvlcc2.{{ id }}.raw_data_unformated:
     index: True
 
 {{ ship }}.{{ id }}.track_plot:
-  type: matplotlib.MatplotlibWriter
+  type: matplotlib_writer.MatplotlibWriter
   filepath: data/08_reporting/{{ ship }}/{{ ship }}.{{ id }}.track_plot.png
+  overwrite: True
+
+
+{{ ship }}.{{ id }}.plot_filters:
+  type: matplotlib_writer.MatplotlibWriter
+  filepath: data/08_reporting/{{ ship }}/{{ ship }}.{{ id }}.plot_filters.png
+  overwrite: True
+
 
 {{ ship }}.{{ id }}.data_lowpass:
   type: pandas.CSVDataSet

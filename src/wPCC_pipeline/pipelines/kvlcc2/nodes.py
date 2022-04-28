@@ -25,16 +25,25 @@ def load(df: pd.DataFrame, ship_data: dict) -> pd.DataFrame:
     df.dropna(how="all", inplace=True)
 
     mask = df["time"].diff() != 0
-    df = df.loc[mask]
-    df.set_index("time", inplace=True)
-    df.sort_index(inplace=True)
-    df.index = pd.to_timedelta(df.index, unit="s")
-    df = df.resample("0.1S").interpolate().resample("2S").mean()
-    scale_factor = ship_data["scale_factor"]
-    df.index = df.index.total_seconds() / np.sqrt(scale_factor)
+    df = df.loc[mask].copy()
 
     angles = ["phi", "psi", "r", "delta"]
     df[angles] = np.deg2rad(df[angles])
+
+    df.set_index("time", inplace=True)
+    df.sort_index(inplace=True)
+    df.index = pd.to_timedelta(df.index, unit="s")
+
+    # df["sin"] = np.sin(df["psi"])
+    # df["cos"] = np.cos(df["psi"])
+
+    df = df.resample("0.01S").interpolate().resample("2S").mean()
+
+    # df["psi"] = np.arctan2(df["sin"], df["cos"])
+    # df.drop(columns=["sin", "cos"], inplace=True)
+
+    scale_factor = ship_data["scale_factor"]
+    df.index = df.index.total_seconds() / np.sqrt(scale_factor)
 
     df.rename(
         columns={"u": "dx0", "v": "dy0"}, inplace=True
@@ -114,5 +123,7 @@ def calculate_thrust(
     Kt = np.polyval(p=coefficients, x=J)
     rho = ship_data["rho"]
     df["thrust"] = rho * n ** 2 * D ** 4 * Kt
+
+    df["thrust"] = 0  # Note! no thrust!!!
 
     return df

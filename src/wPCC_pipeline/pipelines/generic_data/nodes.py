@@ -28,15 +28,35 @@ class Ship(pvs.vehicles.tanker.tanker):
         return np.array([delta], float)
 
 
-def generate_data() -> pd.DataFrame:
+def generate_data1() -> pd.DataFrame:
 
     ship = Ship()
 
-    ship.n_c / 70.0  # propeller shaft speed (rps)
+    ship.n_c / 90.0  # propeller shaft speed (rps)
+    ship.controlMode = "turning circle"
+
+    nu0 = [7, 0, 0, 0, 0, 0]
+    time, data = simulate(N, sampleTime, ship, nu0=nu0)
+
+    df = sim_to_df(time=time, data=data, ship=ship)
+    return df
+
+
+def generate_data2() -> pd.DataFrame:
+
+    ship = Ship()
+
+    ship.n_c / 90.0  # propeller shaft speed (rps)
     ship.controlMode = "replay rudder"
 
     nu0 = [7, 0, 0, 0, 0, 0]
     time, data = simulate(N, sampleTime, ship, nu0=nu0)
+
+    df = sim_to_df(time=time, data=data, ship=ship)
+    return df
+
+
+def sim_to_df(time, data, ship):
 
     columns = [
         "x0",

@@ -5,6 +5,7 @@ generated using Kedro 0.17.6
 from src.extended_kalman_vmm import ExtendedKalman
 import numpy as np
 import pandas as pd
+import inspect
 
 
 def resimulate_extended_kalman(ek: ExtendedKalman, data) -> pd.DataFrame:
@@ -40,7 +41,7 @@ def extended_kalman_filter(
     covariance_matrixes: dict,
     x0: list,
     hydrodynamic_derivatives: dict,
-    input_columns=["delta", "thrust"],
+    input_columns=["delta", "thrust", "U"],
 ):
     """Filter with existing Extended Kalman filter
 
@@ -78,6 +79,7 @@ def extended_kalman_filter(
     # Ed = h * E
 
     P_prd = np.array(covariance_matrixes["P_prd"])
+
     Qd = np.array(covariance_matrixes["Qd"])
     Rd = np.array(covariance_matrixes["Rd"])
 
@@ -100,6 +102,10 @@ def extended_kalman_filter(
         ],
     )
 
+    arguments = list(inspect.signature(ek._lambda_f).parameters.keys())
+    input_columns = list(set(arguments) & set(input_columns))
+    data["U"] = np.sqrt(data["u"] ** 2 + data["v"] ** 2)
+
     x0_ = pd.Series(x0)[["x0", "y0", "psi", "u", "v", "r"]].values
     time_steps = ek.filter(
         data=data,
@@ -112,7 +118,11 @@ def extended_kalman_filter(
         x0_=x0_,
     )
 
-    return ek, ek.df_kalman, time_steps
+    df = ek.df_kalman
+    if "thrust" in data:
+        df["thrust"] = data["thrust"].values
+
+    return ek, df, time_steps
 
 
 def extended_kalman_smoother(
@@ -141,22 +151,29 @@ def extended_kalman_smoother(
         ],
     )
 
-    ek.Qd = covariance_matrixes["Qd"]
+    ek.Qd = np.array(covariance_matrixes["Qd"])
     ek.E = E
 
     ek.smoother(time_steps=time_steps)
     ek.data = data
 
-    return ek, ek.df_smooth
+    df = ek.df_smooth
+    if "thrust" in data:
+        df["thrust"] = data["thrust"].values
+
+    return ek, df
 
 
-def guess_covariance_matrixes(ek_covariance_input: dict) -> dict:
+def guess_covariance_matrixes(ek_covariance_input: dict, data: pd.DataFrame) -> dict:
 
     process_variance = ek_covariance_input["process_variance"]
     variance_u = process_variance["u"]
     variance_v = process_variance["v"]
     variance_r = np.deg2rad(process_variance["r"])
-    Qd = np.diag([variance_u, variance_v, variance_r])  # process variances: u,v,r
+
+    h = np.mean(np.diff(data.index))
+
+    Qd = np.diag([variance_u, variance_v, variance_r]) * h  # process variances: u,v,r
 
     measurement_error_max = ek_covariance_input["measurement_error_max"]
     error_max_pos = measurement_error_max["positions"]
@@ -167,15 +184,15 @@ def guess_covariance_matrixes(ek_covariance_input: dict) -> dict:
     sigma_psi = error_max_psi / 3
     variance_psi = sigma_psi ** 2
 
-    Rd = np.diag([variance_pos, variance_pos, variance_psi])
+    Rd = np.diag([variance_pos, variance_pos, variance_psi]) * h
     P_prd = np.diag(
         [
             variance_pos,
             variance_pos,
             variance_psi,
-            variance_u,
-            variance_v,
-            variance_r,
+            variance_u * h,
+            variance_v * h,
+            variance_r * h,
         ]
     )
 

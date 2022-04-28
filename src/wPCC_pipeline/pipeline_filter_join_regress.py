@@ -8,7 +8,7 @@ from operator import add
 from .pipelines import motion_regression
 
 
-def create_pipeline(model_test_ids, join_runs_dict, vmms, **kwargs):
+def create_pipeline(model_test_ids, join_runs_dict, vmms, ek="vmm_martin.ek", **kwargs):
 
     ## Filter:
     filter_pipelines = {}
@@ -17,7 +17,8 @@ def create_pipeline(model_test_ids, join_runs_dict, vmms, **kwargs):
             filter_data_extended_kalman.create_pipeline(),
             namespace=f"{id}",
             inputs={
-                f"ek": "vmm_martin.ek",  # (Overriding the namespace)
+                # f"ek": "vmm_martin.ek",  # (Overriding the namespace)
+                f"ek": ek,  # (Overriding the namespace)
                 "hydrodynamic_derivatives": "hydrodynamic_derivatives",
             },
             parameters={"params:ek_covariance_input": "params:ek_covariance_input"},
