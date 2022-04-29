@@ -1,0 +1,12 @@
+
+LNG.db_runs:
+  type: PartitionedDataSet
+  path: data/01_raw/LNG
+  dataset:  # full dataset config notation
+    type: pandas.CSVDataSet
+    load_args:
+      index_col: 0
+      encoding: CP1252
+    save_args:
+      index: True
+      encoding: utf8

@@ -184,7 +184,8 @@ def guess_covariance_matrixes(ek_covariance_input: dict, data: pd.DataFrame) -> 
     sigma_psi = error_max_psi / 3
     variance_psi = sigma_psi ** 2
 
-    Rd = np.diag([variance_pos, variance_pos, variance_psi]) * h
+    Rd = np.diag([variance_pos, variance_pos, variance_psi])
+
     P_prd = np.diag(
         [
             variance_pos,

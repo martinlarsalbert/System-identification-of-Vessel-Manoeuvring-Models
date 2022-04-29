@@ -16,6 +16,7 @@ from . import pipeline_plot
 from .pipelines import captive
 from .pipelines import generic_data, generic_data2
 from .pipelines import plot_filters
+from .pipelines import load_db
 
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -132,6 +133,20 @@ def register_pipelines() -> Dict[str, Pipeline]:
         },
     )
 
+    pipeline_LNG = pipeline(
+        pipeline_ship.create_pipeline(model_test_ids=model_test_ids["LNG"], vmms=vmms),
+        namespace="LNG",
+        inputs=inputs,
+        parameters={
+            "params:thrust_channels": "params:LNG.thrust_channels",
+            "params:initial.ek_covariance_input": f"params:LNG.initial.ek_covariance_input",
+            "params:updated.ek_covariance_input": f"params:LNG.updated.ek_covariance_input",
+            "params:motion_regression.exclude_parameters": "params:LNG.motion_regression.exclude_parameters",
+            "params:lowpass.cutoff": "params:LNG.lowpass.cutoff",
+            "params:lowpass.order": "params:LNG.lowpass.order",
+        },
+    )
+
     pipeline_kvlcc2_captive = pipeline(captive.create_pipeline(), namespace="kvlcc2")
 
     return_dict = {}
@@ -166,6 +181,12 @@ def register_pipelines() -> Dict[str, Pipeline]:
         + pipeline_generic_kvlcc2
     )
 
+    return_dict["LNG"] = (
+        vessel_manoeuvring_models_pipeline
+        + reduce(add, ek_pipelines.values())
+        + pipeline_LNG
+    )
+
     for ship_name, model_test_ids_ in model_test_ids.items():
         return_dict[f"plot_{ship_name}"] = pipeline(
             pipeline_plot.create_pipeline(
@@ -190,5 +211,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     return_dict["generic_data2"] = generic_data2.create_pipeline(
         model_test_ids=model_test_ids
     )
+
+    return_dict["LNG_create"] = pipeline(load_db.create_pipeline(), namespace="LNG")
 
     return return_dict

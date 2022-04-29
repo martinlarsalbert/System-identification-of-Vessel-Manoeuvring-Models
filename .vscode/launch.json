@@ -13,9 +13,7 @@
             "args": [
                 "run",
                 "--pipeline",
-                "kvlcc2",
-                "--tag",
-                "filter",
+                "LNG",
             ]
             // Any other arguments should be passed as a comma-seperated-list
             // e.g "args": ["run", "--pipeline", "pipeline_name"]

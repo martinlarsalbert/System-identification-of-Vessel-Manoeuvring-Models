@@ -3,6 +3,7 @@ ships:
   - kvlcc2
   - tanker
   - generic_kvlcc2
+  - LNG
 
 
 vmms:  # (What Vessel Manoeuvring Models to include)

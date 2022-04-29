@@ -8,6 +8,10 @@ wpcc.thrust_channels:
   - Prop/PS/Thrust
   - Prop/SB/Thrust
 
+LNG.thrust_channels:
+  - t1
+  - t2
+
 kvlcc2.thrust_channels: []
 
 tanker.thrust_channels: []
@@ -15,6 +19,10 @@ tanker.thrust_channels: []
 generic_kvlcc2.thrust_channels: []
   
 wpcc.lowpass:
+  cutoff: 2.0
+  order: 1
+
+LNG.lowpass:
   cutoff: 2.0
   order: 1
 

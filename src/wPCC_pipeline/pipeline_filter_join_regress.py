@@ -8,7 +8,9 @@ from operator import add
 from .pipelines import motion_regression
 
 
-def create_pipeline(model_test_ids, join_runs_dict, vmms, ek="vmm_martin.ek", **kwargs):
+def create_pipeline(
+    model_test_ids, join_runs_dict, vmms, ek="vmm_abkowitz.ek", **kwargs
+):
 
     ## Filter:
     filter_pipelines = {}
