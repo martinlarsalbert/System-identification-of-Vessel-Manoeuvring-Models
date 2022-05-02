@@ -22,6 +22,20 @@
   load_args:
     index_col: 0
     encoding: 'utf-8'
+  save_args:
+    index: True
+    encoding: 'utf-8'
+
+
+{{ ship }}.project_meta_data:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/{{ ship }}/project_meta_data.csv
+  load_args:
+    index_col: 0
+    encoding: 'utf-8'
+  save_args:
+    index: True
+    encoding: 'utf-8'
 
 {{ ship }}.runs_meta_data:
   type: pandas.CSVDataSet

@@ -4,13 +4,14 @@ ships:
   - tanker
   - generic_kvlcc2
   - LNG
+  - tanker2
 
 
 vmms:  # (What Vessel Manoeuvring Models to include)
 - vmm_abkowitz # 
-- vmm_martin  # (needed for kalman)
+#- vmm_martin  # (needed for kalman)
 - vmm_linear
-#- vmm_martins_simple
+- vmm_martins_simple
 #- vmm_abkowitz_expanded
 
 regressions:  # (What kind of regression to perform)

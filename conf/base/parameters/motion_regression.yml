@@ -19,3 +19,6 @@ tanker.motion_regression.exclude_parameters:
 
 LNG.motion_regression.exclude_parameters:
   Xthrust : 0.83  # (1-tdf) (Remember to change the force_regression.exclude_parameters also)
+
+tanker2.motion_regression.exclude_parameters:
+  Xthrust : 0.78  # (1-tdf) (Remember to change the force_regression.exclude_parameters also)

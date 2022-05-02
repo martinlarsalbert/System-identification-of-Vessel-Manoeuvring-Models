@@ -84,7 +84,8 @@ def create_pipeline(model_test_ids, vmms):
     ## updated parameters
     inputs = {
         # "covariance_matrixes": "vmm_martin.updated.covariance_matrixes",
-        f"hydrodynamic_derivatives": "initial.vmm_martin.joined.derivatives",
+        # f"hydrodynamic_derivatives": "initial.vmm_martin.joined.derivatives",
+        f"hydrodynamic_derivatives": "initial.vmm_abkowitz.joined.derivatives",
         # "vmm_martin.ek": "vmm_martin.ek",
         "vmm_abkowitz.ek": "vmm_abkowitz.ek",
         "ship_data": "ship_data",

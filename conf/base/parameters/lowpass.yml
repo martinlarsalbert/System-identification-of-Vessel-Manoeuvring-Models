@@ -12,6 +12,9 @@ LNG.thrust_channels:
   - t1
   - t2
 
+tanker2.thrust_channels:
+  - Prop.Tr
+
 kvlcc2.thrust_channels: []
 
 tanker.thrust_channels: []
@@ -23,6 +26,10 @@ wpcc.lowpass:
   order: 1
 
 LNG.lowpass:
+  cutoff: 2.0
+  order: 1
+
+tanker2.lowpass:
   cutoff: 2.0
   order: 1
 

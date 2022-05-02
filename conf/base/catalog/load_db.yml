@@ -1,7 +1,9 @@
 
-LNG.db_runs:
+{% for ship in ['LNG','tanker2'] %}  # (runs defined in runs_globals.yml)
+
+{{ ship }}.db_runs:
   type: PartitionedDataSet
-  path: data/01_raw/LNG
+  path: data/01_raw/{{ ship }}
   dataset:  # full dataset config notation
     type: pandas.CSVDataSet
     load_args:
@@ -10,3 +12,10 @@ LNG.db_runs:
     save_args:
       index: True
       encoding: utf8
+
+
+{{ ship }}.run_yml:
+  type: yaml.YAMLDataSet
+  filepath: data/01_raw/{{ ship }}/run_yml.yml
+
+{% endfor %}

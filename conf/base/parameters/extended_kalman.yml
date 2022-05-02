@@ -34,6 +34,24 @@ LNG.updated.ek_covariance_input:
     positions: 0.05
     psi: 0.5  # [deg]
 
+tanker2.initial.ek_covariance_input:
+  process_variance:
+    u : 0.003
+    v : 0.003
+    r : 0.019  # [deg]
+  measurement_error_max:
+    positions: 0.05
+    psi: 0.5  # [deg]
+
+tanker2.updated.ek_covariance_input:
+  process_variance:
+    u : 0.003
+    v : 0.003
+    r : 0.0019  # [deg]
+  measurement_error_max:
+    positions: 0.05
+    psi: 0.5  # [deg]
+
 kvlcc2.initial.ek_covariance_input:
 #  process_variance:
 #    u : 0.3

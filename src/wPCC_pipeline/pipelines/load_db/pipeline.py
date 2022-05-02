@@ -4,12 +4,36 @@ generated using Kedro 0.17.6
 """
 
 from kedro.pipeline import Pipeline, node
-from .nodes import create_ship_data, load_runs
+from .nodes import (
+    create_ship_data,
+    load_runs,
+    get_project_meta_data,
+    select_runs,
+    create_run_yml,
+)
 
 
 def create_pipeline(**kwargs):
     return Pipeline(
         [
+            node(
+                func=get_project_meta_data,
+                inputs=[
+                    "params:project_number",
+                ],
+                outputs="project_meta_data",
+                name="get_project_meta_data_node",
+                tags=["create_ship"],
+            ),
+            node(
+                func=select_runs,
+                inputs=[
+                    "project_meta_data",
+                ],
+                outputs="runs_meta_data_raw",
+                name="select_runs_node",
+                tags=["create_ship"],
+            ),
             node(
                 func=create_ship_data,
                 inputs=[
@@ -26,6 +50,15 @@ def create_pipeline(**kwargs):
                 ],
                 outputs="db_runs",
                 name="load_runs_node",
+                tags=["create_ship"],
+            ),
+            node(
+                func=create_run_yml,
+                inputs=[
+                    "runs_meta_data_raw",
+                ],
+                outputs="run_yml",
+                name="create_run_yml_node",
                 tags=["create_ship"],
             ),
         ]
