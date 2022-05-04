@@ -1,5 +1,5 @@
 
-{% for ship in ['LNG','tanker2'] %}  # (runs defined in runs_globals.yml)
+{% for ship in ['LNG','tanker2','ropax','LNG_tanker'] %}  # (runs defined in runs_globals.yml)
 
 {{ ship }}.db_runs:
   type: PartitionedDataSet

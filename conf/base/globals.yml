@@ -5,6 +5,8 @@ ships:
   - generic_kvlcc2
   - LNG
   - tanker2
+  - ropax
+  - LNG_tanker
 
 
 vmms:  # (What Vessel Manoeuvring Models to include)
@@ -18,4 +20,5 @@ regressions:  # (What kind of regression to perform)
 #- force_regression
 - motion_regression
 
-update_vmms: False
+update_vmms: True
+

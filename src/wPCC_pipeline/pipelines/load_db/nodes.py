@@ -10,9 +10,10 @@ authenticate(dotenv_path=".env")
 db = MDLDataBase()
 import pandas as pd
 from mdl_helpers.mdl_motions import add_MDL_motions, do_transforms
+import numpy as np
 
 
-def get_project_meta_data(project_number: int) -> pd.DataFrame:
+def get_project_meta_data(ship: dict) -> pd.DataFrame:
     """Get a table over all the runs in a project
 
     Parameters
@@ -26,7 +27,7 @@ def get_project_meta_data(project_number: int) -> pd.DataFrame:
         _description_
     """
 
-    project = db.session.query(Project).get(int(project_number))
+    project = db.session.query(Project).get(int(ship["project_number"]))
 
     query = (
         db.session.query(Run, Model, LoadingCondition, Ship)
@@ -92,9 +93,11 @@ def create_run_yml(runs_meta_data: pd.DataFrame) -> list:
     return l
 
 
-def create_ship_data(runs_meta_data: pd.DataFrame) -> dict:
+def create_ship_data(runs_meta_data: pd.DataFrame, ship: dict) -> dict:
 
     meta_data = runs_meta_data.iloc[0]
+    if "meta_data" in ship:
+        meta_data.update(ship["meta_data"])
 
     scale_factor = meta_data["scale_factor"]
     volume = meta_data["Volume"]
@@ -115,19 +118,23 @@ def create_ship_data(runs_meta_data: pd.DataFrame) -> dict:
         "I_z": meta_data["KZZ"] ** 2 * m / (scale_factor ** 5),
         "volume": volume / (scale_factor ** 3),
         "scale_factor": scale_factor,
+        "TWIN": meta_data["TWIN"] == 1,  # Twin screw?
     }
 
     return {key: float(value) for key, value in ship_data.items()}
 
 
-def load_runs(runs_meta_data: pd.DataFrame) -> dict:
+def load_runs(runs_meta_data: pd.DataFrame, ship: dict) -> dict:
 
     datas = {}
 
     for id, row in runs_meta_data.iterrows():
 
         try:
-            data = process_run(id=id)
+            data = process_run(
+                id=id,
+                **ship,
+            )
         except ValueError:
             print("skipping empy run...")
             continue
@@ -137,14 +144,14 @@ def load_runs(runs_meta_data: pd.DataFrame) -> dict:
     return datas
 
 
-def process_run(id):
+def process_run(id, ma_position: dict, initial_rudder_angle=0, **kwargs):
 
     run = db.session.query(Run).get(id)
     ## Missing in db:
 
-    run.xm = 0
-    run.ym = 0
-    run.zm = -0.199
+    run.xm = ma_position.get("xm", 0)
+    run.ym = ma_position.get("ym", 0)
+    run.zm = ma_position.get("zm", 0)
 
     df = run.load()
 
@@ -178,5 +185,9 @@ def process_run(id):
     selection.drop(columns=["våghöjd pg"], inplace=True)
 
     df_save = selection.copy()
+
+    df_save["delta"] -= np.deg2rad(
+        initial_rudder_angle
+    )  # used if provided, otherwise=0.
 
     return df_save

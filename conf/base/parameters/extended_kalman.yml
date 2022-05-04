@@ -45,6 +45,42 @@ tanker2.initial.ek_covariance_input:
 
 tanker2.updated.ek_covariance_input:
   process_variance:
+    u : 0.0003
+    v : 0.0003
+    r : 0.00019  # [deg]
+  measurement_error_max:
+    positions: 0.05
+    psi: 0.5  # [deg]
+
+ropax.initial.ek_covariance_input:
+  process_variance:
+    u : 0.003
+    v : 0.003
+    r : 0.019  # [deg]
+  measurement_error_max:
+    positions: 0.05
+    psi: 0.5  # [deg]
+
+ropax.updated.ek_covariance_input:
+  process_variance:
+    u : 0.003
+    v : 0.003
+    r : 0.0019  # [deg]
+  measurement_error_max:
+    positions: 0.05
+    psi: 0.5  # [deg]
+
+LNG_tanker.initial.ek_covariance_input:
+  process_variance:
+    u : 0.003
+    v : 0.003
+    r : 0.019  # [deg]
+  measurement_error_max:
+    positions: 0.05
+    psi: 0.5  # [deg]
+
+LNG_tanker.updated.ek_covariance_input:
+  process_variance:
     u : 0.003
     v : 0.003
     r : 0.0019  # [deg]

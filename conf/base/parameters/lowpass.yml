@@ -12,8 +12,15 @@ LNG.thrust_channels:
   - t1
   - t2
 
+LNG_tanker.thrust_channels:
+  - t1
+  - t2
+
 tanker2.thrust_channels:
-  - Prop.Tr
+  - prop.tr
+
+ropax.thrust_channels:
+  - prop.tr
 
 kvlcc2.thrust_channels: []
 
@@ -29,7 +36,15 @@ LNG.lowpass:
   cutoff: 2.0
   order: 1
 
+LNG_tanker.lowpass:
+  cutoff: 2.0
+  order: 1
+
 tanker2.lowpass:
+  cutoff: 2.0
+  order: 1
+
+ropax.lowpass:
   cutoff: 2.0
   order: 1
 

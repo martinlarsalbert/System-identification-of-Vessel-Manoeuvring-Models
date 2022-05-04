@@ -23,6 +23,7 @@ def create_pipeline(**kwargs):
                     "data_ek_smooth",  # Which data to use here is not obvious...
                     "model",
                     "ek",
+                    "params:solver",
                 ],
                 outputs="data_resimulate",
                 name="simulate_node",

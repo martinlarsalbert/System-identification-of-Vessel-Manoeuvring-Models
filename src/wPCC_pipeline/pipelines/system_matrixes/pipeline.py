@@ -9,11 +9,16 @@ from .nodes import (
     create_system_matrixes,
 )
 
+
 def create_pipeline(**kwargs):
-    return Pipeline([node(
+    return Pipeline(
+        [
+            node(
                 func=create_system_matrixes,
                 inputs=["vmm"],
                 outputs="system_matrixes",
                 name="create_system_matrixes_node",
-                tags=['ek'],
-            ),])
+                tags=["ek", "vmm"],
+            ),
+        ]
+    )

@@ -9,6 +9,9 @@ from warnings import warn
 import os
 import fsspec
 import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.use("Agg")
 
 from kedro.io.core import (
     AbstractVersionedDataSet,

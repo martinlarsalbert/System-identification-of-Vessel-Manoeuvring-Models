@@ -72,22 +72,36 @@ def register_pipelines() -> Dict[str, Pipeline]:
     ## Ships:
     inputs = {vmm: vmm for vmm in vmms}
     inputs.update({f"{vmm}.system_matrixes": f"{vmm}.system_matrixes" for vmm in vmms})
-    pipeline_wpcc = pipeline(
-        pipeline_ship.create_pipeline(model_test_ids=model_test_ids["wpcc"], vmms=vmms),
-        namespace="wpcc",
-        inputs=inputs,
-        parameters={
-            "params:thrust_channels": "params:wpcc.thrust_channels",
-            "params:initial.ek_covariance_input": f"params:wpcc.updated.initial.ek_covariance_input",
-            "params:initial.ek_covariance_input": f"params:wpcc.initial.ek_covariance_input",
-            "params:updated.ek_covariance_input": f"params:wpcc.updated.ek_covariance_input",
-            "params:motion_regression.exclude_parameters": "params:wpcc.motion_regression.exclude_parameters",
-            "params:lowpass.cutoff": "params:wpcc.lowpass.cutoff",
-            "params:lowpass.order": "params:wpcc.lowpass.order",
-        },
-    )
 
-    pipeline_kvlcc2 = pipeline(
+    ship_names = [
+        "wpcc",
+        "tanker",
+        "generic_kvlcc2",
+        "LNG",
+        "tanker2",
+        "ropax",
+        "LNG_tanker",
+    ]
+    ship_pipelines = {}
+    for ship_name in ship_names:
+        ship_pipelines[ship_name] = pipeline(
+            pipeline_ship.create_pipeline(
+                model_test_ids=model_test_ids[ship_name], vmms=vmms
+            ),
+            namespace=ship_name,
+            inputs=inputs,
+            parameters={
+                "params:thrust_channels": f"params:{ship_name}.thrust_channels",
+                "params:initial.ek_covariance_input": f"params:{ship_name}.updated.initial.ek_covariance_input",
+                "params:initial.ek_covariance_input": f"params:{ship_name}.initial.ek_covariance_input",
+                "params:updated.ek_covariance_input": f"params:{ship_name}.updated.ek_covariance_input",
+                "params:motion_regression.exclude_parameters": f"params:{ship_name}.motion_regression.exclude_parameters",
+                "params:lowpass.cutoff": f"params:{ship_name}.lowpass.cutoff",
+                "params:lowpass.order": f"params:{ship_name}.lowpass.order",
+            },
+        )
+
+    ship_pipelines["kvlcc2"] = pipeline(
         kvlcc2.create_pipeline(model_test_ids=model_test_ids["kvlcc2"], vmms=vmms),
         namespace="kvlcc2",
         inputs=inputs,
@@ -101,113 +115,22 @@ def register_pipelines() -> Dict[str, Pipeline]:
         },
     )
 
-    pipeline_tanker = pipeline(
-        pipeline_ship.create_pipeline(
-            model_test_ids=model_test_ids["tanker"], vmms=vmms
-        ),
-        namespace="tanker",
-        inputs=inputs,
-        parameters={
-            "params:thrust_channels": "params:tanker.thrust_channels",
-            "params:initial.ek_covariance_input": f"params:tanker.initial.ek_covariance_input",
-            "params:updated.ek_covariance_input": f"params:tanker.updated.ek_covariance_input",
-            "params:motion_regression.exclude_parameters": "params:tanker.motion_regression.exclude_parameters",
-            "params:lowpass.cutoff": "params:tanker.lowpass.cutoff",
-            "params:lowpass.order": "params:tanker.lowpass.order",
-        },
-    )
-
-    pipeline_generic_kvlcc2 = pipeline(
-        pipeline_ship.create_pipeline(
-            model_test_ids=model_test_ids["generic_kvlcc2"], vmms=vmms
-        ),
-        namespace="generic_kvlcc2",
-        inputs=inputs,
-        parameters={
-            "params:thrust_channels": "params:generic_kvlcc2.thrust_channels",
-            "params:initial.ek_covariance_input": f"params:generic_kvlcc2.initial.ek_covariance_input",
-            "params:updated.ek_covariance_input": f"params:generic_kvlcc2.updated.ek_covariance_input",
-            "params:motion_regression.exclude_parameters": "params:generic_kvlcc2.motion_regression.exclude_parameters",
-            "params:lowpass.cutoff": "generic_kvlcc2.params:lowpass.cutoff",
-            "params:lowpass.order": "generic_kvlcc2.params:lowpass.order",
-        },
-    )
-
-    pipeline_LNG = pipeline(
-        pipeline_ship.create_pipeline(model_test_ids=model_test_ids["LNG"], vmms=vmms),
-        namespace="LNG",
-        inputs=inputs,
-        parameters={
-            "params:thrust_channels": "params:LNG.thrust_channels",
-            "params:initial.ek_covariance_input": f"params:LNG.initial.ek_covariance_input",
-            "params:updated.ek_covariance_input": f"params:LNG.updated.ek_covariance_input",
-            "params:motion_regression.exclude_parameters": "params:LNG.motion_regression.exclude_parameters",
-            "params:lowpass.cutoff": "params:LNG.lowpass.cutoff",
-            "params:lowpass.order": "params:LNG.lowpass.order",
-        },
-    )
-
-    pipeline_tanker2 = pipeline(
-        pipeline_ship.create_pipeline(
-            model_test_ids=model_test_ids["tanker2"], vmms=vmms
-        ),
-        namespace="tanker2",
-        inputs=inputs,
-        parameters={
-            "params:thrust_channels": "params:tanker2.thrust_channels",
-            "params:initial.ek_covariance_input": f"params:tanker2.initial.ek_covariance_input",
-            "params:updated.ek_covariance_input": f"params:tanker2.updated.ek_covariance_input",
-            "params:motion_regression.exclude_parameters": "params:tanker2.motion_regression.exclude_parameters",
-            "params:lowpass.cutoff": "params:tanker2.lowpass.cutoff",
-            "params:lowpass.order": "params:tanker2.lowpass.order",
-        },
-    )
-
     pipeline_kvlcc2_captive = pipeline(captive.create_pipeline(), namespace="kvlcc2")
 
     return_dict = {}
     return_dict["__default__"] = (
         vessel_manoeuvring_models_pipeline
         + reduce(add, ek_pipelines.values())
-        + pipeline_wpcc
-        + pipeline_kvlcc2
+        + ship_pipelines["wpcc"]
+        + ship_pipelines["kvlcc2"]
     )
 
-    return_dict["kvlcc2"] = (
-        vessel_manoeuvring_models_pipeline
-        + reduce(add, ek_pipelines.values())
-        + pipeline_kvlcc2
-    )
-
-    return_dict["tanker"] = (
-        vessel_manoeuvring_models_pipeline
-        + reduce(add, ek_pipelines.values())
-        + pipeline_tanker
-    )
-
-    return_dict["wpcc"] = (
-        vessel_manoeuvring_models_pipeline
-        + reduce(add, ek_pipelines.values())
-        + pipeline_wpcc
-    )
-
-    return_dict["generic_kvlcc2"] = (
-        vessel_manoeuvring_models_pipeline
-        + reduce(add, ek_pipelines.values())
-        + pipeline_generic_kvlcc2
-    )
-
-    return_dict["LNG"] = (
-        vessel_manoeuvring_models_pipeline
-        + reduce(add, ek_pipelines.values())
-        + pipeline_LNG
-    )
-
-    return_dict["tanker2"] = (
-        vessel_manoeuvring_models_pipeline
-        + reduce(add, ek_pipelines.values())
-        + pipeline_tanker2
-    )
+    for ship in ship_pipelines.keys():
+        return_dict[ship] = (
+            vessel_manoeuvring_models_pipeline
+            + reduce(add, ek_pipelines.values())
+            + ship_pipelines[ship]
+        )
 
     for ship_name, model_test_ids_ in model_test_ids.items():
         return_dict[f"plot_{ship_name}"] = pipeline(
@@ -234,16 +157,23 @@ def register_pipelines() -> Dict[str, Pipeline]:
         model_test_ids=model_test_ids
     )
 
-    return_dict["LNG_create"] = pipeline(
-        load_db.create_pipeline(),
-        namespace="LNG",
-        parameters={"params:project_number": "params:LNG.project_number"},
-    )
+    create_ships = ["LNG", "tanker2", "ropax", "LNG_tanker"]
+    for ship in create_ships:
+        return_dict[f"{ship}_create"] = pipeline(
+            load_db.create_pipeline(),
+            namespace=ship,
+            parameters={
+                "params:ship": f"params:{ship}",
+            },
+        )
 
-    return_dict["tanker2_create"] = pipeline(
-        load_db.create_pipeline(),
-        namespace="tanker2",
-        parameters={"params:project_number": "params:tanker2.project_number"},
-    )
+    # work_ships = ["wpcc", "LNG", "tanker2", "ropax", "LNG_tanker"]
+    work_ships = ["LNG", "tanker2", "ropax", "LNG_tanker"]
+    work = [return_dict[ship] for ship in work_ships]
+    return_dict["work"] = reduce(add, work)
+
+    plot = [return_dict[f"plot_{ship}"] for ship in work_ships]
+    plot += [return_dict[f"plot_filters_{ship}"] for ship in work_ships]
+    return_dict["plot"] = reduce(add, plot)
 
     return return_dict

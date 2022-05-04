@@ -19,7 +19,7 @@ def create_pipeline(**kwargs):
             node(
                 func=get_project_meta_data,
                 inputs=[
-                    "params:project_number",
+                    "params:ship",
                 ],
                 outputs="project_meta_data",
                 name="get_project_meta_data_node",
@@ -38,6 +38,7 @@ def create_pipeline(**kwargs):
                 func=create_ship_data,
                 inputs=[
                     "runs_meta_data_raw",
+                    "params:ship",
                 ],
                 outputs="ship_data",
                 name="create_ship_data_node",
@@ -47,6 +48,7 @@ def create_pipeline(**kwargs):
                 func=load_runs,
                 inputs=[
                     "runs_meta_data_raw",
+                    "params:ship",
                 ],
                 outputs="db_runs",
                 name="load_runs_node",

@@ -1,5 +1,5 @@
 (yowt)=
-# Parameter identification of Vessel Manoeuvring Models
+# Abstract
 
 ```{admonition} Authors
 :class: tip

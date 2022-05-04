@@ -16,7 +16,16 @@ def track_plot(
         fig, ax = plt.subplots()
         return fig
 
+    data.index = pd.to_timedelta(data.index, unit="s")
+    data = data.resample("1S").mean()
+    data.index = data.index.total_seconds()
+
+    results.index = pd.to_timedelta(results.index, unit="s")
+    results = results.resample("1S").mean()
+    results.index = results.index.total_seconds()
+
     dataframes = {"model test": data, "simulation": results}
+
     ax = plot.track_plots(
         dataframes=dataframes,
         lpp=ship_data["L"],
@@ -38,8 +47,16 @@ def plot_timeseries(
         fig, ax = plt.subplots()
         return fig
 
-    # dataframes = {"raw": raw_data, "model test": data, "simulation": results}
+    data.index = pd.to_timedelta(data.index, unit="s")
+    data = data.resample("1S").mean()
+    data.index = data.index.total_seconds()
+
+    results.index = pd.to_timedelta(results.index, unit="s")
+    results = results.resample("1S").mean()
+    results.index = results.index.total_seconds()
+
     dataframes = {"model test": data, "simulation": results}
+
     ax = plot.plot(
         dataframes=dataframes, keys=["thrust", "psi", "u", "v", "r", "delta"]
     )
