@@ -17,6 +17,8 @@ from .pipelines import captive
 from .pipelines import generic_data, generic_data2
 from .pipelines import plot_filters
 from .pipelines import load_db
+from .pipelines import load_cto
+from .pipelines import load_hsva
 
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -81,7 +83,12 @@ def register_pipelines() -> Dict[str, Pipeline]:
         "tanker2",
         "ropax",
         "LNG_tanker",
+        "kvlcc2_cto",
+        "kvlcc2_hsva",
     ]
+
+    ship_names = list(set(ship_names) & set(model_test_ids.keys()))
+
     ship_pipelines = {}
     for ship_name in ship_names:
         ship_pipelines[ship_name] = pipeline(
@@ -166,9 +173,17 @@ def register_pipelines() -> Dict[str, Pipeline]:
                 "params:ship": f"params:{ship}",
             },
         )
+    return_dict["kvlcc2_cto_create"] = pipeline(
+        load_cto.create_pipeline(), namespace="kvlcc2_cto"
+    )
+
+    return_dict["kvlcc2_hsva_create"] = pipeline(
+        load_hsva.create_pipeline(), namespace="kvlcc2_hsva"
+    )
 
     # work_ships = ["wpcc", "LNG", "tanker2", "ropax", "LNG_tanker"]
     work_ships = ["LNG", "tanker2", "ropax", "LNG_tanker"]
+    work_ships = list(set(work_ships) & set(model_test_ids.keys()))
     work = [return_dict[ship] for ship in work_ships]
     return_dict["work"] = reduce(add, work)
 

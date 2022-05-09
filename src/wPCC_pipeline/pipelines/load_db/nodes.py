@@ -118,7 +118,7 @@ def create_ship_data(runs_meta_data: pd.DataFrame, ship: dict) -> dict:
         "I_z": meta_data["KZZ"] ** 2 * m / (scale_factor ** 5),
         "volume": volume / (scale_factor ** 3),
         "scale_factor": scale_factor,
-        "TWIN": meta_data["TWIN"] == 1,  # Twin screw?
+        "TWIN": meta_data["TWIN"],  # Twin screw?
     }
 
     return {key: float(value) for key, value in ship_data.items()}

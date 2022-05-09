@@ -48,8 +48,9 @@ def fit_motions(
 
     ps = prime_system.PrimeSystem(**ship_data)  # model
 
-    if ship_data["TWIN"]:
+    if ship_data["TWIN"] == 1:
         exclude_parameters.update({"Nthrust": 0})  # No propeller asymmetry
+        exclude_parameters.update({"Ythrust": 0})  # No propeller asymmetry
 
     regression = Regression(
         vmm=vmm,

@@ -1,12 +1,15 @@
 ships:
   - wpcc
   - kvlcc2
-  - tanker
-  - generic_kvlcc2
+  #- tanker
+  #- generic_kvlcc2
   - LNG
   - tanker2
-  - ropax
+#  - ropax
   - LNG_tanker
+  #- kvlcc2_cto  # shit?
+  - kvlcc2_hsva
+  
 
 
 vmms:  # (What Vessel Manoeuvring Models to include)
@@ -20,5 +23,5 @@ regressions:  # (What kind of regression to perform)
 #- force_regression
 - motion_regression
 
-update_vmms: True
+update_vmms: False
 

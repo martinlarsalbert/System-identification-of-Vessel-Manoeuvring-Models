@@ -1,0 +1,43 @@
+
+{% set columns = [
+        'time',
+        'x0',
+        'y0',
+        'psi',
+        'u',
+        'v',
+        'p',
+        'r',
+        'delta',
+        'rev',
+        'thrust',
+        'torque'
+    ] %}
+
+kvlcc2_hsva.raw_data_hsva:
+  type: PartitionedDataSet
+  path: data/01_raw/kvlcc2_hsva/raw_data
+  dataset:  # full dataset config notation
+    type: pandas.CSVDataSet
+    load_args:
+      header: 4
+      encoding: 'cp1252'
+      sep: ' +'
+      index_col: 0
+      names: {{ columns }}
+
+kvlcc2_hsva.db_runs:
+  type: PartitionedDataSet
+  path: data/01_raw/kvlcc2_hsva
+  dataset:  # full dataset config notation
+    type: pandas.CSVDataSet
+    load_args:
+      index_col: 0
+    save_args:
+      index: True
+      encoding: utf8
+
+
+kvlcc2_hsva.run_yml:
+  type: yaml.YAMLDataSet
+  filepath: data/01_raw/kvlcc2_hsva/run_yml.yml

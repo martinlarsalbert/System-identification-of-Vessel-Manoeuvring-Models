@@ -31,3 +31,9 @@ tanker2.motion_regression.exclude_parameters:
 
 ropax.motion_regression.exclude_parameters:
   Xthrust : 0.82  # (1-tdf) (Remember to change the force_regression.exclude_parameters also)
+
+kvlcc2_cto.motion_regression.exclude_parameters:
+  Xthrust : 0.78  # (1-tdf) (Remember to change the force_regression.exclude_parameters also)
+
+kvlcc2_hsva.motion_regression.exclude_parameters:
+  Xthrust : 0.78  # (1-tdf) (Remember to change the force_regression.exclude_parameters also)

@@ -1,0 +1,39 @@
+
+{% set columns = [
+        'time',
+        'delta',
+        'psi',
+        'r',
+        'phi',
+        'thrust',
+        'torque',
+        'fy_R',
+        'fx_R',
+        'mz_R',
+        'rev',
+        'x0',
+        'y0',
+    ] %}
+
+
+kvlcc2_cto.raw_data_cto:
+  type: PartitionedDataSet
+  path: data/01_raw/kvlcc2_cto/raw_data
+  dataset:  # full dataset config notation
+    type: text.TextDataSet
+
+kvlcc2_cto.db_runs:
+  type: PartitionedDataSet
+  path: data/01_raw/kvlcc2_cto
+  dataset:  # full dataset config notation
+    type: pandas.CSVDataSet
+    load_args:
+      index_col: 0
+    save_args:
+      index: True
+      encoding: utf8
+
+
+kvlcc2_cto.run_yml:
+  type: yaml.YAMLDataSet
+  filepath: data/01_raw/kvlcc2_cto/run_yml.yml

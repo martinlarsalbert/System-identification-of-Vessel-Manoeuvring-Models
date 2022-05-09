@@ -27,6 +27,9 @@ kvlcc2.thrust_channels: []
 tanker.thrust_channels: []
 
 generic_kvlcc2.thrust_channels: []
+
+kvlcc2_cto.thrust_channels: []
+kvlcc2_hsva.thrust_channels: []
   
 wpcc.lowpass:
   cutoff: 2.0
@@ -58,4 +61,12 @@ generic_kvlcc2.lowpass:
 
 tanker.lowpass:
   cutoff: 1.0
+  order: 1
+
+kvlcc2_cto.lowpass:
+  cutoff: 0.25
+  order: 1
+
+kvlcc2_hsva.lowpass:
+  cutoff: 0.25
   order: 1
