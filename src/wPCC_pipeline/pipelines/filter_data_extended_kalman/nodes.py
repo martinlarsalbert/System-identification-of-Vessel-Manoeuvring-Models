@@ -104,7 +104,8 @@ def extended_kalman_filter(
 
     arguments = list(inspect.signature(ek._lambda_f).parameters.keys())
     input_columns = list(set(arguments) & set(input_columns))
-    data["U"] = np.sqrt(data["u"] ** 2 + data["v"] ** 2)
+    if "U" in input_columns:
+        data["U"] = np.sqrt(data["u"] ** 2 + data["v"] ** 2)
 
     x0_ = pd.Series(x0)[["x0", "y0", "psi", "u", "v", "r"]].values
     time_steps = ek.filter(
