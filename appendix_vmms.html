@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>8. Vessel Manoeuvring Models &#8212; Parameter identification of Vessel Manoeuvring Models</title>
+    <title>8. Vessel Manoeuvring Models &#8212; System identification of Vessel Manoeuvring Models</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -38,20 +38,22 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -84,7 +86,7 @@
       <img src="_static/logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">Parameter identification of Vessel Manoeuvring Models</h1>
+      <h1 class="site-logo" id="site-title">System identification of Vessel Manoeuvring Models</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -95,19 +97,36 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="index.html">
-   Parameter identification of Vessel Manoeuvring Models
+   Abstract
   </a>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="02.01_VMMs.html">
-   1. Vessel Manoeuvring Models
+  <a class="reference internal" href="00.02_introduction.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Method
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.01_method.html">
+   1. Overview
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="05.01_model_tests.html">
-   2. Model tests
+  <a class="reference internal" href="02.01_VMMs.html">
+   2. Vessel Manoeuvring Models
   </a>
  </li>
  <li class="toctree-l1">
@@ -117,41 +136,52 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="04.01_EK.html">
-   4. Discrete-time Extended Kalman
+   5. Extended Kalman Filter
   </a>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="07.01_accuracy_and_robustness.html">
-   5. Accuracy and robustness
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.03_acceleration_accuracy.html">
-     1. Acceleration accuracy
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.30_vmm_bias_variance_tradeoff.html">
-     2. VMM Bias-variance tradeoff
-    </a>
-   </li>
-  </ul>
- </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Test case
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="06.01_results.html">
-   6. Results
+  <a class="reference internal" href="05.01_model_tests.html">
+   6. Test cases
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Conclusions
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="10.00_conclusions.html">
+   Conclusions
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  bibligraphy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="bibligraphy.html">
    7. Bibliography
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  appendix
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    8. Vessel Manoeuvring Models
@@ -246,32 +276,17 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#vmm-abkowitz">
-   vmm_abkowitz
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#vmm-abkowitz-simple">
-   vmm_abkowitz_simple
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#vmm-martin">
-   vmm_martin
+   8.1. vmm_abkowitz
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#vmm-linear">
-   vmm_linear
+   8.2. vmm_linear
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#vmm-martins-simple">
-   vmm_martins_simple
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#vmm-abkowitz-expanded">
-   vmm_abkowitz_expanded
+   8.3. vmm_martins_simple
   </a>
  </li>
 </ul>
@@ -296,32 +311,17 @@
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#vmm-abkowitz">
-   vmm_abkowitz
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#vmm-abkowitz-simple">
-   vmm_abkowitz_simple
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#vmm-martin">
-   vmm_martin
+   8.1. vmm_abkowitz
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#vmm-linear">
-   vmm_linear
+   8.2. vmm_linear
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#vmm-martins-simple">
-   vmm_martins_simple
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#vmm-abkowitz-expanded">
-   vmm_abkowitz_expanded
+   8.3. vmm_martins_simple
   </a>
  </li>
 </ul>
@@ -336,7 +336,7 @@
   <div class="section" id="vessel-manoeuvring-models">
 <h1><span class="section-number">8. </span>Vessel Manoeuvring Models<a class="headerlink" href="#vessel-manoeuvring-models" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="vmm-abkowitz">
-<h2>vmm_abkowitz<a class="headerlink" href="#vmm-abkowitz" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.1. </span>vmm_abkowitz<a class="headerlink" href="#vmm-abkowitz" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight" id="equation-eq-x-d-vmm-abkowitz">
 <span class="eqno">(8.1)<a class="headerlink" href="#equation-eq-x-d-vmm-abkowitz" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
@@ -358,128 +358,52 @@
 <span class="eqno">(8.3)<a class="headerlink" href="#equation-eq-n-d-vmm-abkowitz" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
 \operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{0uu} u^{2} + N_{0u} u + N_{0} + N_{\delta\delta\delta} \delta^{3} + N_{\delta} \delta + N_{r\delta\delta} \delta^{2} r \\
-&amp; + N_{rr\delta} \delta r^{2} + N_{rrr} r^{3} + N_{r} r + N_{u\delta} \delta u + N_{ur} r u + N_{uu\delta} \delta u^{2} \\
-&amp; + N_{uur} r u^{2} + N_{uuv} u^{2} v + N_{uv} u v + N_{v\delta\delta} \delta^{2} v + N_{vr\delta} \delta r v + N_{vrr} r^{2} v \\
-&amp; + N_{vv\delta} \delta v^{2} + N_{vvr} r v^{2} + N_{vvv} v^{3} + N_{v} v 
-\end{align*}
-\end{split}\]</div>
-</div>
-<div class="section" id="vmm-abkowitz-simple">
-<h2>vmm_abkowitz_simple<a class="headerlink" href="#vmm-abkowitz-simple" title="Permalink to this headline">¶</a></h2>
-<div class="math notranslate nohighlight" id="equation-eq-x-d-vmm-abkowitz-simple">
-<span class="eqno">(8.4)<a class="headerlink" href="#equation-eq-x-d-vmm-abkowitz-simple" title="Permalink to this equation">¶</a></span>\[\begin{split}
-\begin{align*}
-\operatorname{X_{D}}{\left(u,v,r,\delta,T \right)} = &amp; X_{rr} r^{2} + X_{T} T + X_{uuu} u^{3} + X_{uu} u^{2} + X_{uvr} r u v + X_{uvv} u v^{2} \\
-&amp; + X_{vr} r v + X_{vv} v^{2} 
-\end{align*}
-\end{split}\]</div>
-<div class="math notranslate nohighlight" id="equation-eq-y-d-vmm-abkowitz-simple">
-<span class="eqno">(8.5)<a class="headerlink" href="#equation-eq-y-d-vmm-abkowitz-simple" title="Permalink to this equation">¶</a></span>\[\begin{split}
-\begin{align*}
-\operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{\delta\delta\delta} \delta^{3} + Y_{\delta} \delta + Y_{r} r + Y_{T\delta} \delta T + Y_{u\delta} \delta u + Y_{ur} r u \\
-&amp; + Y_{uu\delta} \delta u^{2} + Y_{uuv} u^{2} v + Y_{uv} u v + Y_{v} v 
-\end{align*}
-\end{split}\]</div>
-<div class="math notranslate nohighlight" id="equation-eq-n-d-vmm-abkowitz-simple">
-<span class="eqno">(8.6)<a class="headerlink" href="#equation-eq-n-d-vmm-abkowitz-simple" title="Permalink to this equation">¶</a></span>\[\begin{split}
-\begin{align*}
-\operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{\delta\delta\delta} \delta^{3} + N_{\delta} \delta + N_{r} r + N_{T\delta} \delta T + N_{u\delta} \delta u + N_{ur} r u \\
-&amp; + N_{uu\delta} \delta u^{2} + N_{uuv} u^{2} v + N_{uv} u v + N_{v} v 
-\end{align*}
-\end{split}\]</div>
-</div>
-<div class="section" id="vmm-martin">
-<h2>vmm_martin<a class="headerlink" href="#vmm-martin" title="Permalink to this headline">¶</a></h2>
-<div class="math notranslate nohighlight" id="equation-eq-x-d-vmm-martin">
-<span class="eqno">(8.7)<a class="headerlink" href="#equation-eq-x-d-vmm-martin" title="Permalink to this equation">¶</a></span>\[\begin{split}
-\begin{align*}
-\operatorname{X_{D}}{\left(u,v,r,\delta,T \right)} = &amp; X_{\delta\delta} \delta^{2} + X_{rr} r^{2} + X_{T} T + X_{uu} u^{2} + X_{u} u + X_{v\delta} \delta v \\
-&amp; + X_{vr} r v 
-\end{align*}
-\end{split}\]</div>
-<div class="math notranslate nohighlight" id="equation-eq-y-d-vmm-martin">
-<span class="eqno">(8.8)<a class="headerlink" href="#equation-eq-y-d-vmm-martin" title="Permalink to this equation">¶</a></span>\[\begin{split}
-\begin{align*}
-\operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{\delta} \delta + Y_{r\delta\delta} \delta^{2} r + Y_{r} r + Y_{ur} r u + Y_{uv} u v + Y_{u} u \\
-&amp; + Y_{v\delta\delta} \delta^{2} v + Y_{v} v 
-\end{align*}
-\end{split}\]</div>
-<div class="math notranslate nohighlight" id="equation-eq-n-d-vmm-martin">
-<span class="eqno">(8.9)<a class="headerlink" href="#equation-eq-n-d-vmm-martin" title="Permalink to this equation">¶</a></span>\[\begin{split}
-\begin{align*}
-\operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{\delta} \delta + N_{r\delta\delta} \delta^{2} r + N_{r} r + N_{ur} r u + N_{uv} u v + N_{u} u \\
-&amp; + N_{v\delta\delta} \delta^{2} v + N_{v} v 
+&amp; + N_{rr\delta} \delta r^{2} + N_{rrr} r^{3} + N_{r} r + N_{T} T + N_{u\delta} \delta u + N_{ur} r u \\
+&amp; + N_{uu\delta} \delta u^{2} + N_{uur} r u^{2} + N_{uuv} u^{2} v + N_{uv} u v + N_{v\delta\delta} \delta^{2} v + N_{vr\delta} \delta r v \\
+&amp; + N_{vrr} r^{2} v + N_{vv\delta} \delta v^{2} + N_{vvr} r v^{2} + N_{vvv} v^{3} + N_{v} v 
 \end{align*}
 \end{split}\]</div>
 </div>
 <div class="section" id="vmm-linear">
-<h2>vmm_linear<a class="headerlink" href="#vmm-linear" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.2. </span>vmm_linear<a class="headerlink" href="#vmm-linear" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight" id="equation-eq-x-d-vmm-linear">
-<span class="eqno">(8.10)<a class="headerlink" href="#equation-eq-x-d-vmm-linear" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(8.4)<a class="headerlink" href="#equation-eq-x-d-vmm-linear" title="Permalink to this equation">¶</a></span>\[
 \begin{align*}
 \operatorname{X_{D}}{\left(u,v,r,\delta,T \right)} = &amp; X_{\delta} \delta + X_{r} r + X_{u} u + X_{v} v 
 \end{align*}
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-y-d-vmm-linear">
-<span class="eqno">(8.11)<a class="headerlink" href="#equation-eq-y-d-vmm-linear" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(8.5)<a class="headerlink" href="#equation-eq-y-d-vmm-linear" title="Permalink to this equation">¶</a></span>\[
 \begin{align*}
 \operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{\delta} \delta + Y_{r} r + Y_{u} u + Y_{v} v 
 \end{align*}
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-n-d-vmm-linear">
-<span class="eqno">(8.12)<a class="headerlink" href="#equation-eq-n-d-vmm-linear" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(8.6)<a class="headerlink" href="#equation-eq-n-d-vmm-linear" title="Permalink to this equation">¶</a></span>\[
 \begin{align*}
 \operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{\delta} \delta + N_{r} r + N_{u} u + N_{v} v 
 \end{align*}
 \]</div>
 </div>
 <div class="section" id="vmm-martins-simple">
-<h2>vmm_martins_simple<a class="headerlink" href="#vmm-martins-simple" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.3. </span>vmm_martins_simple<a class="headerlink" href="#vmm-martins-simple" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight" id="equation-eq-x-d-vmm-martins-simple">
-<span class="eqno">(8.13)<a class="headerlink" href="#equation-eq-x-d-vmm-martins-simple" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(8.7)<a class="headerlink" href="#equation-eq-x-d-vmm-martins-simple" title="Permalink to this equation">¶</a></span>\[
 \begin{align*}
 \operatorname{X_{D}}{\left(u,v,r,\delta,T \right)} = &amp; X_{\delta\delta} \delta^{2} + X_{rr} r^{2} + X_{T} T + X_{u} u + X_{vr} r v 
 \end{align*}
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-y-d-vmm-martins-simple">
-<span class="eqno">(8.14)<a class="headerlink" href="#equation-eq-y-d-vmm-martins-simple" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(8.8)<a class="headerlink" href="#equation-eq-y-d-vmm-martins-simple" title="Permalink to this equation">¶</a></span>\[
 \begin{align*}
 \operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{\delta} \delta + Y_{r} r + Y_{T\delta} \delta T + Y_{ur} r u + Y_{u} u + Y_{v} v 
 \end{align*}
 \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-n-d-vmm-martins-simple">
-<span class="eqno">(8.15)<a class="headerlink" href="#equation-eq-n-d-vmm-martins-simple" title="Permalink to this equation">¶</a></span>\[
+<span class="eqno">(8.9)<a class="headerlink" href="#equation-eq-n-d-vmm-martins-simple" title="Permalink to this equation">¶</a></span>\[\begin{split}
 \begin{align*}
-\operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{\delta} \delta + N_{r} r + N_{T\delta} \delta T + N_{ur} r u + N_{u} u + N_{v} v 
-\end{align*}
-\]</div>
-</div>
-<div class="section" id="vmm-abkowitz-expanded">
-<h2>vmm_abkowitz_expanded<a class="headerlink" href="#vmm-abkowitz-expanded" title="Permalink to this headline">¶</a></h2>
-<div class="math notranslate nohighlight" id="equation-eq-x-d-vmm-abkowitz-expanded">
-<span class="eqno">(8.16)<a class="headerlink" href="#equation-eq-x-d-vmm-abkowitz-expanded" title="Permalink to this equation">¶</a></span>\[\begin{split}
-\begin{align*}
-\operatorname{X_{D}}{\left(u,v,r,\delta,T \right)} = &amp; X_{\delta\delta} \delta^{2} + X_{r\delta} \delta r + X_{rr} r^{2} + X_{T} T + X_{u\delta\delta} \delta^{2} u + X_{ur\delta} \delta r u \\
-&amp; + X_{urr} r^{2} u + X_{uuu} u^{3} + X_{uu} u^{2} + X_{uv\delta} \delta u v + X_{uvr} r u v + X_{uvv} u v^{2} \\
-&amp; + X_{u} u + X_{v\delta} \delta v + X_{vr} r v + X_{vv} v^{2} 
-\end{align*}
-\end{split}\]</div>
-<div class="math notranslate nohighlight" id="equation-eq-y-d-vmm-abkowitz-expanded">
-<span class="eqno">(8.17)<a class="headerlink" href="#equation-eq-y-d-vmm-abkowitz-expanded" title="Permalink to this equation">¶</a></span>\[\begin{split}
-\begin{align*}
-\operatorname{Y_{D}}{\left(u,v,r,\delta,T \right)} = &amp; Y_{0uu} u^{2} + Y_{0u} u + Y_{0} + Y_{\delta\delta\delta} \delta^{3} + Y_{\delta} \delta + Y_{r\delta\delta} \delta^{2} r \\
-&amp; + Y_{rr\delta} \delta r^{2} + Y_{rrr} r^{3} + Y_{r} r + Y_{T\delta} \delta T + Y_{u\delta} \delta u + Y_{ur} r u \\
-&amp; + Y_{uu\delta} \delta u^{2} + Y_{uur} r u^{2} + Y_{uuv} u^{2} v + Y_{uv} u v + Y_{v\delta\delta} \delta^{2} v + Y_{vr\delta} \delta r v \\
-&amp; + Y_{vrr} r^{2} v + Y_{vv\delta} \delta v^{2} + Y_{vvr} r v^{2} + Y_{vvv} v^{3} + Y_{v} v 
-\end{align*}
-\end{split}\]</div>
-<div class="math notranslate nohighlight" id="equation-eq-n-d-vmm-abkowitz-expanded">
-<span class="eqno">(8.18)<a class="headerlink" href="#equation-eq-n-d-vmm-abkowitz-expanded" title="Permalink to this equation">¶</a></span>\[\begin{split}
-\begin{align*}
-\operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{0uu} u^{2} + N_{0u} u + N_{0} + N_{\delta\delta\delta} \delta^{3} + N_{\delta} \delta + N_{r\delta\delta} \delta^{2} r \\
-&amp; + N_{rr\delta} \delta r^{2} + N_{rrr} r^{3} + N_{r} r + N_{T\delta} \delta T + N_{u\delta} \delta u + N_{ur} r u \\
-&amp; + N_{uu\delta} \delta u^{2} + N_{uur} r u^{2} + N_{uuv} u^{2} v + N_{uv} u v + N_{v\delta\delta} \delta^{2} v + N_{vr\delta} \delta r v \\
-&amp; + N_{vrr} r^{2} v + N_{vv\delta} \delta v^{2} + N_{vvr} r v^{2} + N_{vvv} v^{3} + N_{v} v 
+\operatorname{N_{D}}{\left(u,v,r,\delta,T \right)} = &amp; N_{\delta} \delta + N_{r} r + N_{T\delta} \delta T + N_{T} T + N_{ur} r u + N_{u} u \\
+&amp; + N_{v} v 
 \end{align*}
 \end{split}\]</div>
 </div>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>7. Bibliography &#8212; Parameter identification of Vessel Manoeuvring Models</title>
+    <title>7. Bibliography &#8212; System identification of Vessel Manoeuvring Models</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -38,23 +38,25 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="8. Vessel Manoeuvring Models" href="appendix_vmms.html" />
-    <link rel="prev" title="6. Results" href="06.01_results.html" />
+    <link rel="prev" title="Conclusions" href="10.00_conclusions.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -83,7 +85,7 @@
       <img src="_static/logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">Parameter identification of Vessel Manoeuvring Models</h1>
+      <h1 class="site-logo" id="site-title">System identification of Vessel Manoeuvring Models</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -94,19 +96,36 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="index.html">
-   Parameter identification of Vessel Manoeuvring Models
+   Abstract
   </a>
  </li>
 </ul>
-<ul class="current nav bd-sidenav">
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="02.01_VMMs.html">
-   1. Vessel Manoeuvring Models
+  <a class="reference internal" href="00.02_introduction.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Method
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.01_method.html">
+   1. Overview
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="05.01_model_tests.html">
-   2. Model tests
+  <a class="reference internal" href="02.01_VMMs.html">
+   2. Vessel Manoeuvring Models
   </a>
  </li>
  <li class="toctree-l1">
@@ -116,41 +135,52 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="04.01_EK.html">
-   4. Discrete-time Extended Kalman
+   5. Extended Kalman Filter
   </a>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="07.01_accuracy_and_robustness.html">
-   5. Accuracy and robustness
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.03_acceleration_accuracy.html">
-     1. Acceleration accuracy
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.30_vmm_bias_variance_tradeoff.html">
-     2. VMM Bias-variance tradeoff
-    </a>
-   </li>
-  </ul>
- </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Test case
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="06.01_results.html">
-   6. Results
+  <a class="reference internal" href="05.01_model_tests.html">
+   6. Test cases
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Conclusions
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="10.00_conclusions.html">
+   Conclusions
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  bibligraphy
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    7. Bibliography
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  appendix
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="appendix_vmms.html">
    8. Vessel Manoeuvring Models
@@ -259,20 +289,26 @@
   <div class="section" id="bibliography">
 <h1><span class="section-number">7. </span>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">¶</a></h1>
 <p id="id1"><dl class="citation">
-<dt class="label" id="id141"><span class="brackets">Abk64</span></dt>
+<dt class="label" id="id139"><span class="brackets">Abk64</span></dt>
 <dd><p>M. A. Abkowitz. Ship hydrodynamics - steering and manoeuvrability. <em>Hydro- and Aerodynamics Laboratory, Hydrodynamics Section, Lyngby, Denmark, Report No. Hy-5, Lectures</em>, 1964. URL: <a class="reference external" href="https://repository.tudelft.nl/islandora/object/uuid%3Ad511bd6b-ca2e-4f10-ad9f-6c881eb1e9f8">https://repository.tudelft.nl/islandora/object/uuid%3Ad511bd6b-ca2e-4f10-ad9f-6c881eb1e9f8</a> (visited on 2020-08-24).</p>
 </dd>
-<dt class="label" id="id169"><span class="brackets">Fos21</span></dt>
+<dt class="label" id="id163"><span class="brackets">Bri93</span></dt>
+<dd><p>Jochim E. Brix. <em>Manoeuvring Technical Manual</em>. Seehafen-Verlag, 1993. ISBN 978-3-87743-902-9. Google-Books-ID: CMJ1NAAACAAJ.</p>
+</dd>
+<dt class="label" id="id167"><span class="brackets">Fos21</span></dt>
 <dd><p>Thor I. Fossen. <em>Handbook of Marine Craft Hydrodynamics and Motion Control</em>. Wiley, 2nd edition edition, April 2021.</p>
 </dd>
-<dt class="label" id="id132"><span class="brackets">IMO02</span></dt>
-<dd><p>IMO. Standards for ship manoeuvrability, Resolution MSC 137(76). December 2002.</p>
+<dt class="label" id="id204"><span class="brackets">ITT08</span></dt>
+<dd><p>ITTC. The Maneuvering Committee of ITTC, “Final report and recommendations to the 25th ITTC,” in Proceedings of the 25th International Towing Tank Conference. 2008.</p>
 </dd>
-<dt class="label" id="id142"><span class="brackets">ITT14</span></dt>
-<dd><p><strong>missing journal in ittc_manoeuvring_2014</strong></p>
+<dt class="label" id="id150"><span class="brackets">LGSZ16</span></dt>
+<dd><p>Weilin Luo, C. Guedes Soares, and Zaojian Zou. Parameter Identification of Ship Maneuvering Model Based on Support Vector Machines and Particle Swarm Optimization. <em>Journal of Offshore Mechanics and Arctic Engineering</em>, 138(3):031101, June 2016. URL: <a class="reference external" href="https://asmedigitalcollection.asme.org/offshoremechanics/article/doi/10.1115/1.4032892/376874/Parameter-Identification-of-Ship-Maneuvering-Model">https://asmedigitalcollection.asme.org/offshoremechanics/article/doi/10.1115/1.4032892/376874/Parameter-Identification-of-Ship-Maneuvering-Model</a> (visited on 2020-08-24), <a class="reference external" href="https://doi.org/10.1115/1.4032892">doi:10.1115/1.4032892</a>.</p>
 </dd>
-<dt class="label" id="id128"><span class="brackets">Nor60</span></dt>
+<dt class="label" id="id126"><span class="brackets">Nor60</span></dt>
 <dd><p><strong>missing publisher in norrbin_study_1960</strong></p>
+</dd>
+<dt class="label" id="id180"><span class="brackets">WZ18</span></dt>
+<dd><p><strong>missing publisher in wang_quantifying_2018</strong></p>
 </dd>
 </dl>
 </p>
@@ -303,11 +339,11 @@
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="06.01_results.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="10.00_conclusions.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">6. </span>Results</p>
+            <p class="prev-next-title">Conclusions</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="appendix_vmms.html" title="next page">

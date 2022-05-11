@@ -20,20 +20,28 @@ nbclient.exceptions.CellExecutionError: An error occurred while executing the fo
 # %load imports.py
 %load_ext autoreload
 %autoreload 2
-%reload_kedro
 %config Completer.use_jedi = False  ## (To fix autocomplete)
+%matplotlib inline
+
+import warnings
+warnings.filterwarnings( "ignore", module = "matplotlib\..*" )
 
 import pandas as pd
 from src.models.vmm import ModelSimulator
 import matplotlib.pyplot as plt
+import matplotlib
+plt.style.use('paper')
+plt.rcParams.update({
+    "font.family": "serif",
+    "font.serif": ["Times"]})
+
+#matplotlib.rcParams["xtick.labelsize"] = 16
 from src.visualization.plot import track_plots, plot, captive_plot
 import kedro
 import numpy as np
 import os.path
 import anyconfig
 
-import matplotlib
-matplotlib.rcParams["figure.figsize"] = (15,4)
 
 from myst_nb import glue
 from src.symbols import *
@@ -43,8 +51,15 @@ from src.system_equations import *
 from IPython.display import display, Math, Latex, Markdown
 from sympy.physics.vector.printing import vpprint, vlatex
 
+from src.models.regression import MotionRegression, Regression
+
 from src.parameters import df_parameters
+from src.substitute_dynamic_symbols import run
+from src.models.diff_eq_to_matrix import DiffEqToMatrix
 p = df_parameters["symbol"]
+import statsmodels.api as sm
+
+from src.models.force_from_motion import predict_force
 
 # Read configs:
 conf_path = os.path.join("../../conf/base/")
@@ -72,12 +87,24 @@ global_variables = anyconfig.load(globals_path)
 
 
 
-vmms = global_variables["vmms"]
-only_joined = global_variables[
-    "only_joined"
-]  # (regress/predict with only models from joined runs)S
+vmm_names = global_variables["vmms"]
+
+vmms = {}
+for vmm_name in vmm_names:
+    vmms[vmm_name] = catalog.load(vmm_name)
+
+from myst_nb import glue
 ------------------
 
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mNameError[0m                                 Traceback (most recent call last)
+[1;32m~\AppData\Local\Temp/ipykernel_10032/1892923082.py[0m in [0;36m<module>[1;34m[0m
+[0;32m     73[0m [0mvmms[0m [1;33m=[0m [1;33m{[0m[1;33m}[0m[1;33m[0m[1;33m[0m[0m
+[0;32m     74[0m [1;32mfor[0m [0mvmm_name[0m [1;32min[0m [0mvmm_names[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
+[1;32m---> 75[1;33m     [0mvmms[0m[1;33m[[0m[0mvmm_name[0m[1;33m][0m [1;33m=[0m [0mcatalog[0m[1;33m.[0m[0mload[0m[1;33m([0m[0mvmm_name[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[0m[0;32m     76[0m [1;33m[0m[0m
+[0;32m     77[0m [1;32mfrom[0m [0mmyst_nb[0m [1;32mimport[0m [0mglue[0m[1;33m[0m[1;33m[0m[0m
 
-UsageError: Line magic function `%reload_kedro` not found.
+[1;31mNameError[0m: name 'catalog' is not defined
+NameError: name 'catalog' is not defined
 

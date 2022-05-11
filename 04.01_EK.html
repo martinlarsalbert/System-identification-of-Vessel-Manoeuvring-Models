@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4. Discrete-time Extended Kalman &#8212; Parameter identification of Vessel Manoeuvring Models</title>
+    <title>5. Extended Kalman Filter &#8212; System identification of Vessel Manoeuvring Models</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -38,24 +38,26 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="5. Accuracy and robustness" href="07.01_accuracy_and_robustness.html" />
+    <link rel="next" title="6. Test cases" href="05.01_model_tests.html" />
     <link rel="prev" title="3. Inverse dynamics" href="03.01_inverse_dynamics.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -85,7 +87,7 @@
       <img src="_static/logo.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">Parameter identification of Vessel Manoeuvring Models</h1>
+      <h1 class="site-logo" id="site-title">System identification of Vessel Manoeuvring Models</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -96,19 +98,36 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="index.html">
-   Parameter identification of Vessel Manoeuvring Models
+   Abstract
   </a>
  </li>
 </ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00.02_introduction.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Method
+ </span>
+</p>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="02.01_VMMs.html">
-   1. Vessel Manoeuvring Models
+  <a class="reference internal" href="01.01_method.html">
+   1. Overview
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="05.01_model_tests.html">
-   2. Model tests
+  <a class="reference internal" href="02.01_VMMs.html">
+   2. Vessel Manoeuvring Models
   </a>
  </li>
  <li class="toctree-l1">
@@ -118,61 +137,52 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   4. Discrete-time Extended Kalman
+   5. Extended Kalman Filter
   </a>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="07.01_accuracy_and_robustness.html">
-   5. Accuracy and robustness
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.02_key_characteristics_accuracy.html">
-     1. Key characteristics accuracy
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.03_acceleration_accuracy.html">
-     2. Acceleration accuracy
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.10_robustness.html">
-     3. Robustness
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.11_hold_out.html">
-     4. Hold-out
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.30_vmm_bias_variance_tradeoff.html">
-     5. VMM Bias-variance tradeoff
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="07.20_monte_carlo.html">
-     6. Monte Carlo simulations
-    </a>
-   </li>
-  </ul>
- </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Test case
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="06.01_results.html">
-   6. Results
+  <a class="reference internal" href="05.01_model_tests.html">
+   6. Test cases
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Conclusions
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="10.00_conclusions.html">
+   Conclusions
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  bibligraphy
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="bibligraphy.html">
    7. Bibliography
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  appendix
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="appendix_vmms.html">
    8. Vessel Manoeuvring Models
@@ -277,6 +287,19 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rts-smoother">
+   5.1. RTS smoother
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -284,66 +307,106 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Discrete-time Extended Kalman</h1>
+                <h1>Extended Kalman Filter</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rts-smoother">
+   5.1. RTS smoother
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="discrete-time-extended-kalman">
-<h1><span class="section-number">4. </span>Discrete-time Extended Kalman<a class="headerlink" href="#discrete-time-extended-kalman" title="Permalink to this headline">¶</a></h1>
-<div class="math notranslate nohighlight">
-\[\dot{x} = f(x,u,w)\]</div>
-<div class="math notranslate nohighlight">
-\[y = h(x,u) + \epsilon\]</div>
+  <div class="section" id="extended-kalman-filter">
+<h1><span class="section-number">5. </span>Extended Kalman Filter<a class="headerlink" href="#extended-kalman-filter" title="Permalink to this headline">¶</a></h1>
+<p>It has been shown that it is possible to do parameter identification on perfect (simulated) data with no noise. Such data from physical experiments does not exist in reality however. The measured data will always contain process noise and measurement noise. In order to mitigate this the data is preprocessed using an Extended Kalman filter (EKF). EKF is extending the Kalman Filter (KF) to work on nonlinear systems such as as the VMM:s.</p>
+<p>The nonlinear system (the ship) is expressed with a transition model <span class="math notranslate nohighlight">\(f(x,u)\)</span> and process noise <span class="math notranslate nohighlight">\(w\)</span>. <span class="math notranslate nohighlight">\(x\)</span> is the current state and <span class="math notranslate nohighlight">\(u\)</span> are control inputs (rudder angle and thrust). A VMM is used as the transition model for the model test data EKF.</p>
+<div class="math notranslate nohighlight" id="equation-eqnonlinearsystem">
+<span class="eqno">(5.1)<a class="headerlink" href="#equation-eqnonlinearsystem" title="Permalink to this equation">¶</a></span>\[\dot{x} = f(x,u) + w\]</div>
+<p>The state of the system is observed (measured) with the linear observation model <span class="math notranslate nohighlight">\(H\)</span> and measurement noise <span class="math notranslate nohighlight">\(v\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-eqobserve">
+<span class="eqno">(5.2)<a class="headerlink" href="#equation-eqobserve" title="Permalink to this equation">¶</a></span>\[y = Hx + v\]</div>
+<p>The used EKF recursive algorithm used is summarized in pseudocode below.</p>
 <div class="proof algorithm admonition" id="ek-algorithm">
-<p class="admonition-title"><span class="caption-number">Algorithm 4.1 </span> (Discrete-time extended Kalman filter)</p>
+<p class="admonition-title"><span class="caption-number">Algorithm 5.1 </span> (Discrete-time extended Kalman filter)</p>
 <div class="algorithm-content section" id="proof-content">
 <p><strong>Inputs</strong> Initial values: <span class="math notranslate nohighlight">\(x_0\)</span>, <span class="math notranslate nohighlight">\(P_0\)</span>, <span class="math notranslate nohighlight">\(C_d\)</span>, <span class="math notranslate nohighlight">\(R_d\)</span>, <span class="math notranslate nohighlight">\(Q_d\)</span>, <span class="math notranslate nohighlight">\(E_d\)</span></p>
-<p><strong>Output</strong> Estimated states: <span class="math notranslate nohighlight">\(\hat{x}\)</span>, estimated covariances <span class="math notranslate nohighlight">\(\hat{P}\)</span></p>
-<ol class="simple">
+<p><strong>Output</strong> Estimated states: <span class="math notranslate nohighlight">\(\hat{x}\)</span>, estimated state covariances <span class="math notranslate nohighlight">\(\hat{P}\)</span></p>
+<ol class="arabic simple">
 <li><p>Initial values:</p>
-<ol class="simple">
-<li><p><span class="math notranslate nohighlight">\(\hat{x}^-[0] = x_0\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\hat{P}^-[0] = P_0\)</span></p></li>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\hat{x}[0] = x_0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{P}[0] = P_0\)</span></p></li>
 </ol>
 </li>
 <li><p>For <span class="math notranslate nohighlight">\(k\)</span> in <span class="math notranslate nohighlight">\(n\)</span> measurements</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>KF gain</p>
-<ol class="simple">
-<li><p><span class="math notranslate nohighlight">\(K[k]=\hat{P}^-[k] C_d^T \left(C_d \hat{P}^-[k] C_d^T + R_d\right)^{-1}\)</span></p></li>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(K[k]=\hat{P}[k] C_d^T \left(C_d \hat{P}[k] C_d^T + R_d\right)^{-1}\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(I_{KC} = I_n - K[k] C_d\)</span></p></li>
 </ol>
 </li>
 <li><p>Update</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>State corrector
-<span class="math notranslate nohighlight">\(\hat{x}[k] = \hat{x}^-[k] + K[k] eps\)</span> (<span class="math notranslate nohighlight">\(eps = y - C_d \hat{x}^-[k]\)</span>)</p></li>
+<span class="math notranslate nohighlight">\(\hat{x}[k] = \hat{x}[k] + K[k] (y - C_d \hat{x}[k]) \)</span></p></li>
 <li><p>Covariance corrector
-<span class="math notranslate nohighlight">\(\hat{P}[k] = I_{KC} \cdot \hat{P}^-[k] I_{KC}^T + K[k] R_d K^T \)</span></p></li>
+<span class="math notranslate nohighlight">\(\hat{P}[k] = I_{KC} \cdot \hat{P}[k] I_{KC}^T + K[k] R_d K^T \)</span></p></li>
 </ol>
 </li>
 <li><p>Predict</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>State predictor
-<span class="math notranslate nohighlight">\(\hat{x}^-[k+1] = \hat{x}[k] + h \cdot \hat{f}(\hat{x}[k], u[k], w[k])\)</span></p></li>
+<span class="math notranslate nohighlight">\(\hat{x}[k+1] = \hat{x}[k] + h \cdot \hat{f}(\hat{x}[k], u[k])\)</span></p></li>
 <li><p>Covariance predictor
-<span class="math notranslate nohighlight">\(\hat{P}^-[k+1] = A_d  \hat{P}[k] A_d^T + E_d Q_d E_d^T \)</span></p></li>
+<span class="math notranslate nohighlight">\(\hat{P}[k+1] = A_d[k]  \hat{P}[k] A_d[k]^T + E_d Q_d E_d^T \)</span></p></li>
 </ol>
 </li>
 </ol>
 </li>
 </ol>
 </div>
-</div><div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/04.01_EK_11_0.png" src="_images/04.01_EK_11_0.png" />
+</div><p>Where <span class="math notranslate nohighlight">\(n\)</span> is number of states (6 in this case), <span class="math notranslate nohighlight">\(I_n\)</span> is an <span class="math notranslate nohighlight">\(n\)</span> * <span class="math notranslate nohighlight">\(n\)</span> identity matrix.</p>
+<p>The transition matrix is calculated for each iteration using a Jacobian of the transition model:</p>
+<div class="math notranslate nohighlight" id="equation-eqjacobi">
+<span class="eqno">(5.3)<a class="headerlink" href="#equation-eqjacobi" title="Permalink to this equation">¶</a></span>\[A_d[k] = I + h \left. \frac{\partial f \left(x[k],u[k] \right)}{\partial x[k]} \right|_{x[k]=\hat{x}[k]}\]</div>
+<p>This part and the fact that the nonlinear transition model is used directly as the predictor are the extensions part of the EKF compared to the linear KF.</p>
+<p>The output from the filter are the estimated states: <span class="math notranslate nohighlight">\(\hat{x}\)</span> and estimated state covariance matrix <span class="math notranslate nohighlight">\(\hat{P}\)</span>. <span class="math notranslate nohighlight">\(\hat{x}\)</span> represent the most likely estimates, but the estimates have uncertainty that are expressed in <span class="math notranslate nohighlight">\(\hat{P}\)</span>.</p>
+<p>The state of the system is descrived by the ships position, heading, velocities and yaw velocity:</p>
+<div class="math notranslate nohighlight" id="equation-eqstates">
+<span class="eqno">(5.4)<a class="headerlink" href="#equation-eqstates" title="Permalink to this equation">¶</a></span>\[x = [x_0,y_0,\psi,u,v,r]^T\]</div>
+<p>The initial state <span class="math notranslate nohighlight">\(x_0\)</span> is taken as the mean value of the first five measurements, where the velocities are estimated with numeric differentiation.</p>
+<p><span class="math notranslate nohighlight">\(C_d\)</span> selects the measured states (<span class="math notranslate nohighlight">\(x_0\)</span>, <span class="math notranslate nohighlight">\(y_0\)</span>, <span class="math notranslate nohighlight">\(\psi\)</span>):</p>
+<div class="pasted-math math notranslate nohighlight" id="equation-eqcd">
+<span class="eqno">(5.5)<a class="headerlink" href="#equation-eqcd" title="Permalink to this equation">¶</a></span>\[\begin{split}\displaystyle C_{d} = h \left[\begin{matrix}1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0\end{matrix}\right]\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(E_d\)</span> selects the hidden states (<span class="math notranslate nohighlight">\(u\)</span>, <span class="math notranslate nohighlight">\(v, \)</span>r$):</p>
+<div class="pasted-math math notranslate nohighlight" id="equation-eqed">
+<span class="eqno">(5.6)<a class="headerlink" href="#equation-eqed" title="Permalink to this equation">¶</a></span>\[\begin{split}\displaystyle E_{d} = h \left[\begin{matrix}0 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 0\\1 &amp; 0 &amp; 0\\0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; 1\end{matrix}\right]\end{split}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(h\)</span> is the discrete time step.</p>
+<p><span class="math notranslate nohighlight">\(R_d\)</span> describes the covariance matrix of the measurement, <span class="math notranslate nohighlight">\(Q_d\)</span> is the covariance matrix of the process model. <span class="math notranslate nohighlight">\(P_0\)</span> is the initial state covariance.
+Selecting good values for these three matrixes is the tricky part in getting the EKF to work well. The amount of expected measurement noise in the data should be inserted in to <span class="math notranslate nohighlight">\(R_d\)</span> and the amount of error generated by the process model (VMM) needs to be estimated in <span class="math notranslate nohighlight">\(Q_d\)</span>. So the choices for these matrixes very much depend on the beleif in the present data and the present process model.</p>
+<div class="section" id="rts-smoother">
+<span id="rts"></span><h2><span class="section-number">5.1. </span>RTS smoother<a class="headerlink" href="#rts-smoother" title="Permalink to this headline">¶</a></h2>
+<p>EKF only uses the previous time step to make a prediction. This property is very convenient when used in online applications, where new data arrives contineously, for instance in an auto pilot. The drawback is however that the filter is not allowed to look at future time steps. For the PIT on already existing data, this is an uneccessary restriction. An EKF filter can be allowed to include future time steps in the filtering by adding a smoother after the filter. The PIT uses a RTS smoother <cite id="x4n2g"><a href="#zotero|7505983/B44T6S4X">(Rauch et al., 1965)</a></cite> which is an algorithm that runs the EKF backwards to also acount for future time steps.</p>
+<p>The EKF and RTS have been run on simulated data with Gausian noise added, to see if the real states can be identified. Results from this can be seen in  <a class="reference internal" href="#fig-ekf"><span class="std std-ref">fig</span></a>. It can be seen that the EKF can identify the heading and yaw rate well, but the yaw acceleration, being the higher order state is still noisy. The RTS smoother is needed to also get an accurate estimate of the yaw acceleration.</p>
+<div class="figure align-default" id="fig-ekf" style="width: 1000px">
+<img alt="_images/3baf8629fbc5db61dec7096adfafe1b56edd92fa9c8c699e1aa82e4970612980.png" src="_images/3baf8629fbc5db61dec7096adfafe1b56edd92fa9c8c699e1aa82e4970612980.png" />
+<p class="caption"><span class="caption-number">Fig. 5.1 </span><span class="caption-text">EKF and RTS on simulated data (real) with Gausian noise added (raw).</span><a class="headerlink" href="#fig-ekf" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 </div>
@@ -380,10 +443,10 @@
             <p class="prev-next-title"><span class="section-number">3. </span>Inverse dynamics</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="07.01_accuracy_and_robustness.html" title="next page">
+    <a class='right-next' id="next-link" href="05.01_model_tests.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>Accuracy and robustness</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Test cases</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
