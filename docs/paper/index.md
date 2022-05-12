@@ -1,17 +1,3 @@
-(yowt)=
-# Abstract
-
-```{admonition} Authors
-:class: tip
-**Martin Alexandersson**, **Wengang Mao** & **Jonas W. Ringsberg**
-
-[Martin Alexandersson](mailto:maralex@chalmers.se),
-
-Department of Mechanics and Maritime Sciences,  
-Chalmers University of Technology,  
-Gothenburg, Sweden
-```
-
 (abstract)=
 ## Abstract ##
 > Blabla...   

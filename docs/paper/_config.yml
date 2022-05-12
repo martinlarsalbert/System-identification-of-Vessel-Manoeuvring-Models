@@ -56,9 +56,13 @@ sphinx:
       utf8extra: ""
       maketitle: ""
       tableofcontents: ""
+    latex_docclass:
+      howto: review
+      manual: elsarticle
 
   extra_extensions:
     - sphinx_proof
+
   
 
 #parse:

@@ -1,37 +1,55 @@
 # Table of contents
 # Learn more at https://jupyterbook.org/customize/toc.html
 
-format: jb-book
+format: jb-article
+defaults:
+  numbered: True
+  maxdepth: 3
 root: index
-parts:
-  - caption: Introduction
-    chapters:
-      - file: 00.02_introduction
-  - caption: Method
-    numbered: True
-    chapters:
-      - file: 01.01_method
-      - file: 02.01_VMMs
-      - file: 03.01_inverse_dynamics
-      - file: 04.01_EK
+sections:
+  - file: 00.02_introduction
+  - file: 01.01_method
+  - file: 02.01_VMMs
+  - file: 03.01_inverse_dynamics
+  - file: 04.01_EK
+  - file: 05.01_model_tests
+  - file: 10.00_conclusions
+  - file: bibligraphy
+  - file: appendix_vmms
+  
 
-  - caption: Test case
-    numbered: True
-    chapters:
-      - file: 05.01_model_tests
 
-  - caption: Conclusions
-    chapters:
-      - file: 10.00_conclusions
-
-  - caption: bibligraphy
-    numbered: True
-    chapters:
-      - file: bibligraphy
-  - caption: appendix
-    numbered: True
-    chapters:
-      - file: appendix_vmms
+#format: jb-book
+#root: index
+#parts:
+#  - caption: Introduction
+#    chapters:
+#      - file: 00.02_introduction
+#  - caption: Method
+#    numbered: True
+#    chapters:
+#      - file: 01.01_method
+#      - file: 02.01_VMMs
+#      - file: 03.01_inverse_dynamics
+#      - file: 04.01_EK
+#
+#  - caption: Test case
+#    numbered: True
+#    chapters:
+#      - file: 05.01_model_tests
+#
+#  - caption: Conclusions
+#    chapters:
+#      - file: 10.00_conclusions
+#
+#  - caption: bibligraphy
+#    numbered: True
+#    chapters:
+#      - file: bibligraphy
+#  - caption: appendix
+#    numbered: True
+#    chapters:
+#      - file: appendix_vmms
   
 
 
