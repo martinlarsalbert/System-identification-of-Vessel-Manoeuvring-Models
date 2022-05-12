@@ -30,7 +30,7 @@ def track_plot(
         dataframes=dataframes,
         lpp=ship_data["L"],
         beam=ship_data["B"],
-        N=7,
+        N=10,
     )
 
     return ax.get_figure()
@@ -47,13 +47,13 @@ def plot_timeseries(
         fig, ax = plt.subplots()
         return fig
 
-    data.index = pd.to_timedelta(data.index, unit="s")
-    data = data.resample("1S").mean()
-    data.index = data.index.total_seconds()
+    # data.index = pd.to_timedelta(data.index, unit="s")
+    # data = data.resample("1S").mean()
+    # data.index = data.index.total_seconds()
 
-    results.index = pd.to_timedelta(results.index, unit="s")
-    results = results.resample("1S").mean()
-    results.index = results.index.total_seconds()
+    # results.index = pd.to_timedelta(results.index, unit="s")
+    # results = results.resample("1S").mean()
+    # results.index = results.index.total_seconds()
 
     dataframes = {"model test": data, "simulation": results}
 

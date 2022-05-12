@@ -4,6 +4,9 @@
 format: jb-book
 root: index
 parts:
+  - caption: Introduction
+    chapters:
+      - file: 00.02_introduction
   - caption: Method
     numbered: True
     chapters:
@@ -12,11 +15,15 @@ parts:
       - file: 03.01_inverse_dynamics
       - file: 04.01_EK
 
-
   - caption: Test case
     numbered: True
     chapters:
       - file: 05.01_model_tests
+
+  - caption: Conclusions
+    chapters:
+      - file: 10.00_conclusions
+
   - caption: bibligraphy
     numbered: True
     chapters:
@@ -25,4 +32,6 @@ parts:
     numbered: True
     chapters:
       - file: appendix_vmms
+  
+
 

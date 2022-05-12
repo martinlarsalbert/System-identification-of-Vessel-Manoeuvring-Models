@@ -81,6 +81,10 @@ def simulate_euler(
     s = signature(ek._lambda_f)
     input_columns = list(set(input_columns) & set(s.parameters.keys()))
 
+    # The initial heading etc. is very important to get a good simulation:
+    N = 3
+    data.iloc[0][["psi", "u", "v"]] = data.iloc[0:N][["psi", "u", "v"]].mean()
+
     df = ek.simulate(data=data, input_columns=input_columns, solver=solver)
 
     return df
