@@ -9,9 +9,10 @@ root: index
 sections:
   - file: 00.02_introduction
   - file: 01.01_method
-  - file: 02.01_VMMs
-  - file: 03.01_inverse_dynamics
-  - file: 04.01_EK
+    sections:  
+    - file: 02.01_VMMs
+    - file: 03.01_inverse_dynamics
+    - file: 04.01_EK
   - file: 05.01_model_tests
   - file: 10.00_conclusions
   - file: bibligraphy

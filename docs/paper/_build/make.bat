@@ -18,9 +18,10 @@ if "%1" == "all-pdf" (
 	:all-pdf
 	echo fix ref
 	cd /d latex
-	for %%i in (*.tex) do (
-		%PDFLATEX% %LATEXMKOPTS% %%i
-	)
+	REM for %%i in (*.tex) do (
+	REM	%PDFLATEX% %LATEXMKOPTS% %%i
+	REM )
+	%PDFLATEX% %LATEXMKOPTS% book.tex
 	goto end
 )
 
