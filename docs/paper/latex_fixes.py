@@ -1,6 +1,6 @@
 import re
 
-file_path = r"_build/latex/book.tex"
+file_path = r"_build/latex/System identification of Vessel Manoeuvring Models.tex"
 
 ## Open
 with open(file_path, mode="r") as file:

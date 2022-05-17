@@ -182,7 +182,15 @@ def register_pipelines() -> Dict[str, Pipeline]:
     )
 
     # work_ships = ["wpcc", "LNG", "tanker2", "ropax", "LNG_tanker"]
-    work_ships = ["LNG", "tanker2", "ropax", "LNG_tanker"]
+    work_ships = [
+        "wpcc",
+        "LNG",
+        "tanker2",
+        "ropax",
+        "LNG_tanker",
+        "kvlcc2_hsva",
+        "kvlcc2",
+    ]
     work_ships = list(set(work_ships) & set(model_test_ids.keys()))
     work = [return_dict[ship] for ship in work_ships]
     return_dict["work"] = reduce(add, work)
