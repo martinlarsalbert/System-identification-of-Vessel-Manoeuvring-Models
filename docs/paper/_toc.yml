@@ -8,16 +8,16 @@ defaults:
 root: index
 sections:
   - file: 00.02_introduction
+  - file: 02.01_VMMs
   - file: 01.01_method
     sections:  
-    - file: 02.01_VMMs
     - file: 03.01_inverse_dynamics
     - file: 04.01_EK
   - file: 05.01_case_studies
   - file: 05.10_results
   - file: 10.00_conclusions
   - file: acknowledgements
-#  - file: bibligraphy
+  - file: bibligraphy
 #  - file: appendix_vmms
   
 
