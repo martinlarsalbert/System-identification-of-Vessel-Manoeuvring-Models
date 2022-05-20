@@ -2,6 +2,7 @@
 %autoreload 2
 %reload_kedro
 %config Completer.use_jedi = False  ## (To fix autocomplete)
+%matplotlib inline
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -48,6 +49,3 @@ global_variables = anyconfig.load(globals_path)
 
 
 vmm_names = global_variables["vmms"]
-only_joined = global_variables[
-    "only_joined"
-]  # (regress/predict with only models from joined runs)S
