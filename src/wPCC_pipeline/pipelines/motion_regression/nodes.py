@@ -9,9 +9,10 @@ import src.prime_system as prime_system
 from src.models.vmm import VMM
 import src.symbols as s
 from typing import Union
-from src.models.vmm import ModelSimulator
+from src.models.vmm import ModelSimulator, FullModelSimulator
 import matplotlib.pyplot as plt
 from src.models.force_from_motion import predict_force
+import statsmodels.api as sm
 
 
 def fit_motions(
@@ -88,6 +89,23 @@ def create_model_from_motion_regression(regression: Regression) -> ModelSimulato
 
     model = regression.create_model(
         control_keys=["delta", "thrust"],
+    )
+
+    return model
+
+
+def create_full_model_from_motion_regression(
+    regression: Regression,
+    model_pos: sm.regression.linear_model.RegressionResultsWrapper,
+    model_neg: sm.regression.linear_model.RegressionResultsWrapper,
+    propeller_coefficients: dict,
+) -> FullModelSimulator:
+
+    model = regression.create_model(
+        control_keys=["delta", "rev"],
+        model_pos=model_pos,
+        model_neg=model_neg,
+        propeller_coefficients=propeller_coefficients,
     )
 
     return model
