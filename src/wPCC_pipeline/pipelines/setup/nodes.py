@@ -41,3 +41,15 @@ def description(row):
     s = f"{test_type[0].upper()}{test_type[1:]}"
 
     return s
+
+
+def fit_propeller_characteristics(open_water_characteristics: pd.DataFrame) -> dict:
+    p = np.polyfit(
+        x=open_water_characteristics.index, y=open_water_characteristics["Kt"], deg=2
+    )
+    propeller_coefficients = pd.Series(data=p, index=["k_2", "k_1", "k_0"])
+    propeller_coefficients_dict = {
+        key: float(value) for key, value in propeller_coefficients.items()
+    }
+
+    return propeller_coefficients_dict

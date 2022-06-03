@@ -53,9 +53,25 @@ def fit_motions(
         exclude_parameters.update({"Nthrust": 0})  # No propeller asymmetry
         exclude_parameters.update({"Ythrust": 0})  # No propeller asymmetry
 
+    columns = [
+        "u",
+        "v",
+        "r",
+        "u1d",
+        "v1d",
+        "r1d",
+        "delta",
+        "thrust",
+        "U",
+        "fx",
+        "fy",
+        "mz",
+    ]
+    selection = list(set(columns) & set(data.columns))
+
     regression = Regression(
         vmm=vmm,
-        data=data,
+        data=data[selection],
         added_masses=added_masses,
         ship_parameters=ship_data,
         prime_system=ps,

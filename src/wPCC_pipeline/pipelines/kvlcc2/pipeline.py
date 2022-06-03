@@ -20,13 +20,13 @@ def create_pipeline(model_test_ids, vmms, **kwargs):
 
     propeller = Pipeline(
         [
-            node(
-                func=fit_propeller_characteristics,
-                inputs=["open_water_characteristics"],
-                outputs="propeller_coefficients",
-                name="fit_propeller_characteristics_node",
-                tags=["preprocess"],
-            ),
+            # node(
+            #    func=fit_propeller_characteristics,
+            #    inputs=["open_water_characteristics"],
+            #    outputs="propeller_coefficients",
+            #    name="fit_propeller_characteristics_node",
+            #    tags=["preprocess"],
+            # ),
             node(
                 func=fit_propeller_characteristics,
                 inputs=["open_water_characteristics_captive"],
