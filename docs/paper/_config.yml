@@ -56,9 +56,11 @@ sphinx:
       utf8extra: ""
       maketitle: ""
       tableofcontents: ""
+      figure_align: H
     latex_docclass:
       howto: review
       manual: elsarticle"}
+    
 
   extra_extensions:
     - sphinx_proof
