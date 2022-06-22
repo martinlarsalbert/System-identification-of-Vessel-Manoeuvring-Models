@@ -1,0 +1,13 @@
+{% for ship in ships %} # (vmm defined in globals.yml)
+
+{{ ship }}.propeller_model_pos:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/{{ ship }}/{{ ship }}.propeller_model_pos.pkl
+  backend: dill
+
+{{ ship }}.propeller_model_neg:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/{{ ship }}/{{ ship }}.propeller_model_neg.pkl
+  backend: dill
+
+{% endfor %}
