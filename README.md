@@ -1,5 +1,9 @@
 # wPCC_pipeline
 
+## Build paper:
+Build jupyter book to LaTeX, apply some fixes and then create PDF wit xelatex.
+[build.bat](/docs/paper/build.bat)
+
 ## Overview
 
 This is your new Kedro project, which was generated using `Kedro 0.17.6`.

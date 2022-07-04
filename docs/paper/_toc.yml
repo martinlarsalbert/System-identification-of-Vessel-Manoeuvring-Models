@@ -18,7 +18,7 @@ sections:
     - file: 05.02_case_study_wpcc
     - file: 05.05_case_study_kvlcc2
     - file: 05.07_case_study_kvlcc2_propeller_model
-  - file: 05.10_results
+  - file: 06.01_results
   - file: 10.00_conclusions
   - file: acknowledgements
   - file: bibligraphy

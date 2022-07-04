@@ -59,7 +59,7 @@ sphinx:
       figure_align: H
     latex_docclass:
       howto: review
-      manual: elsarticle"}
+      manual: elsarticle
     
 
   extra_extensions:

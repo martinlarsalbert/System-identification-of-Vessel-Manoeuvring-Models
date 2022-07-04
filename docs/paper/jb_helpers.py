@@ -1,0 +1,44 @@
+from sympy import latex
+from src.parameters import df_parameters
+
+p = df_parameters["symbol"]
+
+
+def df_to_myst(df, title="This table title", name=None):
+
+    if name is None:
+        name = title.replace(" ", "_")
+
+    index_name = " " if df.index.name is None else df.index.name
+    matrix = [[index_name] + df.columns.tolist()] + df.reset_index().values.tolist()
+
+    s = ""
+
+    for row in matrix:
+        first = True
+        for col in row:
+            if first:
+                first = False
+                s_col = f"* - {col}\n"
+            else:
+                s_col = f"  - {col}\n"
+            s += s_col
+
+    s_wrapped = f"""
+```{{list-table}} {title}
+:header-rows: 1
+:name: {name}
+{s}
+```
+"""
+
+    return s_wrapped
+
+
+def parameter_to_latex(x):
+    s = f"$ {latex(p[x])} $"
+    s = s.replace(r"\delta", "delta")
+    s = s.replace("delta", r"\delta")
+    s = s.replace("thrust", r"T")
+
+    return s
