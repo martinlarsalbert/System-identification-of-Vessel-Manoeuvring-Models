@@ -4,13 +4,16 @@ from src.parameters import df_parameters
 p = df_parameters["symbol"]
 
 
-def df_to_myst(df, title="This table title", name=None):
+def df_to_myst(df, title="This table title", name=None, include_index=True):
 
     if name is None:
         name = title.replace(" ", "_")
 
-    index_name = " " if df.index.name is None else df.index.name
-    matrix = [[index_name] + df.columns.tolist()] + df.reset_index().values.tolist()
+    if include_index:
+        index_name = " " if df.index.name is None else df.index.name
+        matrix = [[index_name] + df.columns.tolist()] + df.reset_index().values.tolist()
+    else:
+        matrix = [df.columns.tolist()] + df.values.tolist()
 
     s = ""
 
