@@ -1,0 +1,32 @@
+mendeley.ship_data:
+  type: yaml.YAMLDataSet
+  filepath: data/08_reporting/mendeley/ship_data.yml
+
+mendeley.runs_meta_data:
+  type: pandas.CSVDataSet
+  filepath: data/08_reporting/mendeley/runs_meta_data.csv
+  load_args:
+    index_col: 0
+    encoding: 'utf-8'
+  save_args:
+    index: True
+    encoding: 'utf-8'
+
+mendeley.nomenclature:
+  type: pandas.CSVDataSet
+  filepath: data/08_reporting/mendeley/nomenclature.csv
+  load_args:
+    index_col: 0
+    encoding: 'utf-8'
+  save_args:
+    index: True
+    encoding: 'utf-8'
+
+mendeley.model_tests: # example to save results to multiple partitions
+  type: PartitionedDataSet
+  dataset:
+    type: pandas.CSVDataSet
+    save_args:
+      index: True
+  path: data/08_reporting/mendeley/model_tests
+  filename_suffix: ".csv"
