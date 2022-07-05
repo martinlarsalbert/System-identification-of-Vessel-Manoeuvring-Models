@@ -10,7 +10,7 @@ only_build_toc_files: true
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
-  execute_notebooks: force
+  execute_notebooks: auto
 
 # Define the name of the latex output file for PDF builds
 latex:
@@ -60,10 +60,26 @@ sphinx:
     latex_docclass:
       howto: review
       manual: elsarticle
-    
+    #nb_render_priority:
+    #  latex:
+    #    - "application/pdf"
+    #    - "image/svg"
+    #    - "image/png"
+    #    - "image/jpeg"
+    #    - "text/latex"
+    #    - "text/markdown"
+    #    - "text/plain" 
+    nb_mime_priority_overrides:
+      - - latex
+        - "image/svg+xml"
+        - 15
+      - - latex
+        - "image/pdf"
+        - 16
 
   extra_extensions:
     - sphinx_proof
+    - "sphinx.ext.imgconverter"
 
   
 
