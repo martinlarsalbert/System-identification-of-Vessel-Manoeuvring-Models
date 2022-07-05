@@ -74,6 +74,9 @@ $$ ({label})
 
 def multiline(eq: sp.Eq, terms_per_line=6) -> str:
     s = multiline_latex(lhs=eq.lhs, rhs=eq.rhs, terms_per_line=terms_per_line)
+    s = s.replace(r"\begin{align*}", r"\begin{split}")
+    s = s.replace(r"\end{align*}", r"\end{split}")
+
     s = s.replace(r"\delta", r"delta")
     s = s.replace("delta", r"\delta")
     s = s.replace("thrust", r"T")

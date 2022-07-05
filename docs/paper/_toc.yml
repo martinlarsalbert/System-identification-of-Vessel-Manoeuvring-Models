@@ -2,15 +2,17 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-article
-defaults:
-  numbered: True
-  maxdepth: 3
+#defaults:
+#  numbered: True
+#  maxdepth: 3
 root: index
+options:  # The options key will be applied to all chapters, but not sub-sections
+  numbered: True
 sections:
   - file: 00.02_introduction
   - file: 02.01_VMMs
   - file: 01.01_method
-    sections:  
+    sections:
     - file: 03.01_inverse_dynamics
     - file: 04.01_EK
   - file: 05.01_case_studies
@@ -22,7 +24,6 @@ sections:
   - file: 10.01_conclusions
   - file: acknowledgements
   - file: bibligraphy
-#  - file: appendix_vmms
   
 
 

@@ -1,6 +1,6 @@
 cd _build\latex
 
-pandoc "System identification of Vessel Manoeuvring Models.tex" -o "System identification of Vessel Manoeuvring Models.docx" --bibliography=../../references.bib
+pandoc "System identification of Vessel Manoeuvring Models.tex" -o "System identification of Vessel Manoeuvring Models.docx" --bibliography="../../references.bib"
 
 
 set PDFLATEX=latexmk -pdf -dvi- -ps-
