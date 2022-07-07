@@ -16,11 +16,11 @@ sections:
     - file: 03.01_inverse_dynamics
     - file: 04.01_EK
   - file: 05.01_case_studies
-    #sections:
-    #- file: 05.02_case_study_wpcc
-    #- file: 05.05_case_study_kvlcc2
-    #- file: 05.07_case_study_kvlcc2_propeller_model
   - file: 06.01_results
+    sections:
+    - file: 06.10_results_wpcc
+    - file: 06.20_results_kvlcc2
+    - file: 05.07_case_study_kvlcc2_propeller_model
   - file: 10.01_conclusions
   - file: acknowledgements
   - file: bibligraphy

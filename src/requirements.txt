@@ -118,6 +118,8 @@ entrypoints==0.3
     # via
     #   jupyterlab-server
     #   nbconvert
+et-xmlfile==1.1.0
+    # via openpyxl
 fastapi==0.66.1
     # via kedro-viz
 flake8==3.9.2
@@ -367,6 +369,8 @@ numpy==1.21.5
     #   scipy
     #   seaborn
     #   statsmodels
+openpyxl==3.0.10
+    # via -r E:\dev\wPCC_pipeline\src\requirements.in
 packaging==21.3
     # via
     #   bleach
