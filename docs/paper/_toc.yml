@@ -11,6 +11,8 @@ options:  # The options key will be applied to all chapters, but not sub-section
 sections:
   - file: 00.02_introduction
   - file: 02.01_VMMs
+    sections:
+    - file: 02.10_propeller_model
   - file: 01.01_method
     sections:
     - file: 03.01_inverse_dynamics
@@ -20,7 +22,6 @@ sections:
     sections:
     - file: 06.10_results_wpcc
     - file: 06.20_results_kvlcc2
-    - file: 05.07_case_study_kvlcc2_propeller_model
   - file: 10.01_conclusions
   - file: acknowledgements
   - file: bibligraphy
