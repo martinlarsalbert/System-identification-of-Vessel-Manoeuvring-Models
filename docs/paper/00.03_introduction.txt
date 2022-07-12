@@ -13,7 +13,7 @@ The capability of the PIT for creating ship manoeuvring models is verified by us
 •	Running EKF + RTS several iterations: linear VMM, nonlinear VMM1, nonlinear VMM2.
 •	Inverse dynamics + Regression
 •	Propose procedure selecting dataset with larger yaw rate and drift angle for model selection.
-•	New model as modified Abkowitz model with external propeller model.
+•	New model as MAVMM with external propeller model.
 •	Simple polynomial propeller model for oblique inflow at drift angle and yaw rates.
 •	Monte Carlo simulations using regression covariance (Todo?)
 
