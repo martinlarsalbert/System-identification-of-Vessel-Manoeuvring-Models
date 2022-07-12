@@ -20,6 +20,7 @@ sections:
   - file: 05.01_case_studies
   - file: 06.01_results
     sections:
+    - file: 06.31_results_noise
     - file: 06.10_results_wpcc
     - file: 06.20_results_kvlcc2
   - file: 10.01_conclusions

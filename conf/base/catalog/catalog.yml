@@ -96,3 +96,77 @@ kvlcc2.captive:
     index: True
   filepath: data/02_intermediate/kvlcc2/captive.csv
 
+wpcc.lowpass_variation:
+  type: PartitionedDataSet
+  path: data/03_primary/wpcc/lowpass_variation
+  dataset: 
+    type: pandas.CSVDataSet
+    load_args:
+      index_col: 0
+      encoding: 'utf-8'
+    save_args:
+      index: True
+      encoding: 'utf-8'
+  filename_suffix: .csv
+
+wpcc.lowpass_variation_joined:
+  type: PartitionedDataSet
+  path: data/03_primary/wpcc/lowpass_variation_joined
+  dataset: 
+    type: pandas.CSVDataSet
+    load_args:
+      index_col: 0
+      encoding: 'utf-8'
+    save_args:
+      index: True
+      encoding: 'utf-8'
+  filename_suffix: .csv
+
+wpcc.lowpass_regression:
+  type: PartitionedDataSet
+  path: data/06_models/wpcc/wpcc.lowpass_regression
+  dataset: 
+    type: pickle.PickleDataSet
+    backend: dill
+  filename_suffix: .pkl
+
+wpcc.lowpass_model:
+  type: PartitionedDataSet
+  path: data/06_models/wpcc/wpcc.lowpass_model
+  dataset: 
+    type: pickle.PickleDataSet
+    backend: dill
+  filename_suffix: .pkl
+
+wpcc.lowpass_simulation:
+  type: PartitionedDataSet
+  path: data/07_model_output/wpcc/vmm_martins_simple/lowpass_simulation
+  dataset: 
+    type: pandas.CSVDataSet
+    load_args:
+      index_col: 0
+      encoding: 'utf-8'
+    save_args:
+      index: True
+      encoding: 'utf-8'
+  filename_suffix: .csv
+
+wpcc.r2_lowpass:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/wpcc/vmm_martins_simple/r2_lowpass.csv
+  load_args:
+    index_col: 0
+    encoding: 'utf-8'
+  save_args:
+    index: True
+    encoding: 'utf-8'
+
+wpcc.r2_EKF:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/wpcc/vmm_martins_simple/r2_EKF.csv
+  load_args:
+    index_col: 0
+    encoding: 'utf-8'
+  save_args:
+    index: True
+    encoding: 'utf-8'

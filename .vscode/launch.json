@@ -13,7 +13,9 @@
             "args": [
                 "run",
                 "--pipeline",
-                "kvlcc2_cto_create",
+                "lowpass_study",
+                "--tag",
+                "accuracy"
             ]
             // Any other arguments should be passed as a comma-seperated-list
             // e.g "args": ["run", "--pipeline", "pipeline_name"]

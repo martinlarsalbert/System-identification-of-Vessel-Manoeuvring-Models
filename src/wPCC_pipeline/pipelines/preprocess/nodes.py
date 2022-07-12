@@ -19,7 +19,7 @@ def derivative(df, key):
     return d
 
 
-def load(raw_data: pd.DataFrame):
+def load(raw_data: pd.DataFrame, replace_velocities=False):
 
     data = raw_data.copy()
 
@@ -36,13 +36,13 @@ def load(raw_data: pd.DataFrame):
     dydt = derivative(data, "y0")
     psi = data["psi"]
 
-    if not "u" in data:
+    if not "u" in data or replace_velocities:
         data["u"] = dxdt * np.cos(psi) + dydt * np.sin(psi)
 
-    if not "v" in data:
+    if not "v" in data or replace_velocities:
         data["v"] = v = -dxdt * np.sin(psi) + dydt * np.cos(psi)
 
-    if not "r" in data:
+    if not "r" in data or replace_velocities:
         data["r"] = r = derivative(data, "psi")
 
     data["u1d"] = derivative(data, "u")
@@ -125,7 +125,11 @@ def filter(df: pd.DataFrame, cutoff: float = 1.0, order=1) -> pd.DataFrame:
             data=df_lowpass[key], fs=fs, cutoff=cutoff, order=order
         )
 
-    return df_lowpass.iloc[100:-100]
+    df_lowpass["u1d"] = r_ = derivative(df_lowpass, "u")
+    df_lowpass["v1d"] = r_ = derivative(df_lowpass, "v")
+    df_lowpass["r1d"] = r_ = derivative(df_lowpass, "r")
+
+    return df_lowpass
 
 
 def assemble_data(df_lowpass: pd.DataFrame, raw_data: pd.DataFrame) -> pd.DataFrame:
