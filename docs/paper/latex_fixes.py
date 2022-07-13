@@ -12,6 +12,21 @@ s = s.replace(
     r"\documentclass[review]{elsarticle}",
 )
 
+## Fix equation ref:
+s = s.replace(
+    r"\usepackage{hyperref}",
+    r"""
+\usepackage{hyperref}
+\def\equationautorefname~#1\null{Eq.#1\null}""",
+)
+
+## Fix equation and fig numbering:
+s = s.replace(
+    r"\usepackage[,numfigreset=2,mathnumfig]{sphinx}",
+    r"\usepackage[,numfigreset=1,mathnumfig]{sphinx}",
+)
+
+
 ## Add fontspec
 s = s.replace(
     r"\begin{document}",

@@ -65,3 +65,22 @@
     {% endfor %}
   {% endfor %}
 {% endfor %}
+
+{% for ship, ids in model_test_ids.items() %}
+
+
+{{ ship }}.monte_carlo_simulation:
+  type: PartitionedDataSet
+  path: data/07_model_output/{{ ship }}/vmm_martins_simple/monte_carlo_simulation
+  dataset: 
+    type: pandas.CSVDataSet
+    load_args:
+      index_col: 0
+      encoding: 'utf-8'
+    save_args:
+      index: True
+      encoding: 'utf-8'
+  filename_suffix: .csv
+
+
+{% endfor %}
