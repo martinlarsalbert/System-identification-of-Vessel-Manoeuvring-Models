@@ -1,0 +1,3 @@
+[submodule "docs/paper/_build/latex"]
+	path = docs/paper/_build/latex
+	url = https://github.com/martinlarsalbert/System-identification-of-Vessel-Manoeuvring-Models-LaTex
