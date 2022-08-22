@@ -80,6 +80,7 @@ sphinx:
   extra_extensions:
     - sphinx_proof
     - "sphinx.ext.imgconverter"
+    - "sphinxcontrib.bibtex"
 
   
 

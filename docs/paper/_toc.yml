@@ -24,6 +24,7 @@ sections:
     - file: 06.31_results_noise
     - file: 06.10_results_wpcc
     - file: 06.20_results_kvlcc2
+    - file: 06.50_results_discussion
   - file: 10.01_conclusions
   - file: acknowledgements
   - file: bibligraphy

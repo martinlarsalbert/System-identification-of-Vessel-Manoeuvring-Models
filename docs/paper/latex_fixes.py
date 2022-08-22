@@ -49,6 +49,35 @@ s = s.replace(
     "\\begin{document}\n\input{front}\n",
 )
 
+## \bibliographystyle{elsarticle-num}
+s = s.replace(
+    r"\begin{document}",
+    "\\bibliographystyle{elsarticle-num}\n\\begin{document}",
+)
+
+## \section*{References}
+s = s.replace(
+    r"\end{document}",
+    # "\\section*{References}\n\\bibliography{references}\n\\end{document}",
+    "\\bibliography{references}\n\\end{document}",
+)
+
+## remove cite paranthesis
+# Ex:
+# from: \( \cite{he_nonparametric_2022} \)
+# to: \cite{he_nonparametric_2022}
+for result in re.finditer(pattern=r"\\\( *\\cite{([^}]+)} *\\\)", string=s):
+
+    replace = f"\\cite{'{'}{result.group(1)}{'}'}"
+    s = s.replace(result.group(0), replace)
+
+## Remove Proof Index
+s = re.sub(
+    r"\\renewcommand{\\indexname}{Proof Index}.*\\end{sphinxtheindex}",
+    "",
+    s,
+    flags=re.DOTALL,
+)
 
 ## Save
 with open(file_path, mode="w") as file:
