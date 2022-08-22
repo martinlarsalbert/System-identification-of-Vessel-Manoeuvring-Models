@@ -79,6 +79,8 @@ s = re.sub(
     flags=re.DOTALL,
 )
 
+s = s.replace(r"\author{Martin Alexandersson}", "")
+
 ## Save
 with open(file_path, mode="w") as file:
     file.write(s)
