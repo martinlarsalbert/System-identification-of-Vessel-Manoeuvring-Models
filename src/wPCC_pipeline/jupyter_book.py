@@ -54,7 +54,7 @@ class Appendix:
         s = multiline_latex(lhs=eq.lhs, rhs=eq.rhs, terms_per_line=terms_per_line)
         s = s.replace(r"\delta", r"delta")
         s = s.replace("delta", r"\delta")
-        s = s.replace("thrust", r"T")
+        # s = s.replace("thrust", r"T")
 
         markdown = template_eq.format(s=s, label=label)
         self.add_markdown(markdown)
@@ -79,5 +79,5 @@ def multiline(eq: sp.Eq, terms_per_line=6) -> str:
 
     s = s.replace(r"\delta", r"delta")
     s = s.replace("delta", r"\delta")
-    s = s.replace("thrust", r"T")
+    s = s.replace(r"_{thrust", r"_{T")
     return s
