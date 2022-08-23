@@ -39,7 +39,13 @@ def df_to_myst(df, title="This table title", name=None, include_index=True):
 
 
 def parameter_to_latex(x):
-    s = f"$ {latex(p[x])} $"
+
+    s = latex(p[x])
+
+    if "dot" in s:
+        s += "'"
+
+    s = f"$ {s} $"
     s = s.replace(r"\delta", "delta")
     s = s.replace("delta", r"\delta")
     s = s.replace("thrust", r"T")
