@@ -1,2 +1,2 @@
 # Acknowledgements
-The authors would like to acknowledge Energimyndigheten (Swedish Engery Agency) project Data-driven energy efficiency of ships (project: 49301-1) for providing the resources to prepare this paper, and also tanks all personnel at SSPA that have been involved in the creation of the model test results, building the ship models and conducting the experiments.
+The authors would like to acknowledge the Energimyndigheten (Swedish Energy Agency) project: Data-driven energy efficiency of ships (project: 49301-1) for providing the resources to prepare this paper. They would also thank all personnel at SSPA who have been involved in creating the model test results, building the ship models, and conducting the experiments.
