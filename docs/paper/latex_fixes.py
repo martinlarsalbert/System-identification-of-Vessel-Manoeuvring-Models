@@ -1,6 +1,7 @@
 import re
 import os
 import logging
+import shutil
 
 file_path = r"_build/latex/System identification of Vessel Manoeuvring Models.tex"
 
@@ -90,26 +91,8 @@ for i, result in enumerate(re.finditer(r"\{\{(.*)\}\.pdf\}", s)):
     src = os.path.join("_build", "latex", f"{result.group(1)}.pdf")
     dst = os.path.join("_build", "latex", f"{i}.pdf")
     if os.path.exists(src):
-        os.rename(src, dst)
+        shutil.move(src, dst)
         logging.info(f"rename:{src} to: {dst}")
-
-## Remove uneccessary packages to enable usage of pdflatex:
-"""
-
-%\usepackage{polyglossia}
-%\setmainlanguage{english}
-%\usepackage{sphinxmessages}
-        % \usepackage[Latin,Greek]{ucharclasses}
-        %\usepackage{unicode-math}
-        %\addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
-        %\hypersetup{
-         %   pdfencoding=auto,
-           % psdextra
-       % }
-%\newcommand{\sphinxlogo}{\vbox{}}
-
-"""
-
 
 
 ## Save
