@@ -2,7 +2,7 @@
 This is a boilerplate pipeline 'filter_data_extended_kalman'
 generated using Kedro 0.17.6
 """
-from src.extended_kalman_vmm import ExtendedKalman
+from vessel_manoeuvring_models.extended_kalman_vmm import ExtendedKalman
 import numpy as np
 import pandas as pd
 import inspect

@@ -9,7 +9,7 @@ generated using Kedro 0.17.6
 
 import pandas as pd
 import matplotlib.pyplot as plt
-import src.visualization.plot as plot
+import vessel_manoeuvring_models.visualization.plot as plot
 
 
 def plot_filters(

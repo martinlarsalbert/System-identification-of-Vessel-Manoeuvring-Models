@@ -3,15 +3,15 @@ This is a boilerplate pipeline 'motion_regression'
 generated using Kedro 0.17.6
 """
 
-from src.models.regression import Regression
+from vessel_manoeuvring_models.models.regression import Regression
 import pandas as pd
-import src.prime_system as prime_system
-from src.models.vmm import VMM
-import src.symbols as s
+import vessel_manoeuvring_models.prime_system as prime_system
+from vessel_manoeuvring_models.models.vmm import VMM
+import vessel_manoeuvring_models.symbols as s
 from typing import Union
-from src.models.vmm import ModelSimulator, FullModelSimulator
+from vessel_manoeuvring_models.models.vmm import ModelSimulator, FullModelSimulator
 import matplotlib.pyplot as plt
-from src.models.force_from_motion import predict_force
+from vessel_manoeuvring_models.models.force_from_motion import predict_force
 import statsmodels.api as sm
 
 

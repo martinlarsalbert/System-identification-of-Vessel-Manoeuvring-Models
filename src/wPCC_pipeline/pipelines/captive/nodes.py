@@ -4,7 +4,7 @@ generated using Kedro 0.17.6
 """
 
 import pandas as pd
-from src.prime_system import PrimeSystem
+from vessel_manoeuvring_models.prime_system import PrimeSystem
 import numpy as np
 
 

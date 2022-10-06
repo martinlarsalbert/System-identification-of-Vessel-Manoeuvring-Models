@@ -5,7 +5,10 @@ generated using Kedro 0.17.6
 import pandas as pd
 import numpy as np
 
-from src.vct_scaling import scale_force_to_model_scale, scale_moment_to_model_scale
+from vessel_manoeuvring_models.vct_scaling import (
+    scale_force_to_model_scale,
+    scale_moment_to_model_scale,
+)
 from scipy.optimize import least_squares
 
 

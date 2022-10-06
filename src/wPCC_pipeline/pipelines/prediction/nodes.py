@@ -4,14 +4,14 @@ generated using Kedro 0.17.6
 """
 
 import pandas as pd
-from src.models.vmm import ModelSimulator
-from src.extended_kalman_vmm import ExtendedKalman
+from vessel_manoeuvring_models.models.vmm import ModelSimulator
+from vessel_manoeuvring_models.extended_kalman_vmm import ExtendedKalman
 import matplotlib.pyplot as plt
-import src.visualization.plot as plot
+import vessel_manoeuvring_models.visualization.plot as plot
 from sklearn.metrics import r2_score, mean_squared_error
 from inspect import signature
 from scipy.stats import norm, multivariate_normal
-from src.models.regression import Regression
+from vessel_manoeuvring_models.models.regression import Regression
 
 import logging
 import numpy as np

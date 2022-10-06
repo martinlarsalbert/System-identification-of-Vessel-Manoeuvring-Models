@@ -6,9 +6,9 @@ generated using Kedro 0.17.6
 import python_vehicle_simulator as pvs
 from python_vehicle_simulator import plotVehicleStates, plotControls, simulate
 import pandas as pd
-from src.visualization.plot import track_plots, plot, captive_plot
+from vessel_manoeuvring_models.visualization.plot import track_plots, plot, captive_plot
 import numpy as np
-from src.prime_system import PrimeSystem
+from vessel_manoeuvring_models.prime_system import PrimeSystem
 from python_vehicle_simulator.vehicles import tanker
 
 sampleTime = 1
