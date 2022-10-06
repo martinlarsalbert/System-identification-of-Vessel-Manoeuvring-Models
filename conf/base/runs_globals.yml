@@ -264,6 +264,9 @@ model_test_ids:
     - "HSVA_CPMC_KVLCC2_Z_25_05"
     - "HSVA_CPMC_KVLCC2_Z_30_05"
     - "HSVA_CPMC_KVLCC2_Z_35_05"
+  USV:
+    - turnningdata_xy
+    - zigzag_30_inter_xy
 joins:
 - joined  ## Mandatory
 #- reference_speed
