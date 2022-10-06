@@ -11,13 +11,13 @@ from wPCC_pipeline.pipelines.motion_regression.nodes import (
 )
 
 from wPCC_pipeline.pipelines.prediction.nodes import simulate_euler
-from src.extended_kalman_vmm import ExtendedKalman
+from vessel_manoeuvring_models.extended_kalman_vmm import ExtendedKalman
 
 import numpy as np
 import pandas as pd
 from pathlib import Path
 
-from src.models.vmm import VMM
+from vessel_manoeuvring_models.models.vmm import VMM
 import logging
 
 log = logging.getLogger(__name__)

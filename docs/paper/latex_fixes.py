@@ -88,11 +88,13 @@ s = s.replace(r"\author{Martin Alexandersson}", "")
 # (Elsevier has a 64 letter file name limit)
 for i, result in enumerate(re.finditer(r"\{\{(.*)\}\.pdf\}", s)):
     s = s.replace(result.group(1), f"{i}")
-    src = os.path.join("_build", "latex", f"{result.group(1)}.pdf")
+    vessel_manoeuvring_models = os.path.join(
+        "_build", "latex", f"{result.group(1)}.pdf"
+    )
     dst = os.path.join("_build", "latex", f"{i}.pdf")
-    if os.path.exists(src):
-        shutil.move(src, dst)
-        logging.info(f"rename:{src} to: {dst}")
+    if os.path.exists(vessel_manoeuvring_models):
+        shutil.move(vessel_manoeuvring_models, dst)
+        logging.info(f"rename:{vessel_manoeuvring_models} to: {dst}")
 
 
 ## Save

@@ -5,7 +5,7 @@ generated using Kedro 0.17.6
 
 import pandas as pd
 import numpy as np
-from src.prime_system import PrimeSystem
+from vessel_manoeuvring_models.prime_system import PrimeSystem
 
 
 def load(df: pd.DataFrame, ship_data: dict) -> pd.DataFrame:

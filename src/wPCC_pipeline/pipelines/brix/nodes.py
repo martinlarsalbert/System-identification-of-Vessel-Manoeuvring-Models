@@ -2,9 +2,9 @@
 This is a boilerplate pipeline 'brix'
 generated using Kedro 0.17.6
 """
-from src.parameters import df_parameters
-from src.substitute_dynamic_symbols import run
-from src import prime_system
+from vessel_manoeuvring_models.parameters import df_parameters
+from vessel_manoeuvring_models.substitute_dynamic_symbols import run
+from vessel_manoeuvring_models import prime_system
 import pandas as pd
 
 

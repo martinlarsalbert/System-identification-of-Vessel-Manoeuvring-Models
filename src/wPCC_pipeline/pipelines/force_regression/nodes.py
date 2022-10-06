@@ -5,10 +5,10 @@ generated using Kedro 0.17.6
 
 import pandas as pd
 from typing import Union
-from src.models.vmm import ModelSimulator
-from src.models.regression import Regression
+from vessel_manoeuvring_models.models.vmm import ModelSimulator
+from vessel_manoeuvring_models.models.regression import Regression
 import matplotlib.pyplot as plt
-from src.models.vmm import VMM
+from vessel_manoeuvring_models.models.vmm import VMM
 
 
 def fit_forces(

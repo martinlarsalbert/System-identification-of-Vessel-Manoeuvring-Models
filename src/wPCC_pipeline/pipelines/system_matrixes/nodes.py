@@ -3,12 +3,11 @@ This is a boilerplate pipeline 'system_matrixes'
 generated using Kedro 0.17.6
 """
 
-from src.extended_kalman_vmm import SystemMatrixes
-from src.models.vmm import VMM
+from vessel_manoeuvring_models.extended_kalman_vmm import SystemMatrixes
+from vessel_manoeuvring_models.models.vmm import VMM
 
-def create_system_matrixes(
-    vmm: VMM
-) -> SystemMatrixes:
+
+def create_system_matrixes(vmm: VMM) -> SystemMatrixes:
     """Create system matrixes that can be reused for several KalmanFilters (as long as the VMM is the same)
 
     Parameters

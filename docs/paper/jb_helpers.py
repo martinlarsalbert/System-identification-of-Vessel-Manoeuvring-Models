@@ -1,5 +1,5 @@
 from sympy import latex
-from src.parameters import df_parameters
+from vessel_manoeuvring_models.parameters import df_parameters
 
 p = df_parameters["symbol"]
 

@@ -4,13 +4,13 @@ generated using Kedro 0.17.6
 """
 
 import pandas as pd
-from src.visualization import plot
+from vessel_manoeuvring_models.visualization import plot
 import matplotlib.pyplot as plt
 
 from numpy import cos as cos
 from numpy import sin as sin
 import numpy as np
-from src.data.lowpass_filter import lowpass_filter
+from vessel_manoeuvring_models.data.lowpass_filter import lowpass_filter
 
 
 def derivative(df, key):

@@ -7,9 +7,9 @@ import pandas as pd
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 
-from src.models.vmm import ModelSimulator
+from vessel_manoeuvring_models.models.vmm import ModelSimulator
 import matplotlib.pyplot as plt
-from src.visualization.plot import track_plots, plot, captive_plot
+from vessel_manoeuvring_models.visualization.plot import track_plots, plot, captive_plot
 import kedro
 import numpy as np
 import os.path
@@ -19,14 +19,14 @@ import matplotlib
 matplotlib.rcParams["figure.figsize"] = (15,4)
 
 from myst_nb import glue
-from src.symbols import *
-import src.symbols as symbols
-from src.system_equations import *
+from vessel_manoeuvring_models.symbols import *
+import vessel_manoeuvring_models.symbols as symbols
+from vessel_manoeuvring_models.system_equations import *
 
 from IPython.display import display, Math, Latex, Markdown
 from sympy.physics.vector.printing import vpprint, vlatex
 
-from src.parameters import df_parameters
+from vessel_manoeuvring_models.parameters import df_parameters
 p = df_parameters["symbol"]
 
 # Read configs:
@@ -60,5 +60,5 @@ only_joined = global_variables[
     "only_joined"
 ]  # (regress/predict with only models from joined runs)
 
-from src.visualization.plot import plot, track_plots
+from vessel_manoeuvring_models.visualization.plot import plot, track_plots
 ship_data = catalog.load("ship_data")

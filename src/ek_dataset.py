@@ -2,7 +2,7 @@ from typing import Any, Dict
 
 import numpy as np
 from kedro.io import AbstractDataSet
-from src.extended_kalman_vmm import ExtendedKalman
+from vessel_manoeuvring_models.extended_kalman_vmm import ExtendedKalman
 import os
 
 

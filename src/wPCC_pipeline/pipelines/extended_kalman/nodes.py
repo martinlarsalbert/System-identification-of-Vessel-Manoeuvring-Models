@@ -4,8 +4,8 @@ generated using Kedro 0.17.6
 """
 
 import pandas as pd
-from src.extended_kalman_vmm import ExtendedKalman, SystemMatrixes
-from src.models.vmm import VMM
+from vessel_manoeuvring_models.extended_kalman_vmm import ExtendedKalman, SystemMatrixes
+from vessel_manoeuvring_models.models.vmm import VMM
 import numpy as np
 
 
