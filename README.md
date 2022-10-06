@@ -1,4 +1,6 @@
 # System-identification-of-Vessel-Manoeuvring-Models
+[![DOI](https://zenodo.org/badge/447163085.svg)](https://zenodo.org/badge/latestdoi/447163085)
+
 This repository was used to carry out the research as well as the generation of the paper:"System-identification-of-Vessel-Manoeuvring-Models".
 The LaTeX part of the paper is however stored in another repository: [LaTeX](https://github.com/martinlarsalbert/System-identification-of-Vessel-Manoeuvring-Models-LaTex).
 
