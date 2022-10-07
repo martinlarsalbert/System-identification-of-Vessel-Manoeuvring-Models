@@ -185,3 +185,21 @@ kvlcc2_hsva.updated.ek_covariance_input:
   measurement_error_max:
     positions: 0.1
     psi: 1.0  # [deg]
+
+USV.initial.ek_covariance_input:
+  process_variance:
+    u : 0.03
+    v : 0.03
+    r : 0.19  # [deg]
+  measurement_error_max:
+    positions: 0.1
+    psi: 1.0  # [deg]
+
+USV.updated.ek_covariance_input:
+  process_variance:
+    u : 0.003
+    v : 0.003
+    r : 0.0019  # [deg]
+  measurement_error_max:
+    positions: 0.1
+    psi: 1.0  # [deg]

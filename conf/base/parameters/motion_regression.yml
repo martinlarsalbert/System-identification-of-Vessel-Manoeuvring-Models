@@ -43,4 +43,7 @@ kvlcc2_hsva.motion_regression.exclude_parameters:
   #N0 : 0
   #N0u: 0
   #N0uu: 0
+
+USV.motion_regression.exclude_parameters:
+  Xthrust : 0.755  # (1-tdf) 
   

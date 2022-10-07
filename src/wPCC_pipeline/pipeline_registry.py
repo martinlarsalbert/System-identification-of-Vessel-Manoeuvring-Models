@@ -72,6 +72,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     ship_names = [
         "wpcc",
         "kvlcc2_hsva",
+        "USV",
     ]
     ship_names = list(set(ship_names) & set(model_test_ids.keys()))
     ship_pipelines = {}
@@ -130,6 +131,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
     work_ships = [
         "wpcc",
         "kvlcc2_hsva",
+        "USV",
     ]
     work_ships = list(set(work_ships) & set(model_test_ids.keys()))
     work = [return_dict[ship] for ship in work_ships]
