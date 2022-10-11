@@ -7,11 +7,11 @@ ships:
 
 
 vmms:  # (What Vessel Manoeuvring Models to include)
-- vmm_abkowitz # 
-#- vmm_martin  # (needed for kalman)
-- vmm_linear
-- vmm_martins_simple
-#- vmm_abkowitz_expanded
+  - vmm_abkowitz # 
+  - vmm_linear
+  - vmm_martins_simple
+  - vmm_simple_no_thrust
+  - vmm_complex_no_thrust
 
 regressions:  # (What kind of regression to perform)
 #- force_regression

@@ -4,6 +4,8 @@ generated using Kedro 0.17.6
 """
 
 from vessel_manoeuvring_models.models.vmm import VMM
+from .vmm_simple_no_thrust import simple_model
+from .vmm_complex_no_thrust import complex_model
 
 
 def martins_model() -> VMM:
@@ -36,3 +38,11 @@ def vmm_abkowitz_expanded() -> VMM:
     )
 
     return abkowitz_model_expanded
+
+
+def vmm_simple_no_thrust() -> VMM:
+    return simple_model
+
+
+def vmm_complex_no_thrust() -> VMM:
+    return complex_model

@@ -19,7 +19,7 @@ from .pipelines import extended_kalman as extended_kalman
 from . import pipeline_filter_join_regress
 
 
-def create_pipeline(model_test_ids, vmms):
+def create_pipeline(model_test_ids, vmms, thrust=True):
     """Creates a pipeline for one ship"""
 
     join_runs_dict = {}
@@ -82,21 +82,35 @@ def create_pipeline(model_test_ids, vmms):
     )
 
     ## updated parameters
-    inputs = {
-        # "covariance_matrixes": "vmm_martin.updated.covariance_matrixes",
-        # f"hydrodynamic_derivatives": "initial.vmm_martin.joined.derivatives",
-        f"hydrodynamic_derivatives": "initial.vmm_abkowitz.joined.derivatives",
-        # "vmm_martin.ek": "vmm_martin.ek",
-        "vmm_abkowitz.ek": "vmm_abkowitz.ek",
-        "ship_data": "ship_data",
-        "added_masses": "added_masses",
-    }
+    if thrust:
+        inputs = {
+            # "covariance_matrixes": "vmm_martin.updated.covariance_matrixes",
+            # f"hydrodynamic_derivatives": "initial.vmm_martin.joined.derivatives",
+            f"hydrodynamic_derivatives": "initial.vmm_abkowitz.joined.derivatives",
+            # "vmm_martin.ek": "vmm_martin.ek",
+            "vmm_abkowitz.ek": "vmm_abkowitz.ek",
+            "ship_data": "ship_data",
+            "added_masses": "added_masses",
+        }
+        ek = "vmm_abkowitz.ek"
+    else:
+        inputs = {
+            f"hydrodynamic_derivatives": "initial.vmm_simple_no_thrust.joined.derivatives",
+            "vmm_simple_no_thrust.ek": "vmm_simple_no_thrust.ek",
+            "ship_data": "ship_data",
+            "added_masses": "added_masses",
+        }
+        ek = "vmm_simple_no_thrust.ek"
+
     inputs.update({f"{key}.data": f"{key}.data" for key in model_test_ids})
     inputs.update({f"{key}": f"{key}" for key in vmms})
 
     filter_join_regress_pipeline_updated_model = pipeline(
         pipeline_filter_join_regress.create_pipeline(
-            model_test_ids=model_test_ids, join_runs_dict=join_runs_dict, vmms=vmms
+            model_test_ids=model_test_ids,
+            join_runs_dict=join_runs_dict,
+            vmms=vmms,
+            ek=ek,
         ),
         namespace="updated",
         inputs=inputs,

@@ -74,12 +74,19 @@ def register_pipelines() -> Dict[str, Pipeline]:
         "kvlcc2_hsva",
         "USV",
     ]
+    thrusts = {
+        "wpcc": True,
+        "kvlcc2_hsva": True,
+        "USV": False,
+    }
     ship_names = list(set(ship_names) & set(model_test_ids.keys()))
     ship_pipelines = {}
     for ship_name in ship_names:
         ship_pipelines[ship_name] = pipeline(
             pipeline_ship.create_pipeline(
-                model_test_ids=model_test_ids[ship_name], vmms=vmms
+                model_test_ids=model_test_ids[ship_name],
+                vmms=vmms,
+                thrust=thrusts[ship_name],
             ),
             namespace=ship_name,
             inputs=inputs,
