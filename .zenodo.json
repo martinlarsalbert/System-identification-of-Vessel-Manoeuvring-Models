@@ -1,9 +1,8 @@
 {
     "description": "Complete analysis and paper generation for: System identification of Vessel Manoeuvring Models",
     "license": "MIT",
-    "title": "System-identification-of-Vessel-Manoeuvring-Models",
+    "title": "Code for paper System Identification of Vessel Manoeuvring Models",
     "upload_type": "software",
-    "publication_date": "2022-10-11",
     "creators": [
         {
             "name": "Martin Alexandersson"
