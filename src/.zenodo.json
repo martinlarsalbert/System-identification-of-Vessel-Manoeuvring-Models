@@ -1,0 +1,26 @@
+{
+    "description": "Complete analysis and paper generation for: System identification of Vessel Manoeuvring Models",
+    "license": "MIT",
+    "title": "System-identification-of-Vessel-Manoeuvring-Models",
+    "version": "second_submission_2",
+    "upload_type": "software",
+    "publication_date": "2022-10-11",
+    "creators": [
+        {
+            "name": "Martin Alexandersson"
+        }
+    ],
+    "access_right": "open",
+    "related_identifiers": [
+        {
+            "scheme": "url",
+            "identifier": "https://github.com/martinlarsalbert/System-identification-of-Vessel-Manoeuvring-Models/tree/second_submission_0",
+            "relation": "isSupplementTo"
+        },
+        {
+            "scheme": "doi",
+            "identifier": "10.5281/zenodo.7153282",
+            "relation": "isVersionOf"
+        }
+    ]
+}
