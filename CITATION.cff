@@ -1,0 +1,9 @@
+cff-version: 1.1.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Alexandersson
+    given-names: Martin
+    orcid: https://orcid.org/0000-0002-9360-078X
+title: martinlarsalbert/System-identification-of-Vessel-Manoeuvring-Models: Second submission to Ocean Engineering
+version: second_submission_1
+date-released: 2022-10-11
