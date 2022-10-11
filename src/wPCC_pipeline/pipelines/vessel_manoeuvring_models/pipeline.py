@@ -11,8 +11,6 @@ from .nodes import (
     vmm_martins_simple_model,
     vmm_abkowitz_model,
     vmm_abkowitz_expanded,
-    vmm_simple_no_thrust,
-    vmm_complex_no_thrust,
 )
 
 
@@ -52,20 +50,6 @@ def create_pipeline(**kwargs):
                 inputs=[],
                 outputs="vmm_abkowitz_expanded",
                 name="vmm_abkowitz_expanded_node",
-                tags=["vmm"],
-            ),
-            node(
-                func=vmm_simple_no_thrust,
-                inputs=[],
-                outputs="vmm_simple_no_thrust",
-                name="vmm_simple_no_thrust_node",
-                tags=["vmm"],
-            ),
-            node(
-                func=vmm_complex_no_thrust,
-                inputs=[],
-                outputs="vmm_complex_no_thrust",
-                name="vmm_complex_no_thrust_node",
                 tags=["vmm"],
             ),
         ]

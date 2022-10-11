@@ -2,8 +2,8 @@ import tqdm
 import sys
 from wPCC_pipeline.pipelines.prediction.nodes import simulate_euler
 from scipy.stats import norm, multivariate_normal
-from vessel_manoeuvring_models.models.regression import Regression
-from vessel_manoeuvring_models.extended_kalman_vmm import ExtendedKalman
+from src.models.regression import Regression
+from src.extended_kalman_vmm import ExtendedKalman
 import pandas as pd
 import numpy as np
 
