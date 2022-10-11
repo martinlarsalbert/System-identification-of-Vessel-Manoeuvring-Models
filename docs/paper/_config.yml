@@ -1,7 +1,7 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: System identification of Vessel Manoeuvring Models
+title: System Identification of Vessel Manoeuvring Models
 author: Martin Alexandersson
 logo: logo.png
 
@@ -15,7 +15,7 @@ execute:
 # Define the name of the latex output file for PDF builds
 latex:
   latex_documents:
-    targetname: System identification of Vessel Manoeuvring Models.tex
+    targetname: System Identification of Vessel Manoeuvring Models.tex
 
 # Add a bibtex file so that we can create citations
 bibtex_bibfiles:
