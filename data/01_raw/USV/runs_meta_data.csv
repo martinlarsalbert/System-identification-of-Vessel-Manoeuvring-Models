@@ -1,0 +1,16 @@
+id,ship_speed,description,test_type,angle1
+22639,0.641179843,Reference speed 0.6 m/s,reference speed,
+22635,0.801474803,Reference speed 0.8 m/s,reference speed,
+22611,0.961769764,Reference speed 1.0 m/s,reference speed,
+22774,0.961769764,Turning circle,turning circle,
+22612,0.961769764,Yaw rate 0,rodergrundvinkel,
+22613,0.961769764,Yaw rate 1,rodergrundvinkel,
+22614,0.961769764,Yaw rate 2,rodergrundvinkel,
+22615,0.961769764,Yaw rate 3,rodergrundvinkel,
+22616,0.961769764,Yaw rate 4,rodergrundvinkel,
+22764,0.961769764,ZigZag10/10,zigzag,10.0
+22769,0.961769764,ZigZag10/10,zigzag,10.0
+22770,0.961769764,ZigZag10/10,zigzag,10.0
+22771,0.961769764,ZigZag20/20,zigzag,20.0
+22772,0.961769764,ZigZag20/20,zigzag,20.0
+22773,0.961769764,ZigZag20/20,zigzag,20.0
