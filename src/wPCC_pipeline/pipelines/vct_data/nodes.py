@@ -20,13 +20,17 @@ def vct_scaling(data: pd.DataFrame, ship_data: dict) -> pd.DataFrame:
 
     data_scaled = data.copy()
 
-    keys_forces = ["fx", "fy", "fz", "fx_rudders", "fy_rudders"]
+    keys_forces = ["fx", "fy", "fz", "fx_rudders", "fy_rudders", "fx_hull", "fy_hull"]
+    keys_forces = list(set(keys_forces) & set(data_scaled.columns))
+    
     scale_factor = ship_data["scale_factor"]
     forces = data_scaled[keys_forces]
     data_scaled[keys_forces] = scale_force_to_model_scale(
         forces=forces, scale_factor=scale_factor, **data_scaled
     )
-    keys_moments = ["mx", "my", "mz", "mz_rudders"]
+    
+    keys_moments = ["mx", "my", "mz", "mz_rudders", "mz_hull"]
+    keys_moments = list(set(keys_moments) & set(data_scaled.columns))
     data_scaled[keys_moments] = scale_moment_to_model_scale(
         data_scaled[keys_moments], scale_factor=scale_factor, **data_scaled
     )
