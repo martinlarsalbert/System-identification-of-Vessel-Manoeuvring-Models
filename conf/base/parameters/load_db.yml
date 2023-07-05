@@ -1,0 +1,38 @@
+# This is a boilerplate parameters config generated for pipeline 'load_db'
+# using Kedro 0.17.6.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://kedro.readthedocs.io/en/0.17.6/04_kedro_project_setup/02_configuration.html#parameters
+LNG:
+  project_number: 20157375
+  ma_position:
+    zm: -0.199
+  #initial_rudder_angle: 0.0  #[deg]
+  meta_data:
+    TWIN: 1
+
+LNG_tanker:
+  project_number: 20147272
+  ma_position:
+    zm: -0.199
+  #initial_rudder_angle: 0.0  #[deg]
+  meta_data:
+    TWIN: 1
+
+tanker2:
+  project_number : 20146895
+  ma_position:
+    zm: -0.20
+  #initial_rudder_angle: 0.85  #[deg]
+  meta_data:
+    TWIN: 0
+
+ropax:
+  project_number : 20157577
+  ma_position:
+    zm: -0.20
+  #initial_rudder_angle: -0.75  #[deg]
+  meta_data:
+    KZZ: 58.76
+    TWIN: 0
+    

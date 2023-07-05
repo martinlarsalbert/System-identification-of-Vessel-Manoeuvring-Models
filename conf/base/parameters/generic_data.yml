@@ -1,0 +1,12 @@
+# This is a boilerplate parameters config generated for pipeline 'generic_data'
+# using Kedro 0.17.6.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://kedro.readthedocs.io/en/0.17.6/04_kedro_project_setup/02_configuration.html#parameters
+
+tanker.noises:
+  x0: 0.00001
+  y0: 0.00001
+  psi: 0.00001
+
+  
